@@ -1,0 +1,97 @@
+{
+  "name": "superstarztype",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@ffmpeg/core": "^0.12.5",
+    "@ffmpeg/core-mt": "^0.12.5",
+    "@ffmpeg/core-st": "^0.11.1",
+    "@ffmpeg/core-wasm": "^0.7.1",
+    "@ffmpeg/ffmpeg": "^0.9.8",
+    "@ffmpeg/libav": "^0.0.1-alpha.0",
+    "@ffmpeg/libav-core": "^0.0.1-alpha.1",
+    "@ffmpeg/libav-core-mt": "^0.0.1-alpha.1",
+    "@ffmpeg/types": "^0.12.2",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@mui/icons-material": "^5.8.3",
+    "@mui/lab": "^5.0.0-alpha.85",
+    "@mui/material": "^5.8.3",
+    "@react-oauth/google": "^0.12.1",
+    "@reduxjs/toolkit": "^2.2.5",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@types/ffmpeg": "^1.0.7",
+    "@types/material-ui": "^0.21.12",
+    "@types/node": "^12.20.55",
+    "@types/react": "^17.0.45",
+    "@types/react-router-dom": "^5.3.3",
+    "aws-sdk": "^2.1502.0",
+    "axios": "^0.21.4",
+    "csstype": "^3.1.0",
+    "date-and-time": "^2.3.1",
+    "date-fns": "^2.28.0",
+    "dotenv": "^10.0.0",
+    "env-cmd": "^10.1.0",
+    "ffmpeg": "^0.0.4",
+    "firebase": "^10.14.0",
+    "gapi-script": "^1.2.0",
+    "jquery": "^3.6.4",
+    "mkcert": "^3.2.0",
+    "openai": "^4.29.2",
+    "react": "^18.0.0",
+    "react-colorful": "^5.5.1",
+    "react-custom-scrollbars-2": "^4.4.0",
+    "react-device-detect": "^1.17.0",
+    "react-dom": "^18.0.0",
+    "react-easy-crop": "^4.7.4",
+    "react-google-login": "^5.2.2",
+    "react-intersection-observer": "^9.4.0",
+    "react-palette": "^1.0.2",
+    "react-redux": "^7.2.8",
+    "react-router-dom": "^6.23.1",
+    "react-scripts": "4.0.3",
+    "react-spring": "^9.4.5",
+    "react-zdog": "^1.0.11",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.1",
+    "serve": "^12.0.1",
+    "three": "^0.141.0",
+    "typeface-roboto": "^1.1.13",
+    "typescript": "^4.7.4",
+    "web-vitals": "^1.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "build:prod": "env-cmd -f .env.production react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "prod": "npm run-script build && serve build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.16",
+    "@types/react-dom": "^18.3.0",
+    "@types/react-redux": "^7.1.24",
+    "node-env-run": "^4.0.2"
+  }
+}

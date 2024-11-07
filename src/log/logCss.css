@@ -1,0 +1,502 @@
+.add-rounded-icon-right {
+  text-align: right;
+}
+
+.containerStyle {
+  height: auto;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
+  color: #000000;
+  position: relative;
+  z-index: 10;
+}
+
+.center-content-vertically {
+  margin: 0;
+  position: absolute;
+  top: 48%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.dialog-container {
+  cursor: pointer;
+  height: 100vh;
+  width: 100%;
+  z-index: 2;
+  top: 0em;
+  position: fixed;
+}
+
+.error-background-light {
+  background-image: linear-gradient(
+    to bottom,
+    rgb(160, 160, 160, 0.79),
+    rgb(160, 160, 160, 0.64),
+    rgb(160, 160, 160, 0.59),
+    rgb(160, 160, 160, 0.45),
+    rgb(160, 160, 160, 0.31),
+    rgb(160, 160, 160, 0.25)
+  );
+}
+
+.error-background-dark {
+  background-image: linear-gradient(
+    to bottom,
+    rgb(0, 0, 20, 0.73),
+    rgb(0, 0, 20, 0.62),
+    rgb(0, 0, 20, 0.53),
+    rgb(0, 0, 20, 0.48),
+    rgb(0, 0, 20, 0.44),
+    rgb(0, 0, 20, 0.39),
+    rgb(0, 0, 20, 0.35)
+  );
+}
+
+.FormDialog-container-mobile {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0em;
+  z-index: 8;
+
+  margin-top: -3px;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(160, 160, 160, 1),
+    rgb(160, 160, 160, 0.95),
+    rgb(160, 160, 160, 0.9),
+    rgb(160, 160, 160, 0.85),
+    rgb(160, 160, 160, 0.8)
+  );
+}
+
+.FormDialog-container {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0em;
+  z-index: 8;
+  margin-top: -3px;
+}
+
+.FormDialog-containerx {
+  height: 100vh;
+  position: fixed;
+  top: 0em;
+  z-index: 80;
+  margin-top: -3px;
+}
+
+.fadermodal-imageslider-zoomload {
+  -webkit-animation: fadermodal-slider-keyframe 1.6s linear 1 forwards;
+  -moz-animation: fadermodal-slider-keyframe 1.6s linear 1 forwards;
+  -o-animation: fadermodal-slider-keyframe 1.6s linear 1 forwards;
+  animation: fadermodal-slider-keyframe 1.6s linear 1 forwards;
+}
+
+@keyframes fadermodal-slider-keyframe {
+  0% {
+    opacity: 0.2;
+  }
+  10% {
+    opacity: 0.2;
+  }
+  20% {
+    opacity: 0.25;
+  }
+  30% {
+    opacity: 0.3;
+  }
+
+  40% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.5;
+  }
+
+  60% {
+    opacity: 0.6;
+  }
+
+  70% {
+    opacity: 0.7;
+  }
+
+  80% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadermodal-imageslider {
+  -webkit-animation: fadermodal-keyframe 0.6s linear 1 forwards;
+  -moz-animation: fadermodal-keyframe 0.6s linear 1 forwards;
+  -o-animation: fadermodal-keyframe 0.6s linear 1 forwards;
+  animation: fadermodal-keyframe 0.6s linear 1 forwards;
+}
+
+.fadermodal {
+  -webkit-animation: fadermodal-keyframe 1s linear 1 forwards;
+  -moz-animation: fadermodal-keyframe 1s linear 1 forwards;
+  -o-animation: fadermodal-keyframe 1s linear 1 forwards;
+  animation: fadermodal-keyframe 1s linear 1 forwards;
+}
+
+@keyframes fadermodal-keyframe {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+
+  65% {
+    opacity: 0.1;
+  }
+
+  75% {
+    opacity: 0.5;
+  }
+
+  85% {
+    opacity: 0.75;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.fader-back {
+  -webkit-animation: fadermodal-keyframe-back 0.3s linear 1 forwards;
+  -moz-animation: fadermodal-keyframe-back 0.3s linear 1 forwards;
+  -o-animation: fadermodal-keyframe-back 0.3s linear 1 forwards;
+  animation: fadermodal-keyframe-back 0.3s linear 1 forwards;
+}
+
+@keyframes fadermodal-keyframe-back {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.23;
+  }
+
+  65% {
+    opacity: 0.18;
+  }
+
+  75% {
+    opacity: 0.16;
+  }
+
+  85% {
+    opacity: 0.13;
+  }
+
+  95% {
+    opacity: 0.12;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.formholderTablet {
+  display: row;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #141414;
+}
+
+.formholder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #141414;
+}
+
+.hide-logo {
+  display: none;
+}
+
+.Hide-mobile-Scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.Hide-mobile-Scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.log-logoMobile {
+  opacity: 0.2;
+  position: absolute;
+  top: -0.72em;
+  right: -13.4vw;
+  z-index: 10;
+}
+.log-logoMobile:hover {
+  opacity: 0.6;
+}
+
+.log-logoMobileZoom {
+  opacity: 0.2;
+  position: absolute;
+  margin-top: -16.5vh;
+  right: -14vw;
+}
+.log-logoMobileZoom:hover {
+  opacity: 0.6;
+}
+
+.log-logoTablet {
+  opacity: 0.2;
+  position: absolute;
+  top: -2.72em;
+  left: -2.4vw;
+  z-index: 10;
+}
+.log-logoTablet:hover {
+  opacity: 0.6;
+}
+
+.log-logoTabletZoom {
+  opacity: 0.2;
+  position: absolute;
+  top: -4em;
+  left: -2.4vw;
+  z-index: 10;
+}
+.log-logoTabletZoom:hover {
+  opacity: 0.6;
+}
+
+.log-logo {
+  opacity: 0.2;
+  position: fixed;
+  top: -2em;
+  left: -3.8vw;
+}
+.log-logo:hover {
+  opacity: 0.6;
+}
+
+.modal-hold-login {
+  margin-top: 100px;
+  z-index: 2;
+}
+
+.modal-hold-signup {
+  margin-top: 40px;
+  z-index: 2;
+}
+
+.modalImageStylex {
+  cursor: pointer;
+  width: 100%;
+  height: auto;
+  border-right: 0px;
+}
+
+.modalImageStyle {
+  cursor: pointer;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 0px;
+}
+
+.modalMobileImageStyle {
+  cursor: pointer;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 0px;
+  padding: 0px;
+}
+
+.mobileTextfield-backplate {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0em;
+  margin-top: -3px;
+}
+
+.mobileTextfield-backplateColorDark {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(37, 39, 44, 0.975),
+    rgb(37, 39, 44, 0.98),
+    rgb(37, 39, 44, 0.985),
+    rgb(37, 39, 44, 0.99),
+    rgb(37, 39, 44, 0.99)
+  );
+}
+
+.mobileTextfield-backplateColorLight {
+  background-image: linear-gradient(
+    to bottom,
+    rgb(219, 219, 219, 0.945),
+    rgb(219, 219, 219, 0.95),
+    rgb(219, 219, 219, 0.985),
+    rgb(219, 219, 219, 0.99),
+    rgb(219, 219, 219, 0.99)
+  );
+}
+
+.optionsContainer-Mobile {
+  position: relative;
+  padding: 2vh;
+  padding-top: 2.9vh;
+  top: 0.3em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.optionsContainer-Pc-Tab {
+  padding: 4.5vh;
+  top: 1em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.switchopacity {
+  opacity: 0.3;
+}
+
+.server-error {
+  padding: 0px;
+  position: fixed;
+  top: 0em;
+  z-index: 5000;
+  height: 100%;
+  width: 100%;
+}
+
+.server-error-container {
+  margin-top: 0.3px;
+  width: 100%;
+  display: flex;
+  height: 50px;
+}
+
+.server-error-inner {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  padding-right: 15px;
+  justify-content: flex-end;
+  text-align: left;
+  font-weight: bolder;
+  font-family: sans-serif;
+}
+
+.server-error-icon {
+  text-align: center;
+}
+
+.server-error-data {
+  opacity: 1;
+  text-align: left;
+}
+
+.server-error-emoji {
+  opacity: 1;
+  text-align: right;
+}
+
+.server-error-emoji-span {
+  text-align: right;
+}
+
+.text-password {
+  padding-bottom: 30px;
+  z-index: 1;
+}
+
+.text-align-right {
+  text-align: right;
+  padding: 0px;
+}
+.text-superstarz-dark-colorA {
+  color: #ffffff;
+}
+
+.text-superstarz-dark-colorB {
+  color: #f9fdfef1;
+}
+
+.text-superstarz-light-colorA {
+  color: #0b1728;
+}
+
+.text-superstarz-light-colorB {
+  color: #333333;
+}
+.theme-more-container {
+  top: 1em;
+  display: flex;
+  margin: auto;
+  align-items: center;
+  font-weight: bold;
+}
+
+.yyy {
+  transition: width 500ms, height 500ms;
+  -webkit-transition: width 500ms, height 500ms;
+  transition-delay: 5s;
+}
+
+.zoom-login-logo {
+  opacity: 0.15;
+  object-fit: contain;
+  width: 11%;
+  position: fixed;
+  top: -13vh;
+  right: -4vw;
+  cursor: pointer;
+}
+
+.zoom-login-logo:hover {
+  opacity: 0.6;
+}
+
+.zoom-signup-logo {
+  opacity: 0.15;
+  object-fit: contain;
+  width: 11%;
+  position: fixed;
+  top: -7vh;
+  right: -4vw;
+  cursor: pointer;
+}
+
+.zoom-signup-logo:hover {
+  opacity: 0.6;
+}
