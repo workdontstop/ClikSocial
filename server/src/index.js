@@ -425,6 +425,7 @@ SELECT
 FROM posts
 INNER JOIN members ON posts.sender = members.id
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
+WHERE posts.private = 0
 ORDER BY posts.id DESC
 LIMIT 31;
 `;
@@ -458,7 +459,7 @@ SELECT
 FROM posts
 INNER JOIN members ON posts.sender = members.id AND posts.id < ?
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
-
+WHERE posts.private = 0
 ORDER BY posts.id DESC
 LIMIT 31;
 `;
@@ -1995,7 +1996,7 @@ app.post("/ChatGPTApiDesign4", (req, res) => __awaiter(void 0, void 0, void 0, f
             },
             {
                 role: "user",
-                content: `The question is: "${prompt}". The answer is: "${pp}". Create a short prompt that includes key visual details to explain the concept step-by-step.`,
+                content: `The question is: "${prompt}". The answer is: "${pp}". Create a short prompt that includes key visual details to explain the concept step-by-step creating a photorealistic picture`,
             },
         ];
         const initialResponseData = yield generateGPT4oPrompt(initialMessages);
@@ -2072,7 +2073,7 @@ app.post("/ChatGPTApiDesign3", (req, res) => __awaiter(void 0, void 0, void 0, f
             },
             {
                 role: "user",
-                content: `The question is: "${prompt}". The answer is: "${pp}". Create a short prompt that includes key visual details to explain the concept step-by-step.`,
+                content: `The question is: "${prompt}". The answer is: "${pp}". Create a short prompt that includes key visual details to explain the concept step-by-step creating a photorealistic picture.`,
             },
         ];
         const initialResponseData = yield generateGPT35Prompt(initialMessages);

@@ -473,6 +473,7 @@ SELECT
 FROM posts
 INNER JOIN members ON posts.sender = members.id
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
+WHERE posts.private = 0
 ORDER BY posts.id DESC
 LIMIT 31;
 `;
@@ -507,7 +508,7 @@ SELECT
 FROM posts
 INNER JOIN members ON posts.sender = members.id AND posts.id < ?
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
-
+WHERE posts.private = 0
 ORDER BY posts.id DESC
 LIMIT 31;
 `;
@@ -2265,7 +2266,7 @@ app.post("/ChatGPTApiDesign4", async (req, res) => {
       },
       {
         role: "user",
-        content: `The question is: "${prompt}". The answer is: "${pp}". Create a short prompt that includes key visual details to explain the concept step-by-step.`,
+        content: `The question is: "${prompt}". The answer is: "${pp}". Create a short prompt that includes key visual details to explain the concept step-by-step creating a photorealistic picture`,
       },
     ];
 
@@ -2357,7 +2358,7 @@ app.post("/ChatGPTApiDesign3", async (req, res) => {
       },
       {
         role: "user",
-        content: `The question is: "${prompt}". The answer is: "${pp}". Create a short prompt that includes key visual details to explain the concept step-by-step.`,
+        content: `The question is: "${prompt}". The answer is: "${pp}". Create a short prompt that includes key visual details to explain the concept step-by-step creating a photorealistic picture.`,
       },
     ];
 

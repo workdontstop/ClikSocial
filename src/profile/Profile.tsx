@@ -1181,9 +1181,17 @@ function Profilex({
 
 
 
+  const InteractTimerxxhya1 = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
 
 
+  const InteractTimerxxhya2 = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
 
+
+  const [startAutoLock, setstartAutoLock] = useState(true);
 
 
   const intervalIdRef = useRef<null | NodeJS.Timeout>(null); // Correct typing for setInterval
@@ -1635,7 +1643,7 @@ function Profilex({
           xs={matchPc ? mono && !minimise ? 6 : 12 : 12}
           style={{
             padding: matchMobile ? (minimise ? '2vh' : '0px') : minimise ? '7vh' : '0px',
-            marginTop: matchMobile ? (minimise ? '8.4vh' : '27vh') : minimise ? '-3vh' : '20vh',
+            marginTop: matchMobile ? (minimise ? '8.4vh' : '27vh') : minimise ? '0vh' : '28vh',
 
 
             marginLeft: matchPc ? minimise ? '1.5vw' : mono && !minimise ? '25%' : '0px' : '0px',
@@ -1695,7 +1703,11 @@ function Profilex({
                         }}
                       >
                         <Post
+                          InteractTimerxxhya1={InteractTimerxxhya1}
+                          InteractTimerxxhya2={InteractTimerxxhya2}
 
+                          startAutoLock={startAutoLock}
+                          setstartAutoLock={setstartAutoLock}
 
                           mono={mono}
                           setmono={setmono}
@@ -1806,10 +1818,10 @@ function Profilex({
                           item
                           xs={12}
                           style={{
-                            marginTop: matchMobile ? postData.length - 1 === i ? '0vh' : "-4vh" :
+                            marginTop: matchMobile ? postData.length - 1 === i ? '0vh' : "-3vh" :
                               postData.length - 1 === i ? '0vh' : '-3.5vh',
 
-                            height: matchMobile ? postData.length - 1 === i ? '10vh' : "10vh" :
+                            height: matchMobile ? postData.length - 1 === i ? '10vh' : "6vh" :
                               postData.length - 1 === i ? '0vh' : '15vh',
                             display: minimise ? 'block' : 'none'
                           }}

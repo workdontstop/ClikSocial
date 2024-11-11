@@ -66,7 +66,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ RandomColor, FeedType, setFee
             :
             [`${truncatedText}`, 'Friends', 'Interests', 'Gallery', 'Playlist',]
 
-        : ['Recent', 'Friends', 'Top', 'Worst', 'Random'];
+        : ['Recent', 'Friends', 'Top', 'New', 'Random'];
 
     const [activeIndex, setActiveIndex] = useState<number | null>(0);
 

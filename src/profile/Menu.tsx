@@ -21,7 +21,7 @@ import BlurCircularIcon from '@material-ui/icons/BlurCircular';
 import SubjectIcon from '@material-ui/icons/Subject';
 import LanguageIcon from '@material-ui/icons/Language';
 import { UpdateSign } from "../GlobalActions";
-
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import { useNavigate } from 'react-router-dom';
 import { encodeBase64 } from './utils'; // Ensure this is the correct path to your utils
 import { useLocation } from 'react-router-dom';
@@ -1151,7 +1151,7 @@ function Menux({
                         }}
                       >
 
-                        <AllOutIcon
+                        <RadioButtonUncheckedIcon
                           onMouseEnter={(e: any) => {
                             setZoom5(true);
                           }}

@@ -260,8 +260,8 @@ function ProfileGatex({
 
 
     const heightAnimation = useSpring({
-        height: ExtendBill ? (matchMobile ? '52vh' : '92vh') :
-            (matchMobile ? '30vh' : '47vh'),
+        height: ExtendBill ? (matchMobile ? '55vh' : '92vh') :
+            (matchMobile ? '33vh' : '51vh'),
         config: { duration: 300 },
         marginTop: '-3vh'
     });
@@ -1360,6 +1360,7 @@ function ProfileGatex({
                 ///window 
             }, 1500);
 
+
             Axios.post(`${REACT_APP_SUPERSTARZ_URL}/checkIsLoggedxx`, {
                 values: valax,
             }, {
@@ -1368,7 +1369,7 @@ function ProfileGatex({
                 .then((response) => {
                     if (response.data.message === "logged in") {
 
-                        paperPostScrollRef.current.scrollTop = 0;
+                        ///  paperPostScrollRef.current.scrollTop = 0;
 
                         //alert(IdReactRouterAsInt);
 
@@ -1387,6 +1388,8 @@ function ProfileGatex({
                         } else {
                             callfeeds(response.data.payload.id, PagenumReactRouter, 0, 0);
                         }
+
+                        //paperPostScrollRef.current.scrollTop = 0;
                     } else if (response.data.message === "logged out") {
                         alert("Ongoing Security Updates Or You Are Logged Out, Please Try Again Later");
                     }
@@ -2248,7 +2251,7 @@ function ProfileGatex({
 
         Ticx2.current = setTimeout(() => {
             //pagePostScroll.current.scrollTop = 0;
-            paperPostScrollRef.current.scrollTop = 0;
+            ///  paperPostScrollRef.current.scrollTop = 0;
         }, 1500);
 
 
@@ -2438,7 +2441,7 @@ function ProfileGatex({
         }
     }, [showModalUpload, pagenumReducer]);
 
-    var widthProfilePic = matchPc ? "70%" : matchTablet ? "85%" : "42vw";
+    var widthProfilePic = matchPc ? "100%" : matchTablet ? "85%" : "42vw";
     var topProfilePic = matchPc ? "-20vh" : matchTablet ? "-13vh" : "-9vh";
     var leftProfilePic = matchPc ? "1vw" : matchTablet ? "3.5vw" : "2.7vw";
 
@@ -2977,17 +2980,18 @@ function ProfileGatex({
                                         callAddfav();
                                     }
                                 }}
-                                className={ShowBigPlay ? `blinkingxx    ${optionsClass}   ` : `   ${optionsClass}   `}
+                                className={ShowBigPlay ? `blinkingxx    ${optionsClass}    ` : `   ${optionsClass}    `}
                                 style={{
                                     zIndex: 2,
 
 
                                     backgroundImage: idReducer === memeberPageidReducer ? `linear-gradient(45deg, ${RandomColor}, ${colorReducer})` :
                                         `linear-gradient(45deg, ${RandomColor}, ${ColorMemberReducer})`,
-                                    left: matchMobile ? `-5vw` : '0px',
+                                    left: matchMobile ? `-5vw` : '0.9vw',
                                     top: matchMobile ? '0px' : `0px`,
                                     opacity: 0.7,
                                     visibility: showModalFormMenu ? 'hidden' : "visible",
+
 
 
                                 }}
@@ -3080,8 +3084,8 @@ function ProfileGatex({
                                 }}
                                 className={
                                     darkmodeReducer
-                                        ? `turprofileLight image-gray-on-click`
-                                        : ` turprofileDark image-gray-on-click`
+                                        ? `image-gray-on-click`
+                                        : `image-gray-on-click`
                                 }
                                 style={{
                                     transform: matchMobile ? Zoom1 ? "scale(1.5)" : "scale(1)" : Zoom1 ? "scale(1.18)" : "scale(1)",
@@ -3330,13 +3334,17 @@ function ProfileGatex({
                     }
 
 
+                    <div style={{ scrollSnapAlign: snapallow ? 'none' : 'start', padding: '0px' }}>
 
-                    <ImageSlider
+                        <ImageSlider
 
-                        ActualpostDataAll={ActualpostDataAll}
-                        Explainx={Explainx}
-                        callPaginationx={callPaginationx}
-                        RandomColor={RandomColor} FeedType={FeedType} setFeedType={setFeedType} />
+                            ActualpostDataAll={ActualpostDataAll}
+                            Explainx={Explainx}
+                            callPaginationx={callPaginationx}
+                            RandomColor={RandomColor} FeedType={FeedType} setFeedType={setFeedType} />
+                    </div >
+
+
 
                     <Grid xs={12}
                         style={{
@@ -3346,6 +3354,8 @@ function ProfileGatex({
                             transition: "transform 0.1s",
                             textAlign: 'center',
                             marginTop: matchMobile ? '7vh' : '6vh',
+
+
 
                             zIndex: 2
                         }} item>
@@ -3400,7 +3410,7 @@ function ProfileGatex({
                                                 WebkitBoxShadow: WebkitBoxShadowReducerLogin,
                                                 boxShadow: boxShadowReducerLogin,
                                                 left: '-2vw',
-                                                opacity: AiLock ? '0.3' : '1'
+                                                opacity: AiLock ? '1' : '1'
                                             }}
 
                                             variant="outlined"
@@ -3432,6 +3442,7 @@ function ProfileGatex({
                                                     WebkitBoxShadow: WebkitBoxShadowReducerLogin,
                                                     boxShadow: boxShadowReducerLogin,
                                                     left: '-2vw',
+                                                    opacity: AiLock ? '0.3' : '1'
                                                 }}
                                                 variant="outlined"
                                                 size="large"
@@ -3519,7 +3530,7 @@ function ProfileGatex({
                                                 borderRadius: '10vw',
                                                 backgroundImage: 'rgb(255,255,255,0.2)',
                                             }}
-                                            label="Ask &#129302; to explain in video"
+                                            label='Ask &#129302; to explain in Picture '
                                             type="text"
                                             name="caption"
                                             variant='outlined'
@@ -3530,7 +3541,11 @@ function ProfileGatex({
                             <Grid item>
                                 <Button
                                     onClick={(e: any) => {
-                                        handleSubmit(e, AImodel);
+                                        if (AImodel == 2 || AImodel == 0) {
+
+                                        } else {
+                                            handleSubmit(e, AImodel);
+                                        }
                                     }}
                                     style={{
                                         fontSize: buttonFont,
@@ -3548,7 +3563,7 @@ function ProfileGatex({
 
                                 >
 
-                                    {AImodel == 1 || AImodel == 0 ?
+                                    {AImodel == 2 || AImodel == 0 ?
 
                                         AiLock ? <LockIcon /> : <CheckIcon />
                                         : <CheckIcon />}
@@ -3575,6 +3590,7 @@ function ProfileGatex({
 
 
                                 style={{
+                                    scrollSnapAlign: snapallow ? 'none' : 'start',
                                     padding: '0px'
                                 }}>
                                 <ExplainItPreview

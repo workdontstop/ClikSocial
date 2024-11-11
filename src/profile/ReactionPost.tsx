@@ -26,6 +26,7 @@ function ReactionPostx({ Ein,
     Emo4Num,
     setShowAudioIcon,
     minimise,
+    colorx
 
 }: any) {
 
@@ -114,10 +115,36 @@ function ReactionPostx({ Ein,
                 display: minimise ? 'none' : 'block'
             }}>
 
-                {Ein === null || Ein === 0 ?
 
+                <span
+                    onClick={() => {
+                        ClickLove();
+                    }}
+                    className={
+                        "make-small-icons-clickable-lightCrop dontallowhighlighting zupermenulight"
+                    }
+                    style={{
+                        color: darkmodeReducer ? "#ffffff" : "#000000",
+                        transform: Zoom3 ? "scale(2)" : "scale(1.25)",
+                        transition: "transform 0.1s",
+                        position: "absolute",
+                        zIndex: 30,
+                        left: matchMobile ? '89vw' : '46.5vw',
+                        cursor: "pointer",
+                        bottom: matchMobile ? mobileemoTop : "0px",
+                        top: matchMobile ? '' : "50vh",
+                        /// backgroundColor: "red",
+                        backgroundColor: colorx,
+                        fontFamily: "Arial, Helvetica, sans-serif",
+                        fontSize: "2.8rem",
+                        fontWeight: "bolder",
+                        opacity: 1,
+                        padding: "0px",
+                        height: '0px',
+                        display: ShowAudioIcon ? "inline" : "inline",
+                    }}
+                >
                     <FavoriteIcon
-
                         onMouseEnter={(e: any) => {
                             setZoom3(true);
                             setZoomBigEmo3(true);
@@ -131,131 +158,61 @@ function ReactionPostx({ Ein,
                         onClick={() => {
                             ClickLove();
 
-                            // alert(Ein)
-
                         }}
                         className={
                             "make-small-icons-clickable-lightCrop dontallowhighlighting zupermenulight"
                         }
 
                         style={{
-                            filter: "grayscale(100%)",
-                            transform: Zoom3 ? "scale(2)" : "scale(1)",
-                            transition: "transform 0.1s",
                             color: '#000000',
-                            position: "absolute",
-                            zIndex: 30,
-                            left: matchMobile ? '87vw' : '45.6vw',
-                            cursor: "pointer",
-                            bottom: matchMobile ? mobileTop : "0px",
-                            top: matchMobile ? '' : "52vh",
-                            backgroundColor: darkmodeReducer ? 'red' : 'orange',
+                            backgroundColor: colorx,
                             fontFamily: "Arial, Helvetica, sans-serif",
-
-                            fontSize: '2.8rem',
-                            fontWeight: "bolder",
                             opacity: 1,
                             padding: "2px",
-                            display: ShowAudioIcon ? 'block' : 'block',
 
                         }}
                     />
-                    : <span
+
+
+
+                    <span
+                        onMouseEnter={(e: any) => {
+                            setZoom3(true);
+                            setZoomBigEmo3(true);
+                        }}
+                        onMouseLeave={(e: any) => {
+                            setZoom3(false);
+                            setZoomBigEmo3(false);
+                        }}
+
+
                         onClick={() => {
                             ClickLove();
                         }}
-                        className={
-                            "make-small-icons-clickable-lightCrop dontallowhighlighting zupermenulight"
-                        }
+
                         style={{
-                            color: darkmodeReducer ? "#ffffff" : "#000000",
-                            transform: Zoom3 ? "scale(2)" : "scale(1.25)",
+                            right: matchMobile ? '-7.2vw' : "-1.65vw",
+                            fontSize: matchMobile ? '2.4rem' : " ",
+                            position: 'absolute',
+                            transform: "scale(0.4)",
                             transition: "transform 0.1s",
-                            position: "absolute",
-                            zIndex: 30,
-                            left: matchMobile ? '89vw' : '46.5vw',
-                            cursor: "pointer",
-                            bottom: matchMobile ? mobileemoTop : "0px",
-                            top: matchMobile ? '' : "50vh",
-                            backgroundColor: "red",
-                            fontFamily: "Arial, Helvetica, sans-serif",
-                            fontSize: "2.8rem",
-                            fontWeight: "bolder",
-                            opacity: 1,
-                            padding: "0px",
-                            height: '0px',
-                            display: ShowAudioIcon ? "inline" : "inline",
+                            top: matchMobile ? '-1.3vh' : '-1.3vh',
+                            color: '#ffffff',
+                            backgroundColor: 'rgb(5,5,5,0.0)',
+                            width: '80px',
+                            height: '80px',
+                            borderRadius: '50%',
+                            justifyContent: 'center',
+                            display: 'flex',
+                            alignItems: 'center',
+                            textAlign: 'center'
                         }}
                     >
-                        <FavoriteIcon
-                            onMouseEnter={(e: any) => {
-                                setZoom3(true);
-                                setZoomBigEmo3(true);
-                            }}
-                            onMouseLeave={(e: any) => {
-                                setZoom3(false);
-                                setZoomBigEmo3(false);
-                            }}
-
-
-                            onClick={() => {
-                                ClickLove();
-
-                            }}
-                            className={
-                                "make-small-icons-clickable-lightCrop dontallowhighlighting zupermenulight"
-                            }
-
-                            style={{
-                                color: '#000000',
-                                backgroundColor: 'red',
-                                fontFamily: "Arial, Helvetica, sans-serif",
-                                opacity: 1,
-                                padding: "2px",
-
-                            }}
-                        />
-
-
-
-                        <span
-                            onMouseEnter={(e: any) => {
-                                setZoom3(true);
-                                setZoomBigEmo3(true);
-                            }}
-                            onMouseLeave={(e: any) => {
-                                setZoom3(false);
-                                setZoomBigEmo3(false);
-                            }}
-
-
-                            onClick={() => {
-                                ClickLove();
-                            }}
-
-                            style={{
-                                right: matchMobile ? '-7.2vw' : "-1.65vw",
-                                fontSize: matchMobile ? '2.4rem' : " ",
-                                position: 'absolute',
-                                transform: "scale(0.4)",
-                                transition: "transform 0.1s",
-                                top: matchMobile ? '-1.3vh' : '-1.3vh',
-                                color: '#ffffff',
-                                backgroundColor: 'rgb(5,5,5,0.4)',
-                                width: '80px',
-                                height: '80px',
-                                borderRadius: '50%',
-                                justifyContent: 'center',
-                                display: 'flex',
-                                alignItems: 'center',
-                                textAlign: 'center'
-                            }}
-                        >
-                            {Emo3Num === 0 ? "" : Emo3Num}
-                        </span>
+                        {Emo3Num === 0 ? "" : Emo3Num}
                     </span>
+                </span>
 
-                }
+
 
 
 

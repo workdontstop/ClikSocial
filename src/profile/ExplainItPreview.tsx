@@ -1093,6 +1093,13 @@ const ExplainItPreview: React.FC<ExplainItPreviewProps> = ({
         ///setIdReactRouterAsInt(idReducer);
         //setScrollReactRouter(0)
 
+        if (memeberPageidReducer === 0) { } else {
+            if (idReducer === memeberPageidReducer) {
+                window.location.reload();
+            }
+
+        }
+
     };
 
 

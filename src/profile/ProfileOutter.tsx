@@ -99,7 +99,7 @@ function ProfileOutter({ CallLoggedProfile }: any) {
   const { REACT_APP_SUPERSTARZ_URL, REACT_APP_CLOUNDFRONT, REACT_APP_APPX_STATE } = process.env;
 
 
-  var AiLock = false;
+  var AiLock = true;
 
 
   const isAppleDevice = /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
@@ -412,7 +412,7 @@ function ProfileOutter({ CallLoggedProfile }: any) {
   const [zoomedModal, setZoomedModal] = useState<boolean>(false);
   const [mobileZoom, setMobileZoom] = useState<boolean>(false);
 
-  const [mono, setmono] = useState(true);
+  const [mono, setmono] = useState(false);
 
   const [AutoGo, setAutoGo] = useState(false);
 
@@ -779,8 +779,8 @@ function ProfileOutter({ CallLoggedProfile }: any) {
 
   // React Spring animation for fade in and fade out
   const fadeStyles = useSpring({
-    opacity: CurrentPage === 'feeds' ? showNavbar ? 1 : ExtendBill ? 1 : 0 : 1, // Fade in when showNavbar is true, fade out when false
-    config: { duration: 300 }, // Animation duration (300ms)
+    opacity: CurrentPage === 'feeds' ? showNavbar ? AutoGo ? 0 : 1 : ExtendBill ? 1 : 0 : 1, // Fade in when showNavbar is true, fade out when false
+    config: { duration: 120 }, // Animation duration (300ms)
   });
 
   // Debounced scroll handler
@@ -793,7 +793,7 @@ function ProfileOutter({ CallLoggedProfile }: any) {
     // Hide navbar after 3 seconds of no scrolling
     scrollTimeoutRef.current = setTimeout(() => {
       setShowNavbar(false);
-    }, 3000); // 3 seconds
+    }, 4500); // 3 seconds
   };
 
   useEffect(() => {

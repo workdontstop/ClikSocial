@@ -26,6 +26,7 @@ function ReactionPost2kx({ Ein,
     Emo4Num,
     setShowAudioIcon,
     minimise,
+    colorx
 
 }: any) {
 
@@ -117,7 +118,36 @@ function ReactionPost2kx({ Ein,
 
 
 
-                {Ein === null || Ein === 0 ?
+
+                <span
+
+                    onClick={() => {
+                        ClickLike();
+                    }}
+                    className={
+                        "make-small-icons-clickable-lightCrop dontallowhighlighting zupermenulight"
+                    }
+                    style={{
+                        transform: Zoom4 ? "scale(2)" : "scale(1.25)",
+                        transition: "transform 0.1s",
+                        color: darkmodeReducer ? "#ffffff" : "#000000",
+                        position: "absolute",
+                        zIndex: 30,
+                        left: matchMobile ? '89vw' : '46.5vw',
+                        cursor: "pointer",
+                        bottom: matchMobile ? '29vh' : "0px",
+                        top: matchMobile ? '' : "36vh",
+
+                        backgroundColor: colorx,
+                        fontFamily: "Arial, Helvetica, sans-serif",
+                        fontSize: "2.8rem",
+                        fontWeight: "bolder",
+                        opacity: 1,
+                        padding: "0px",
+                        height: "0px",
+                        display: ShowAudioIcon ? "inline" : "inline",
+                    }}
+                >
 
                     <ThumbUpAltIcon
                         onMouseEnter={(e: any) => {
@@ -140,126 +170,54 @@ function ReactionPost2kx({ Ein,
 
                         style={{
                             color: '#000000',
-                            filter: "grayscale(100%)",
-                            transform: Zoom4 ? "scale(2)" : "scale(1)",
-                            transition: "transform 0.1s",
-                            position: "absolute",
-                            zIndex: 30,
-                            left: matchMobile ? '87vw' : '45.6vw',
-                            cursor: "pointer",
-                            bottom: matchMobile ? '21vh' : "0px",
-                            top: matchMobile ? '' : "38vh",
-                            backgroundColor: darkmodeReducer ? 'red' : 'orange',
+                            backgroundColor: colorx,
                             fontFamily: "Arial, Helvetica, sans-serif",
-                            fontSize: '2.8rem',
-                            fontWeight: "bolder",
                             opacity: 1,
                             padding: "2px",
-                            display: ShowAudioIcon ? 'block' : 'block'
+
                         }}
                     />
 
-                    :
-
                     <span
+
+                        onMouseEnter={(e: any) => {
+                            setZoom4(true);
+                            setZoomBigEmo4(true);
+                        }}
+                        onMouseLeave={(e: any) => {
+                            setZoom4(false);
+                            setZoomBigEmo4(false);
+                        }}
+
 
                         onClick={() => {
                             ClickLike();
-                        }}
-                        className={
-                            "make-small-icons-clickable-lightCrop dontallowhighlighting zupermenulight"
-                        }
-                        style={{
-                            transform: Zoom4 ? "scale(2)" : "scale(1.25)",
-                            transition: "transform 0.1s",
-                            color: darkmodeReducer ? "#ffffff" : "#000000",
-                            position: "absolute",
-                            zIndex: 30,
-                            left: matchMobile ? '89vw' : '46.5vw',
-                            cursor: "pointer",
-                            bottom: matchMobile ? '29vh' : "0px",
-                            top: matchMobile ? '' : "36vh",
 
-                            backgroundColor: "red",
-                            fontFamily: "Arial, Helvetica, sans-serif",
-                            fontSize: "2.8rem",
-                            fontWeight: "bolder",
-                            opacity: 1,
-                            padding: "0px",
-                            height: "0px",
-                            display: ShowAudioIcon ? "inline" : "inline",
+                        }}
+
+                        className="zuperxyinfo"
+                        style={{
+                            right: matchMobile ? '-7.2vw' : "-1.65vw",
+                            fontSize: matchMobile ? '2.4rem' : " ",
+                            position: 'absolute',
+                            transform: "scale(0.4)",
+                            transition: "transform 0.1s",
+                            top: matchMobile ? '-1.3vh' : '-1.3vh',
+                            color: '#ffffff',
+                            backgroundColor: 'rgb(5,5,5,0)',
+                            width: '80px',
+                            height: '80px',
+                            borderRadius: '50%',
+                            justifyContent: 'center',
+                            display: 'flex',
+                            alignItems: 'center',
+                            textAlign: 'center'
                         }}
                     >
-
-                        <ThumbUpAltIcon
-                            onMouseEnter={(e: any) => {
-                                setZoom4(true);
-                                setZoomBigEmo4(true);
-                            }}
-                            onMouseLeave={(e: any) => {
-                                setZoom4(false);
-                                setZoomBigEmo4(false);
-                            }}
-
-
-                            onClick={() => {
-                                ClickLike();
-
-                            }}
-                            className={
-                                "make-small-icons-clickable-lightCrop dontallowhighlighting zupermenulight"
-                            }
-
-                            style={{
-                                color: '#000000',
-                                backgroundColor: 'orange',
-                                fontFamily: "Arial, Helvetica, sans-serif",
-                                opacity: 1,
-                                padding: "2px",
-
-                            }}
-                        />
-
-                        <span
-
-                            onMouseEnter={(e: any) => {
-                                setZoom4(true);
-                                setZoomBigEmo4(true);
-                            }}
-                            onMouseLeave={(e: any) => {
-                                setZoom4(false);
-                                setZoomBigEmo4(false);
-                            }}
-
-
-                            onClick={() => {
-                                ClickLike();
-
-                            }}
-
-                            className="zuperxyinfo"
-                            style={{
-                                right: matchMobile ? '-7.2vw' : "-1.65vw",
-                                fontSize: matchMobile ? '2.4rem' : " ",
-                                position: 'absolute',
-                                transform: "scale(0.4)",
-                                transition: "transform 0.1s",
-                                top: matchMobile ? '-1.3vh' : '-1.3vh',
-                                color: '#ffffff',
-                                backgroundColor: 'rgb(5,5,5,0.4)',
-                                width: '80px',
-                                height: '80px',
-                                borderRadius: '50%',
-                                justifyContent: 'center',
-                                display: 'flex',
-                                alignItems: 'center',
-                                textAlign: 'center'
-                            }}
-                        >
-                            {Emo4Num === 0 ? "" : Emo4Num}
-                        </span>
+                        {Emo4Num === 0 ? "" : Emo4Num}
                     </span>
-                }
+                </span>
+
 
 
                 <MoodIcon

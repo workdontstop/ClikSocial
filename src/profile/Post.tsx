@@ -189,7 +189,13 @@ function Postx({
   ExtendBill,
   HoldFeedType,
   mono,
-  setmono
+  setmono,
+
+  startAutoLock,
+  setstartAutoLock,
+
+  InteractTimerxxhya1,
+  InteractTimerxxhya2,
 
 
 
@@ -305,6 +311,8 @@ function Postx({
   const [Zoomxv2, setZoomxv2] = useState(false);
 
   const [Zoomxv1, setZoomxv1] = useState(false);
+
+  const opacityText = 0.8;
 
 
 
@@ -2004,7 +2012,7 @@ function Postx({
 
             <div ref={divBox} style={{
               position: 'relative', zIndex: 200000,
-              top: matchMobile ? '-16vh' : '-15.5vh',
+              top: matchMobile ? minimise ? '-15vh' : '-16vh' : minimise ? '-10vh' : '-15.5vh',
               height: '1vh',
               width: '100%',
               scrollSnapAlign: snapallow ? 'none' : 'start',
@@ -2040,7 +2048,7 @@ function Postx({
                 profileImageref={profileImageref}
                 calculateconnectPosition={calculateconnectPosition}
                 profilewidth={profilewidth}
-                postprofiletop={isSafari ? '-7.1vh' : postprofiletop}
+                postprofiletop={postprofiletop}
                 optionsClass={optionsClass}
                 post={post}
                 profileImagethumbLeft={profileImagethumbLeft}
@@ -2073,7 +2081,7 @@ function Postx({
               backgroundColor: '',
               fontFamily: "Arial, Helvetica, sans-serif",
 
-              fontSize: matchMobile ? '2vh' : '2.5vh',
+              fontSize: minimise ? matchMobile ? '1.8vh' : '2.2vh' : matchMobile ? '2vh' : '2.5vh',
 
               fontWeight: 'normal',
             }}>
@@ -2083,7 +2091,8 @@ function Postx({
                 color: '#ffffff',
                 textShadow: '2px 1px 8px rgba(0, 0, 0, 1)',
                 fontWeight: 'normal',
-                display: 'none'
+                display: 'none',
+
               }}>
 
 
@@ -2097,7 +2106,10 @@ function Postx({
 
               }}>
 
-                <span style={{ position: 'relative', display: 'inline-block' }}>
+                <span style={{
+                  position: 'relative', display: 'inline-block', opacity: opacityText,
+                  fontWeight: minimise ? 'bold' : 'normal',
+                }}>
                   <animated.span style={fadeStyles}>
                     {textToShow}
                   </animated.span>
@@ -2124,6 +2136,7 @@ function Postx({
               fontSize: matchMobile ? '2vh' : '2.5vh',
 
               fontWeight: 'normal',
+
             }}>
 
 
@@ -2132,8 +2145,8 @@ function Postx({
               <span style={{
 
                 color: darkmodeReducer ? '#ffffff' : '#000000',
-
-
+                fontWeight: minimise ? 'bold' : 'normal',
+                opacity: opacityText,
               }}>
                 {post.topic}
               </span>
@@ -2311,7 +2324,7 @@ function Postx({
               <span style={{
 
                 color: darkmodeReducer ? '#ffffff' : '#000000',
-
+                opacity: opacityText,
 
               }}>
                 {LockCaption}
@@ -2345,7 +2358,7 @@ function Postx({
                 height: '0.1vh',
                 width: '100%',
                 scrollSnapAlign: AutoGo ? snapallow ? 'none' : 'none' : snapallow ? 'none' : 'start',
-                visibility: AutoGo ? 'hidden' : 'visible'
+                visibility: AutoGo ? minimise ? 'hidden' : 'hidden' : minimise ? 'hidden' : 'visible'
               }}>
 
               </div>
@@ -2425,18 +2438,18 @@ function Postx({
                 }}
                 style={{
                   position: "absolute",
-                  top: '18vh',
-                  left: '93%',
-                  transform: Zoomxv1 ? "scale(2.8)" : "scale(1)",
+                  top: matchMobile ? '11vh' : '18vh',
+                  left: matchMobile ? '87%' : '93%',
+                  transform: Zoomxv1 ? "scale(2.6)" : "scale(1)",
                   transition: "transform 0.1s",
                   zIndex: 200000,
                   verticalAlign: "middle",
-                  fontSize: postcommentfont,
+                  fontSize: matchMobile ? '6vh' : postcommentfont,
                   opacity: 1,
                   color: darkmodeReducer ? "#dddddd" : "#000000",
                   cursor: 'pointer',
                   visibility: minimise ? 'hidden' : 'visible',
-                  display: hidezoomMono ? matchMobile ? 'none' : 'none' : matchMobile ? 'none' : 'block'
+                  display: hidezoomMono ? matchMobile ? 'none' : 'none' : matchMobile ? 'block' : 'block'
 
 
                 }}
@@ -2445,6 +2458,15 @@ function Postx({
 
 
               <Slider
+
+                InteractTimerxxhya1={InteractTimerxxhya1}
+                InteractTimerxxhya2={InteractTimerxxhya2}
+
+
+                startAutoLock={startAutoLock}
+                setstartAutoLock={setstartAutoLock}
+
+
                 sethidezoomMono={sethidezoomMono}
 
                 setEin={setEin}
@@ -2480,6 +2502,7 @@ function Postx({
                 setMaximisefromcanvas={setMaximisefromcanvas}
                 pic={pic}
                 divBox={pic}
+                actualdivBox={divBox}
 
                 dateint2={dateint2}
 
@@ -2603,8 +2626,8 @@ function Postx({
               <span style={{
 
                 color: darkmodeReducer ? '#ffffff' : '#000000',
-                display: minimise ? 'block' : 'none',
-                opacity: darkmodeReducer ? 0.7 : 0.8
+                display: minimise ? 'inline' : 'none',
+                opacity: darkmodeReducer ? 0.8 : 0.84
 
               }}>
                 {LockCaption}
@@ -2613,14 +2636,14 @@ function Postx({
               <span style={{
                 visibility: 'hidden'
               }}>
-                .....
+                ..
               </span>
 
               <span style={{
                 color: darkmodeReducer ? '#ffffff' : '#000000',
                 opacity: 0.5,
 
-
+                display: minimise ? 'inline' : 'none',
                 fontSize: matchMobile ? '1.3vh' : '1.4vh'
               }}>
                 {PostTime}
@@ -2739,6 +2762,7 @@ function Postx({
 
                 display: matchMobile ? minimise ? 'none' : 'none'
                   : minimise ? 'block' : "none",
+                zIndex: 10000000000000000
 
 
 
@@ -3056,13 +3080,13 @@ function Postx({
               }}
 
               style={{
-                top: '7.8vh',
+                bottom: '20.8vh',
                 marginLeft: '45%',
                 position: "fixed",
                 // display: "flex", //flex
                 alignItems: "center",
                 justifyContent: "left",
-                zIndex: 75,
+                zIndex: 7500000,
                 padding: "0px",
                 height: "0px",
                 display: matchMobile ? minimise ? 'block' : 'none' : minimise ? 'none' : 'none',
@@ -3261,13 +3285,14 @@ function Postx({
                   <div style={{
                     position: 'absolute', bottom: matchMobile ? '-10vh' : '56.5vh',
                     left: '-60%',
-                    visibility: inV ? AutoGo ? 'hidden' : 'visible' : 'hidden',
+                    visibility: inV ? AutoGo ? 'visible' : 'visible' : 'visible',
                     transition: "transform 0.1s",
 
                   }}>
 
                     {StopShowPad ? null :
                       <ReactionPost
+                        colorx={RandomColor}
                         minimise={minimise}
                         setShowAudioIcon={setShowReactionsIcon}
                         Ein={Ein}
@@ -3294,12 +3319,13 @@ function Postx({
                     position: 'absolute', bottom:
                       matchMobile ? Ein === null || Ein === 0 ? '-23.3vh' : '-23.2vh' :
                         '42.3vh', left: matchMobile ? '-25%' : '-30%',
-                    visibility: inV ? AutoGo ? 'hidden' : 'visible' : 'hidden',
+                    visibility: inV ? AutoGo ? 'visible' : 'visible' : 'visible',
                     transition: "transform 0.1s",
                   }}>
 
                     {StopShowPad ? null :
                       <ReactionPost2k
+                        colorx={post.color1}
                         minimise={minimise}
                         setShowAudioIcon={setShowReactionsIcon}
                         Ein={Ein}
@@ -3357,6 +3383,15 @@ function Postx({
 
                     <img
                       onClick={() => {
+                        if (idReducer === GuestReducer) {
+                          dispatch(UpdateSign(true));
+
+                          commentClickedNew();
+                          //   //scale
+                        } else {
+                          commentClickedNew();
+
+                        }
 
                       }}
                       ref={profileImageref}

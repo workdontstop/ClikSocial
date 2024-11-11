@@ -330,7 +330,7 @@ function GenerateAndUploadx({ setUploadGPT, OpenUploadModal, Loader, setLoader, 
       try {
         // Make a POST request to the image generation API
         const response = await Axios.post(
-          'http://192.168.0.39:8000/generate',
+          'http://192.168.1.236:8000/generate',
           params,
           {
             timeout: 120000,  // Set a timeout for the request (120 seconds)
@@ -877,7 +877,7 @@ function GenerateAndUploadx({ setUploadGPT, OpenUploadModal, Loader, setLoader, 
                       MozBoxShadow: MozBoxShadowReducerLogin,
                       WebkitBoxShadow: WebkitBoxShadowReducerLogin,
                       boxShadow: boxShadowReducerLogin,
-                      opacity: AiLock ? '0.3' : '1'
+
 
                     }}
                     fullWidth={true}
@@ -905,6 +905,7 @@ function GenerateAndUploadx({ setUploadGPT, OpenUploadModal, Loader, setLoader, 
                         MozBoxShadow: MozBoxShadowReducerLogin,
                         WebkitBoxShadow: WebkitBoxShadowReducerLogin,
                         boxShadow: boxShadowReducerLogin,
+                        opacity: AiLock ? '0.3' : '1'
                       }}
                       fullWidth={true}
 
@@ -1003,18 +1004,23 @@ function GenerateAndUploadx({ setUploadGPT, OpenUploadModal, Loader, setLoader, 
 
                   } else if (AImodel === 1) {
 
-                    if (AiLock) { } else {
-                      setLoader(true);
-                      ///GenerateImageGpt();
+                    setLoader(true);
+                    ///GenerateImageGpt();
 
-                      GenerateImageStableSDXL();
-                    }
+                    GenerateImageStableSDXL();
+
 
 
                   } else {
-                    setLoader(true);
 
-                    GenerateImageStableSDXLHUGG();
+                    if (AiLock) { } else {
+
+                      setLoader(true);
+
+                      GenerateImageStableSDXLHUGG();
+
+                    }
+
 
 
                   }

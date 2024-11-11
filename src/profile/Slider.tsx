@@ -130,7 +130,15 @@ function Sliderx({
   setstartshow,
 
   pic,
-  sethidezoomMono
+  sethidezoomMono,
+  actualdivBox,
+
+  startAutoLock,
+  setstartAutoLock,
+
+  InteractTimerxxhya1,
+  InteractTimerxxhya2,
+
 
 
 
@@ -172,9 +180,12 @@ function Sliderx({
   const InteractTimerxxhyll = useRef<ReturnType<typeof setTimeout> | null>(
     null
   );
+
   const InteractTimerxxhya = useRef<ReturnType<typeof setTimeout> | null>(
     null
   );
+
+
   const InteractTimerxxhyax = useRef<ReturnType<typeof setTimeout> | null>(
     null
   );
@@ -537,7 +548,7 @@ function Sliderx({
 
   const { ref, inView, entry } = useInView({
     /* Optional options */
-    threshold: minimise ? 1 : matchMobile ? 0.50 : 0.4,
+    threshold: minimise ? 1 : matchMobile ? 0.40 : 0.2,
 
 
   });
@@ -742,6 +753,21 @@ function Sliderx({
         } else { }
 
 
+        if (InteractTimerxxhya1.current) {
+          clearTimeout(InteractTimerxxhya1.current);
+        } InteractTimerxxhya1.current = setTimeout(() => {
+          if (matchMobile && startAutoLock) {
+            if (minimise) { } else {
+              actualdivBox.current.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+
+              setstartAutoLock(false);
+            }
+          }
+        }, 10)
+
 
 
 
@@ -760,7 +786,7 @@ function Sliderx({
         } InteractTimerxxhyax.current = setTimeout(() => {
 
           sethidezoomMono(true);
-        }, 32000)
+        }, matchMobile ? 3600 : 32000)
 
 
         if (InteractTimerxxhyl.current) {
@@ -906,6 +932,17 @@ function Sliderx({
 
 
       } else {
+
+
+        if (InteractTimerxxhya1.current) {
+          clearTimeout(InteractTimerxxhya1.current);
+        }
+        InteractTimerxxhya2.current = setTimeout(() => {
+          if (matchMobile) {
+            setstartAutoLock(true);
+          }
+        }, 30000)
+
 
         sethidezoomMono(true);
 
@@ -3165,7 +3202,7 @@ function Sliderx({
                       cursor: "pointer",
                       height: "100%",
                       objectFit: "contain",
-                      zIndex: 50,
+                      zIndex: 500000000,
                       position: "absolute",
                       margin: "auto",
                       textAlign: "center",
@@ -3239,7 +3276,7 @@ function Sliderx({
                       cursor: "pointer",
                       height: "100%",
                       objectFit: "contain",
-                      zIndex: 50,
+                      zIndex: 500000000,
                       position: "absolute",
                       margin: "auto",
                       textAlign: "center",
@@ -3308,7 +3345,7 @@ function Sliderx({
                     cursor: "pointer",
                     height: "100%",
                     objectFit: "contain",
-                    zIndex: 50,
+                    zIndex: 500000000,
                     position: "absolute",
                     margin: "auto",
                     textAlign: "center",
