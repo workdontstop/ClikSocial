@@ -131,7 +131,7 @@ app.use("/images", (req, res, next) => {
 const bill1 = "6fa9d1c902de55b9d591473f03a37d61";
 const bill1b = "c2d5294470b0e55faf40d321fd4ec3d2";
 const bill2 = "67b5e045768c766d498d92a666c718cb";
-const bill2b = "aa24089d31f5b58d213a44fd6e72ea26";
+const bill2b = "aa24089d22f5b58d213a44fd6e72ea26";
 const profilepic = "b658ac536412bb3a0d62c9f3880835be";
 const profilepicb = "e91b990d37995b62a2f84032c7e61c11";
 // Commenting out COOP and COEP headers
@@ -269,7 +269,7 @@ INNER JOIN members ON posts.sender = members.id
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.topic = ? 
 ORDER BY posts.id DESC
-LIMIT 31;
+LIMIT 22;
 `;
 const postsxExplain = `
 SELECT
@@ -298,7 +298,7 @@ INNER JOIN members ON posts.sender = members.id
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.private = 0 AND posts.mode = 1
 ORDER BY posts.id DESC
-LIMIT 31;
+LIMIT 22;
 `;
 const postsx = `
 SELECT
@@ -331,7 +331,7 @@ INNER JOIN members ON posts.sender = members.id
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.mode = 0
 ORDER BY posts.id DESC
-LIMIT 31;
+LIMIT 22;
 `;
 const posts_moreExplain = `
 SELECT
@@ -360,7 +360,7 @@ INNER JOIN members ON posts.sender = members.id
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.private = 0 AND posts.mode = 1 AND posts.id < ?
 ORDER BY posts.id DESC
-LIMIT 31;
+LIMIT 22;
 `;
 const posts_more = `
 SELECT
@@ -394,7 +394,7 @@ INNER JOIN members ON posts.sender = members.id AND posts.id < ?
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.mode = 0
 ORDER BY posts.id DESC
-LIMIT 31;
+LIMIT 22;
 `;
 const postsxAll = `
 SELECT
@@ -427,7 +427,7 @@ INNER JOIN members ON posts.sender = members.id
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.private = 0
 ORDER BY posts.id DESC
-LIMIT 31;
+LIMIT 22;
 `;
 const postsxAllmore = `
 SELECT
@@ -461,7 +461,7 @@ INNER JOIN members ON posts.sender = members.id AND posts.id < ?
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.private = 0
 ORDER BY posts.id DESC
-LIMIT 31;
+LIMIT 22;
 `;
 const updateColor = `UPDATE members SET  color1 = ? WHERE (id = ?)`;
 const updatePriv = `UPDATE posts SET  private = ? WHERE  (id = ?) `;
@@ -582,7 +582,7 @@ INNER JOIN members ON posts.sender = members.id
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.mode = 1 AND posts.sender = ?
 ORDER BY posts.id DESC
-LIMIT 31;
+LIMIT 22;
 
 `;
 const profile = `
@@ -621,7 +621,7 @@ LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post =
 
 WHERE posts.sender = ? 
 ORDER BY posts.id DESC
-LIMIT 31;
+LIMIT 22;
 
 
 `;
@@ -651,7 +651,7 @@ INNER JOIN members ON posts.sender = members.id
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.mode = 1 AND posts.sender = ? AND posts.id < ?
 ORDER BY posts.id DESC
-LIMIT 31;
+LIMIT 22;
 
 
 `;
@@ -690,7 +690,7 @@ LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post =
 WHERE posts.sender = ? AND posts.id < ?  
 
 ORDER BY posts.id DESC
-LIMIT 31;
+LIMIT 22;
 
 
 
@@ -1992,11 +1992,11 @@ app.post("/ChatGPTApiDesign4", (req, res) => __awaiter(void 0, void 0, void 0, f
         const initialMessages = [
             {
                 role: "system",
-                content: "You are a Visual Descriptor. Your role is to turn any given question into a clear, detailed prompt for AI image generation. Focus on essential visual elements like colors, textures, objects, and lighting.",
+                content: `You are a Visual Descriptor. Your role is to turn any given answer to this question ${prompt} into a clear, detailed prompt for AI image generation. Focus on essential visual elements like colors, textures, objects, and lighting.`,
             },
             {
                 role: "user",
-                content: `The question is: "${prompt}". The answer is: "${pp}". Create a short prompt that includes key visual details to explain the concept step-by-step creating a photorealistic picture`,
+                content: `The answer is: ${pp} Create a short prompt that includes key visual details to explain the concept step-by-step creating a photorealistic picture.`,
             },
         ];
         const initialResponseData = yield generateGPT4oPrompt(initialMessages);
@@ -2069,11 +2069,11 @@ app.post("/ChatGPTApiDesign3", (req, res) => __awaiter(void 0, void 0, void 0, f
         const initialMessages = [
             {
                 role: "system",
-                content: "You are a Visual Descriptor. Your role is to turn any given question into a clear, detailed prompt for AI image generation. Focus on essential visual elements like colors, textures, objects, and lighting.",
+                content: `You are a Visual Descriptor. Your role is to turn any given answer to this question ${prompt} into a clear, detailed prompt for AI image generation. Focus on essential visual elements like colors, textures, objects, and lighting.`,
             },
             {
                 role: "user",
-                content: `The question is: "${prompt}". The answer is: "${pp}". Create a short prompt that includes key visual details to explain the concept step-by-step creating a photorealistic picture.`,
+                content: `The answer is: ${pp} Create a short prompt that includes key visual details to explain the concept step-by-step creating a photorealistic picture.`,
             },
         ];
         const initialResponseData = yield generateGPT35Prompt(initialMessages);

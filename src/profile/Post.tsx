@@ -239,6 +239,9 @@ function Postx({
 
   const [Ein, setEin] = useState(0);
 
+  const [EinReaction, setEinReaction] = useState(0);
+
+
   const [LockCaption, setLockCaption] = useState('');
 
   const [LockTopic, setLockTopic] = useState('');
@@ -749,6 +752,7 @@ function Postx({
 
 
       setEin(post.EmoIn);
+      setEinReaction(post.EmoIn);
 
       /// alert(post.EmoIn);
 
@@ -1045,19 +1049,18 @@ function Postx({
 
   const ClickLike = useCallback(() => {
 
+    ///alert(EinReaction)
 
-
-    if (Ein === null || Ein === 0) {
+    if (EinReaction === null || EinReaction === 0) {
 
       setShowEmoIcon(true);
 
-      if (idReducer === GuestReducer) {
-        dispatch(UpdateSign(true));
-      } else {
-        startSpin4();
-        CallEmoBackend(4);
 
-      }
+
+      startSpin4();
+      CallEmoBackend(4);
+
+
 
     } else {
 
@@ -1075,21 +1078,20 @@ function Postx({
 
 
 
-    if (Ein === null || Ein === 0) {
+    if (EinReaction === null || EinReaction === 0) {
 
 
 
       setShowEmoIcon(true);
 
 
-      if (idReducer === GuestReducer) {
-        dispatch(UpdateSign(true));
-      } else {
-        startSpin3();
-        CallEmoBackend(3);
 
-      }
+      startSpin3();
+      CallEmoBackend(3);
+
+
     } else {
+
       ReactionClickedNew(3);
 
 
@@ -1121,6 +1123,7 @@ function Postx({
           .then((response) => {
             if (response.data.message === "emo updated") {
               setEin(ty);
+              setEinReaction(ty);
 
               if (ty === 1) {
                 setEmo1Num((state: any) => state + 1);
@@ -1156,6 +1159,7 @@ function Postx({
               }
 
               setEin(ty);
+              setEinReaction(ty);
 
               if (ty === 1) {
                 setEmo1Num((state: any) => state + 1);
@@ -1694,6 +1698,7 @@ function Postx({
       setZoomBigEmo3(false);
     }, 2500);
   };
+
   const startSpin4 = () => {
     stopEmoAlreadySpinning();
     setSpinfun(1);
@@ -1710,6 +1715,7 @@ function Postx({
       setZoomBigEmo4(false);
     }, 2500);
   };
+
   const stopEmoAlreadySpinning = () => {
     switch (currentSpinState) {
       case 1:
@@ -2022,16 +2028,16 @@ function Postx({
 
 
             <div style={{
-              position: minimise ? matchMobile ? 'absolute' : 'relative' : matchMobile ? 'relative' : 'relative',
+              position: minimise ? matchMobile ? 'absolute' : 'absolute' : matchMobile ? 'relative' : 'relative',
 
               zIndex: 200000,
               top:
-                minimise ? matchMobile ? '22vh' : '54vh' :
+                minimise ? matchMobile ? '17vh' : '4vh' :
                   matchMobile ? '3.5vh' : '-11.3vh',
 
 
 
-              left: matchMobile ? '1.9vw' : '0px'
+              left: minimise ? matchMobile ? '0vw' : '0px' : matchMobile ? '1.9vw' : '0px'
             }}>
 
               <Connect
@@ -2073,9 +2079,9 @@ function Postx({
                 minimise ? matchMobile ? '-0vh' : '-0vh' :
 
                   matchMobile ? '-9vh' : '-11vh',
-              left: matchMobile ? '22%' : '17%',
+              left: minimise ? matchMobile ? '29%' : '20%' : matchMobile ? '22%' : '17%',
               width: minimise ?
-                matchMobile ? '78%' : '64%' :
+                matchMobile ? '76%' : '64%' :
                 matchMobile ? '51%' : '64%',
 
               backgroundColor: '',
@@ -2627,7 +2633,8 @@ function Postx({
 
                 color: darkmodeReducer ? '#ffffff' : '#000000',
                 display: minimise ? 'inline' : 'none',
-                opacity: darkmodeReducer ? 0.8 : 0.84
+                opacity: darkmodeReducer ? 0.7 : 0.64
+
 
               }}>
                 {LockCaption}
@@ -2748,7 +2755,7 @@ function Postx({
 
               style={{
                 marginLeft: matchMobile ? minimise ? '80vw' : '90vw'
-                  : minimise ? '26.7vw' : "46vw",
+                  : minimise ? '28.7vw' : "46vw",
 
                 top: minimise ? matchMobile ? '2.8vh' : `8.6vh` : matchMobile ? '-15.05vh' : `-12vh`,
 
@@ -3288,10 +3295,12 @@ function Postx({
                     visibility: inV ? AutoGo ? 'visible' : 'visible' : 'visible',
                     transition: "transform 0.1s",
 
+
                   }}>
 
                     {StopShowPad ? null :
                       <ReactionPost
+                        EinReaction={EinReaction}
                         colorx={RandomColor}
                         minimise={minimise}
                         setShowAudioIcon={setShowReactionsIcon}
@@ -3325,6 +3334,7 @@ function Postx({
 
                     {StopShowPad ? null :
                       <ReactionPost2k
+                        EinReaction={EinReaction}
                         colorx={post.color1}
                         minimise={minimise}
                         setShowAudioIcon={setShowReactionsIcon}

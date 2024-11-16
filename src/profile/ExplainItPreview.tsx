@@ -1206,8 +1206,9 @@ const ExplainItPreview: React.FC<ExplainItPreviewProps> = ({
                     overflowY: "hidden",
                     display: "flex",
                     scrollSnapType: "x mandatory",
-                    marginTop: matchMobile ? "10vh" : "0px",
+                    marginTop: matchMobile ? "10vh" : "-10vh",
                     paddingRight: matchMobile ? "0px" : "10%",
+
                 }}
             >
                 {dummyImages.map((src, index) => (
@@ -1272,7 +1273,7 @@ const ExplainItPreview: React.FC<ExplainItPreviewProps> = ({
                                 width: "90%",
                                 fontSize: matchMobile ? "0.9rem" : "1.6rem",
                                 fontFamily: "Arial, Helvetica, sans-serif",
-                                display: loaderx ? "none" : "block",
+                                display: loaderx ? "block" : "block",
                             }}
                         >
                             {sanitizedSteps[index]}

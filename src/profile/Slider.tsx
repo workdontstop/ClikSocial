@@ -758,6 +758,11 @@ function Sliderx({
         } InteractTimerxxhya1.current = setTimeout(() => {
           if (matchMobile && startAutoLock) {
             if (minimise) { } else {
+
+              if (InteractTimerxxhya2.current) {
+                clearTimeout(InteractTimerxxhya2.current);
+              }
+
               actualdivBox.current.scrollIntoView({
                 behavior: "smooth",
                 block: "start",
@@ -941,7 +946,7 @@ function Sliderx({
           if (matchMobile) {
             setstartAutoLock(true);
           }
-        }, 30000)
+        }, 2000)
 
 
         sethidezoomMono(true);

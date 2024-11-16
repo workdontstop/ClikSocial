@@ -703,10 +703,10 @@ function ProfileGatex({
 
         try {
 
-            if (x === 2) {
+            if (x === 1) {
 
                 setloader(true);
-                var response = await Axios.post(`${REACT_APP_SUPERSTARZ_URL}/ChatGPTApi3`, { prompt });
+                var response = await Axios.post(`${REACT_APP_SUPERSTARZ_URL}/ChatGPTApi4`, { prompt });
                 const { initialSteps: initial } = response.data;
 
                 console.log(response.data);
@@ -3348,15 +3348,14 @@ function ProfileGatex({
 
                     <Grid xs={12}
                         style={{
-                            position: "absolute",
+                            position: "relative",
                             padding: '0px',
                             width: '100%',
                             transition: "transform 0.1s",
                             textAlign: 'center',
                             marginTop: matchMobile ? '7vh' : '6vh',
-
-
-
+                            paddingBottom: initialSteps.length > 0 ? '0px' :
+                                minimise ? matchMobile ? '1vh' : '0px' : matchMobile ? '14vh' : '14vh',
                             zIndex: 2
                         }} item>
 
@@ -3541,7 +3540,7 @@ function ProfileGatex({
                             <Grid item>
                                 <Button
                                     onClick={(e: any) => {
-                                        if (AImodel == 2 || AImodel == 0) {
+                                        if (AiLock && AImodel == 2 || AiLock && AImodel == 0) {
 
                                         } else {
                                             handleSubmit(e, AImodel);
@@ -3594,6 +3593,8 @@ function ProfileGatex({
                                     padding: '0px'
                                 }}>
                                 <ExplainItPreview
+
+
                                     setInitialSteps={setInitialSteps} initialSteps={initialSteps} AImodel={AImodel} promptx={promptx}
                                     setloader={setloader} loaderx={loaderx} />
                             </Grid>
@@ -3602,6 +3603,17 @@ function ProfileGatex({
                 }
 
 
+
+                <Grid item
+                    xs={12}
+
+
+
+                    style={{
+                        height: initialSteps.length > 0 ? matchMobile ? '34vh' : '30vh' : '0px'
+                    }}>
+
+                </Grid>
 
                 {
                     ShowmaxPost ? (

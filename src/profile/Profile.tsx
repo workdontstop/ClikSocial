@@ -141,7 +141,7 @@ function Profilex({
   const [countAutoplay, setcountAutoplay] = useState<number>(0);
 
   const dispatch = useDispatch();
-  const sqlQUERYlIMIT = 31;
+  const sqlQUERYlIMIT = 22;
 
 
 
@@ -1642,11 +1642,10 @@ function Profilex({
           item
           xs={matchPc ? mono && !minimise ? 6 : 12 : 12}
           style={{
-            padding: matchMobile ? (minimise ? '2vh' : '0px') : minimise ? '7vh' : '0px',
-            marginTop: matchMobile ? (minimise ? '8.4vh' : '27vh') : minimise ? '0vh' : '28vh',
+            padding: matchMobile ? (minimise ? '0px' : '0px') : minimise ? '0px' : '0px',
+            /////marginTop: matchMobile ? (minimise ? '10.4vh' : '27vh') : minimise ? '0vh' : '28vh',
 
-
-            marginLeft: matchPc ? minimise ? '1.5vw' : mono && !minimise ? '25%' : '0px' : '0px',
+            marginLeft: matchPc ? minimise ? '1.5vw' : mono && !minimise ? '25%' : '0px' : minimise ? '1px' : '0px',
             overflowX: 'hidden',
             overflowY: 'auto',
             overflow: 'visible',
@@ -1818,7 +1817,7 @@ function Profilex({
                           item
                           xs={12}
                           style={{
-                            marginTop: matchMobile ? postData.length - 1 === i ? '0vh' : "-3vh" :
+                            marginTop: matchMobile ? postData.length - 1 === i ? '0vh' : "2vh" :
                               postData.length - 1 === i ? '0vh' : '-3.5vh',
 
                             height: matchMobile ? postData.length - 1 === i ? '10vh' : "6vh" :

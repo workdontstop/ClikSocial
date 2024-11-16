@@ -109,7 +109,7 @@ function PostExplainx({
                     setCurrentImage((prev) => (prev + 1));
                     setCurrentImageView((prev) => (prev + 1));
                 }
-            }, 3500);
+            }, 3000);
         } else if (autoPlayRef.current) {
             clearInterval(autoPlayRef.current);
         }

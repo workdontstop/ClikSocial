@@ -26,7 +26,8 @@ function ReactionPost2kx({ Ein,
     Emo4Num,
     setShowAudioIcon,
     minimise,
-    colorx
+    colorx,
+    EinReaction
 
 }: any) {
 
@@ -172,8 +173,9 @@ function ReactionPost2kx({ Ein,
                             color: '#000000',
                             backgroundColor: colorx,
                             fontFamily: "Arial, Helvetica, sans-serif",
-                            opacity: 1,
+
                             padding: "2px",
+                            opacity: EinReaction === 4 ? 0.2 : 1,
 
                         }}
                     />

@@ -26,7 +26,8 @@ function ReactionPostx({ Ein,
     Emo4Num,
     setShowAudioIcon,
     minimise,
-    colorx
+    colorx,
+    EinReaction
 
 }: any) {
 
@@ -112,7 +113,8 @@ function ReactionPostx({ Ein,
 
             <div style={{
                 marginTop: matchMobile ? minimise ? '-1vh' : '0px' : minimise ? '0px' : '0px',
-                display: minimise ? 'none' : 'block'
+                display: minimise ? 'none' : 'block',
+
             }}>
 
 
@@ -164,10 +166,10 @@ function ReactionPostx({ Ein,
                         }
 
                         style={{
+                            opacity: EinReaction === 3 ? 0.25 : 1,
                             color: '#000000',
                             backgroundColor: colorx,
                             fontFamily: "Arial, Helvetica, sans-serif",
-                            opacity: 1,
                             padding: "2px",
 
                         }}
@@ -205,7 +207,7 @@ function ReactionPostx({ Ein,
                             justifyContent: 'center',
                             display: 'flex',
                             alignItems: 'center',
-                            textAlign: 'center'
+                            textAlign: 'center',
                         }}
                     >
                         {Emo3Num === 0 ? "" : Emo3Num}
