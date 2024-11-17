@@ -551,7 +551,7 @@ function ActualMenux({ showModalFormMenu,
 
         Timerjj.current = setTimeout(() => {
           setSignup(true)
-        }, 1000);
+        }, 10);
 
       } else {
         setSignup(false)
@@ -745,7 +745,7 @@ function ActualMenux({ showModalFormMenu,
                   fontWeight: 'normal'
                 }}
               >
-                {Signup ? 'Sign' : 'clik'}
+                {Signup ? 'Log' : 'clik'}
               </span>
 
               <span
@@ -761,7 +761,7 @@ function ActualMenux({ showModalFormMenu,
                     : "text-superstarz-light   text-superstarz-light-colorB   "
                 }
               >
-                {Signup ? 'Up' : 'bate'}
+                {Signup ? 'In' : 'bate'}
 
               </span>
               <p><h6 style={{
@@ -951,7 +951,7 @@ function ActualMenux({ showModalFormMenu,
           <Grid
             xs={12} style={{
               position: 'fixed', top: matchMobile ? '28vh' : '40vh', zIndex: 20, right: '0px',
-              width: '100%', height: matchMobile ? '68.2%' : '69%', overflow: 'auto',
+              width: '100%', height: matchMobile ? '62%' : '69%', overflow: 'auto',
             }}>
 
             <Grid
@@ -1000,9 +1000,20 @@ function ActualMenux({ showModalFormMenu,
 
                     }
 
+
+
+
+
+
+
                   }} key={i}
-                    className={i === 7 || i === 6 || i === 8 || i === 4 || i === 0 ? "dontallowhighlighting " : "click-effect dontallowhighlighting "}
+                    className={i === 7 || i === 6 || i === 8 || i === 4 || i === 0 ? "dontallowhighlighting " :
+                      "  click-effect dontallowhighlighting "}
+
                     style={{
+
+                      textShadow: memeberPageidReducer === 0 && i === 3 || memeberPageidReducer !== 0 && i === 2 && idReducer === memeberPageidReducer
+                        ? '2px 1px 8px rgba(0, 0, 0, 1)' : "   ",
 
                       backgroundImage: PadIndex === i ? `linear-gradient(45deg, ${RandomColor}, ${colorReducer})` :
                         PadIndex !== -1 ? '' :
@@ -1022,15 +1033,20 @@ function ActualMenux({ showModalFormMenu,
 
 
                     <span
+
                       style={{
-                        color: colr,
+
+                        color: memeberPageidReducer === 0 && i === 3 || memeberPageidReducer !== 0 && i === 2 && idReducer === memeberPageidReducer
+                          ? '#ffffff' : colr,
                         fontSize: matchMobile ? '1rem' : "1.1rem",
                         marginLeft: matchMobile ? '13vw' : '5vw',
                         fontFamily: "Roboto, Arial, Helvetica, sans-serif",
+                        fontWeight: 'normal',
+
 
                         opacity: i === 1 || i === 2 || i === 3 || i === 5 ? '1' : '0.3'
                       }}>
-                      {Title}
+                      <i>     {Title} </i >
                     </span>
 
 

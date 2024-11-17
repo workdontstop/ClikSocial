@@ -946,7 +946,7 @@ function Sliderx({
           if (matchMobile) {
             setstartAutoLock(true);
           }
-        }, 2000)
+        }, 4000)
 
 
         sethidezoomMono(true);

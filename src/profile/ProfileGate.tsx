@@ -192,6 +192,7 @@ function ProfileGatex({
     const navigate = useNavigate();
 
 
+
     const [Zoom1, setZoom1] = useState(false);
 
 
@@ -2953,7 +2954,7 @@ function ProfileGatex({
 
 
 
-                    <Grid item xs={4} md={2} style={{ padding: "0px", display: memeberPageid === 0 ? 'none' : 'block', height: '0px', }}>
+                    <Grid item xs={5} md={2} style={{ padding: "0px", display: memeberPageid === 0 ? 'none' : 'block', height: '0px', }}>
                         {" "}
                         <Grid
                             item
@@ -2962,10 +2963,10 @@ function ProfileGatex({
                                 position: "relative",
                                 width: widthProfilePic,
                                 height: "auto",
-                                top: matchMobile ? ShowImageSlider ? '5.8vh' : "11vh" :
+                                top: matchMobile ? ShowImageSlider ? '4vh' : "11vh" :
                                     ShowImageSlider ? '4vh' : '4vh',
 
-                                marginLeft: matchMobile ? "65vw" : '70vw',
+                                marginLeft: matchMobile ? "58vw" : '70vw',
                                 zIndex: 3,
                                 display: ExtendBill ? 'none' : 'block'
 
@@ -2987,7 +2988,7 @@ function ProfileGatex({
 
                                     backgroundImage: idReducer === memeberPageidReducer ? `linear-gradient(45deg, ${RandomColor}, ${colorReducer})` :
                                         `linear-gradient(45deg, ${RandomColor}, ${ColorMemberReducer})`,
-                                    left: matchMobile ? `-5vw` : '0.9vw',
+                                    left: matchMobile ? `-2vw` : '0.9vw',
                                     top: matchMobile ? '0px' : `0px`,
                                     opacity: 0.7,
                                     visibility: showModalFormMenu ? 'hidden' : "visible",
@@ -3052,6 +3053,7 @@ function ProfileGatex({
                                     filter: "blur(4px)",
                                     visibility: matchMobile && showModalFormMenu ? 'hidden' : 'visible',
 
+                                    padding: matchMobile ? "0.4vh" : '0vw',
                                 }}
 
 
@@ -3102,7 +3104,8 @@ function ProfileGatex({
                                     top: showModalFormMenu ? '-30vh' : "0px",
                                     margin: "auto",
                                     visibility: matchMobile && showModalFormMenu ? 'hidden' : 'visible',
-                                    display: memeberPageid === 0 ? 'none' : 'block'
+                                    display: memeberPageid === 0 ? 'none' : 'block',
+                                    padding: matchMobile ? "0.4vh" : '0vw',
                                 }}
 
 

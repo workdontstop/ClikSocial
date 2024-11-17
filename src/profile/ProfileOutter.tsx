@@ -16,8 +16,8 @@ import { ActualMenu } from "./ActualMenu";
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 import { decodeBase64, encodeBase64 } from './utils';
-
-
+import InfoIcon from '@material-ui/icons/Info';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -28,7 +28,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Axios from "axios";
 
-
+import { Privacy } from "./Privacy";
 import { CommentTemplate } from "../CommentTemplate";
 import { ProfileGate } from "./ProfileGate";
 
@@ -106,6 +106,10 @@ function ProfileOutter({ CallLoggedProfile }: any) {
 
 
   const dispatch = useDispatch();
+
+
+
+
 
 
   ///
@@ -1421,6 +1425,21 @@ function ProfileOutter({ CallLoggedProfile }: any) {
                             checkIfColorChanged={checkIfColorChanged}
                             setcheckIfColorChanged={setcheckIfColorChanged}
                           />}
+
+
+
+                      />
+
+
+
+                      <Route
+                        path="/Privacy"
+                        element={
+                          <Privacy
+
+                            setCurrentPage={setCurrentPage}
+
+                          />}
                       />
                     </Route>
 
@@ -1516,7 +1535,7 @@ function ProfileOutter({ CallLoggedProfile }: any) {
                             backgroundColor: darkmodeReducer
                               ? "rgba(50,50,50,0.85)"
                               : "rgba(210,210,210,0.86)",
-                            height: matchMobile ? "53%" : '64.5%',
+                            height: matchMobile ? "30%" : '40.5%',
                             marginTop: "0vh",
                             textAlign: "center",
                             justifyContent: "center",
@@ -1577,8 +1596,6 @@ function ProfileOutter({ CallLoggedProfile }: any) {
 
 
 
-
-
                         <Grid
                           xs={4}
                           style={{
@@ -1586,8 +1603,8 @@ function ProfileOutter({ CallLoggedProfile }: any) {
                             backgroundColor: darkmodeReducer
                               ? "rgba(50,50,50,0.85)"
                               : "rgba(210,210,210,0.86)",
-                            height: matchMobile ? "53%" : '64.5%',
-                            marginTop: "0vh",
+                            height: matchMobile ? "30%" : '40.5%',
+
                             textAlign: "center",
                             justifyContent: "center",
                             display: "grid",
@@ -1596,20 +1613,26 @@ function ProfileOutter({ CallLoggedProfile }: any) {
                             zIndex: 10,
                           }}
                         >
-                          <Switch
-                            size="medium"
-                            checked={darkmodeReducer}
+                          <InfoIcon
+                            onClick={() => {
+
+                              // Navigate to the privacy page
+                              window.location.href = REACT_APP_APPX_STATE === 'dev' ? "http://192.168.1.236:3000/privacy/" : "https://www.clikbate.com/privacy";
+
+
+
+                            }}
                             className={
                               darkmodeReducer
-                                ? "make-small-icons-clickable-lightCroptheme  "
-                                : "make-small-icons-clickable-darkCroptheme    "
+                                ? "make-small-icons-clickable-lightCrop turdark dontallowhighlighting zuperkingIcon "
+                                : "make-small-icons-clickable-darkCrop  turdark dontallowhighlighting zuperkingIcon  "
                             }
                             style={{
+                              margin: "auto",
+                              color: '',
                               fontSize:
-                                matchTablet || matchMobile ? "2.8vh" : "2.9vw",
-                            }}
-                            onChange={() => {
-                              switchThemes();
+                                matchTablet || matchMobile ? "4.8vh" : "2.9vw",
+                              opacity: 0.8
                             }}
                           />
                           <Grid
@@ -1623,13 +1646,19 @@ function ProfileOutter({ CallLoggedProfile }: any) {
                                   : "1.9vh",
                               fontWeight: "bolder",
                               fontFamily: "Arial, Helvetica, sans-serif",
-
                               color: darkmodeReducer ? "#dddddd" : "#0b111b",
                             }}
                           >
-                            Theme
+                            Privacy
                           </Grid>
                         </Grid>
+
+
+
+
+
+
+
                         <Grid
                           xs={4}
                           style={{
@@ -1637,7 +1666,7 @@ function ProfileOutter({ CallLoggedProfile }: any) {
                             backgroundColor: darkmodeReducer
                               ? "rgba(50,50,50,0.85)"
                               : "rgba(210,210,210,0.86)",
-                            height: matchMobile ? "53%" : '64.5%',
+                            height: matchMobile ? "30%" : '40.5%',
                             marginTop: "0vh",
                             textAlign: "center",
                             justifyContent: "center",
@@ -1680,6 +1709,62 @@ function ProfileOutter({ CallLoggedProfile }: any) {
                         </Grid>
 
 
+
+
+
+
+                        <Grid
+                          xs={12}
+                          style={{
+                            padding: "0px",
+                            marginTop: matchMobile ? "-30vh" : '-14vh',
+                            backgroundColor: darkmodeReducer
+                              ? "rgba(50,50,50,0.85)"
+                              : "rgba(210,210,210,0.86)",
+                            height: matchMobile ? "30%" : '40.5%',
+
+                            textAlign: "center",
+                            justifyContent: "center",
+                            display: "grid",
+                            alignItems: "center",
+                            position: "relative",
+                            zIndex: 10,
+                          }}
+                        >
+                          <Switch
+                            size="medium"
+                            checked={darkmodeReducer}
+                            className={
+                              darkmodeReducer
+                                ? "make-small-icons-clickable-lightCroptheme  "
+                                : "make-small-icons-clickable-darkCroptheme    "
+                            }
+                            style={{
+                              fontSize:
+                                matchTablet || matchMobile ? "2.8vh" : "2.9vw",
+                            }}
+                            onChange={() => {
+                              switchThemes();
+                            }}
+                          />
+                          <Grid
+                            item
+                            xs={12}
+                            style={{
+                              fontSize: matchPc
+                                ? "1.1vw"
+                                : matchTablet
+                                  ? "2vh"
+                                  : "1.9vh",
+                              fontWeight: "bolder",
+                              fontFamily: "Arial, Helvetica, sans-serif",
+
+                              color: darkmodeReducer ? "#dddddd" : "#0b111b",
+                            }}
+                          >
+                            Theme
+                          </Grid>
+                        </Grid>
 
 
 
