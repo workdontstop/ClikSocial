@@ -15,6 +15,8 @@ import { matchMobile, matchPc, matchTablet } from "../DetectDevice";
 import ZoomOutIcon from "@mui/icons-material/ZoomOut";
 import { useParams } from 'react-router-dom';
 
+import { UpdateLoader } from ".././GlobalActions";
+
 import Axios from "axios";
 import { UpdateInteract, MuteAction, MuteIndexAudio } from ".././GlobalActions";
 import { Tutorial } from "../Tutorial";
@@ -138,6 +140,11 @@ function Sliderx({
 
   InteractTimerxxhya1,
   InteractTimerxxhya2,
+  GetMoreFeeds,
+
+  postData,
+  sqlQUERYlIMIT
+
 
 
 
@@ -165,11 +172,17 @@ function Sliderx({
   const postImageRef = useRef<HTMLImageElement>(null);
 
 
+
   const [Unload, setUnload] = useState(false);
 
   const InteractTimerxxhyx = useRef<ReturnType<typeof setTimeout> | null>(
     null
   );
+
+  const lo = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
+
 
   const InteractTimerxxhyx2 = useRef<ReturnType<typeof setTimeout> | null>(
     null
@@ -739,6 +752,15 @@ function Sliderx({
 
   const startinview = useCallback(() => {
 
+
+    if (InteractTimerxxhya1.current) {
+      clearTimeout(InteractTimerxxhya1.current);
+    }
+    if (InteractTimerxxhya2.current) {
+      clearTimeout(InteractTimerxxhya2.current);
+    }
+
+
     if (divBox.current) {
 
 
@@ -746,7 +768,23 @@ function Sliderx({
       if (inView) {
 
 
+        if (pey === postData.length - 1 && postData.length === sqlQUERYlIMIT) {
 
+          dispatch(UpdateLoader(true));
+
+
+          if (lo.current) {
+            clearTimeout(lo.current);
+          } lo.current = setTimeout(() => {
+
+
+            dispatch(UpdateLoader(false));
+            GetMoreFeeds();
+
+
+          }, 3500);
+
+        }
         if (ExtendBill) {
           setExtendBill(false);
           setFeedType(HoldFeedType);
@@ -771,7 +809,7 @@ function Sliderx({
               setstartAutoLock(false);
             }
           }
-        }, 10)
+        }, 5)
 
 
 
@@ -938,6 +976,18 @@ function Sliderx({
 
       } else {
 
+        if (lo.current) {
+          clearTimeout(lo.current);
+        }
+
+
+        if (pey === postData.length - 1) {
+
+          dispatch(UpdateLoader(false));
+
+        }
+
+
 
         if (InteractTimerxxhya1.current) {
           clearTimeout(InteractTimerxxhya1.current);
@@ -946,7 +996,7 @@ function Sliderx({
           if (matchMobile) {
             setstartAutoLock(true);
           }
-        }, 4000)
+        }, 5000)
 
 
         sethidezoomMono(true);

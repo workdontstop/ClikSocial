@@ -1399,7 +1399,7 @@ function ProfileGatex({
                     console.error("Error in checkIsLogged:", error);
                 });
 
-        }, 500)
+        }, 1000)
     }, [idReducer, IdReactRouterAsInt, memeberPageidReducer, PagenumReactRouter]);
 
 
@@ -2059,108 +2059,114 @@ function ProfileGatex({
 
     const callfeeds = useCallback(
         (aa: number, postPageLimitx: any, fromPagination: number, Explain: number) => {
-            var cboy = {
-                id: idReducer,
-                id2: idReducer,
-                id3: aa,
-                postPageLimit: postPageLimitx,
-            };
-
-
-
-
-
-            dispatch(Updatepagenum(0));
-
-            dispatch(UpdateLoader(true));
-
-
-
-            var tt = "";
-
-            if (aa === 0) {
-
-                if (FeedType === 2) {
-
-                    // alert('hh');
-
-                    tt = "feeds_chronologicalExplain";
-                }
-                else if (FeedType === 1) {
-
-                    tt = "feeds_chronological";
-                }
-                else {
-                    tt = "feeds_chronologicalAll";
-                }
-
-
-
-            } else {
-
-
-
-                tt = "profile";
-
-
-
-
-
-                setTimeout(() => {
-                    /// paperPostScrollRef.current.scrollTop = 0;
-                }, 1000);
-
+            if (Ti.current) {
+                clearTimeout(Ti.current);
             }
 
 
-            ///alert(historyDataPost.length);
-
-
-
-            //setScrollTo(0);
-
-
-
-            Axios.post(
-                `${REACT_APP_SUPERSTARZ_URL}/${tt}`,
-                {
-                    values: cboy,
-                },
-                {
-                    withCredentials: true,
-                }
-            )
-                .then((response) => {
-                    if (response.data.message === "feeds fetched") {
-
-
-
-                        var postdataRep = response.data.payload;
-
-
-                        if (postdataRep.length === 0) {
-
-                            dispatch(UpdateLoader(false));
-
-                        } else {
-                            CallFirstFeed(postdataRep, postPageLimitx);
-
-                        }
+            Ti.current = setTimeout(() => {
+                var cboy = {
+                    id: idReducer,
+                    id2: idReducer,
+                    id3: aa,
+                    postPageLimit: postPageLimitx,
+                };
 
 
 
 
 
+                dispatch(Updatepagenum(0));
 
-                    } else if (response.data.message === "error in fetching feeds") {
-                        alert("Ongoing Security Updates, Pls Try Again Later");
+                dispatch(UpdateLoader(true));
+
+
+
+                var tt = "";
+                // alert(aa);
+                if (aa === 0) {
+
+                    if (FeedType === 2) {
+
+                        // alert('hh');
+
+                        tt = "feeds_chronologicalExplain";
                     }
-                })
-                .catch(function (error) {
-                    console.log("Connection malfunction profile outter 2");
-                });
+                    else if (FeedType === 1) {
+
+                        tt = "feeds_chronological";
+                    }
+                    else {
+                        tt = "feeds_chronologicalAll";
+                    }
 
 
+
+                } else {
+
+
+
+                    tt = "profile";
+
+
+
+
+
+                    setTimeout(() => {
+                        /// paperPostScrollRef.current.scrollTop = 0;
+                    }, 1000);
+
+                }
+
+
+                ///alert(historyDataPost.length);
+
+
+
+                //setScrollTo(0);
+
+
+
+                Axios.post(
+                    `${REACT_APP_SUPERSTARZ_URL}/${tt}`,
+                    {
+                        values: cboy,
+                    },
+                    {
+                        withCredentials: true,
+                    }
+                )
+                    .then((response) => {
+                        if (response.data.message === "feeds fetched") {
+
+
+
+                            var postdataRep = response.data.payload;
+
+
+                            if (postdataRep.length === 0) {
+
+                                dispatch(UpdateLoader(false));
+
+                            } else {
+                                CallFirstFeed(postdataRep, postPageLimitx);
+
+                            }
+
+
+
+
+
+
+                        } else if (response.data.message === "error in fetching feeds") {
+                            alert("Ongoing Security Updates, Pls Try Again Later");
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log("Connection malfunction profile outter 2");
+                    });
+
+            }, 500)
         },
         [idReducer, REACT_APP_SUPERSTARZ_URL, memeberPageidReducer, postPageLimit, historyDataPost, PostLocalNav, FeedType]
     );
@@ -2171,6 +2177,10 @@ function ProfileGatex({
 
 
     const Timercc = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    const Ti = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+
 
 
 
@@ -2231,6 +2241,7 @@ function ProfileGatex({
 
 
 
+
     const callPagination = useCallback((explain: boolean) => {
 
         updateCurrentURLWithScrollPosition();
@@ -2267,40 +2278,76 @@ function ProfileGatex({
 
         /// setminiProfile(false);
         /// alert(postPageLimit);
-        if (memeberPageidReducer === 0) {
 
 
-            ///xalert(memeberPageidReducer);
-            //alert('kjkj;lkjhgf')
+        if (FeedType === 0) {
+            callPaginationAllx(xx);
 
-            setTimeout(() => {
-
-                if (explain) {
-                    callfeeds(0, xx, 1, 1);
-                } else {
-
-                    callfeeds(0, xx, 1, 0);
-                }
-                /// alert('lkkk');
-
-            }, time);
-        } else {
+        } else if (FeedType === 1) {
 
 
-            setTimeout(() => {
 
-                if (explain) {
-                    callfeeds(memeberPageidReducer, xx, 1, 1);
-                } else {
-                    callfeeds(memeberPageidReducer, xx, 1, 0);
-                }
-            }, time);
+            callPaginationxx(xx);
 
+        } else if (FeedType === 2) {
+
+
+            Explainxx(xx);
         }
 
 
 
-    }, [postPageLimit, memeberPageidReducer, ActualpostDataAll])
+
+    }, [postPageLimit, memeberPageidReducer, ActualpostDataAll, FeedType])
+
+
+
+    const Explainxx = useCallback((x: any) => {
+        var time = 1500;
+        if (memeberPageidReducer === 0) {
+
+            setTimeout(() => {
+                callfeeds(0, x, 1, 1);
+            }, time);
+        } else {
+            setTimeout(() => {
+                callfeeds(memeberPageidReducer, x, 1, 1);
+            }, time);
+        }
+    }, [postPageLimit, memeberPageidReducer, FeedType]);
+
+
+
+    const callPaginationxx = useCallback((x: any) => {
+        var time = 100;
+        if (memeberPageidReducer === 0) {
+
+            setTimeout(() => {
+                callfeeds(0, x, 1, 0);
+            }, time);
+        } else {
+            setTimeout(() => {
+                callfeeds(memeberPageidReducer, x, 1, 0);
+            }, time);
+        }
+    }, [postPageLimit, memeberPageidReducer, FeedType])
+
+
+
+
+    const callPaginationAllx = useCallback((x: any) => {
+        var time = 100;
+        if (memeberPageidReducer === 0) {
+
+            setTimeout(() => {
+                callfeeds(0, x, 1, 2);
+            }, time);
+        } else {
+            setTimeout(() => {
+                callfeeds(memeberPageidReducer, x, 1, 2);
+            }, time);
+        }
+    }, [postPageLimit, memeberPageidReducer, FeedType])
 
 
 

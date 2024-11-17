@@ -90,7 +90,7 @@ function LoaderPostx({ sliderLoader, autoSlideDisplay, post, RandomColor, minimi
 
                             `linear-gradient(45deg, ${colorReducer}, ${post.color1})` :
                         `linear-gradient(45deg, ${RandomColor}, ${colorReducer})`,
-                    height: "0.8vh",
+                    height: "1.5vh",
                     position: "absolute",
                     display: autoSlideDisplay,
                     zIndex: 100000,

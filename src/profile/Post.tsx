@@ -196,6 +196,9 @@ function Postx({
 
   InteractTimerxxhya1,
   InteractTimerxxhya2,
+  GetMoreFeeds,
+
+  sqlQUERYlIMIT
 
 
 
@@ -2464,6 +2467,9 @@ function Postx({
 
 
               <Slider
+                sqlQUERYlIMIT={sqlQUERYlIMIT}
+                postData={postData}
+                GetMoreFeeds={GetMoreFeeds}
 
                 InteractTimerxxhya1={InteractTimerxxhya1}
                 InteractTimerxxhya2={InteractTimerxxhya2}

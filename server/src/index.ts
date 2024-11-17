@@ -312,7 +312,7 @@ INNER JOIN members ON posts.sender = members.id
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.topic = ? 
 ORDER BY posts.id DESC
-LIMIT 22;
+LIMIT 18;
 `;
 
 const postsxExplain = `
@@ -342,7 +342,7 @@ INNER JOIN members ON posts.sender = members.id
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.private = 0 AND posts.mode = 1
 ORDER BY posts.id DESC
-LIMIT 22;
+LIMIT 18;
 `;
 
 const postsx = `
@@ -376,7 +376,7 @@ INNER JOIN members ON posts.sender = members.id
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.mode = 0
 ORDER BY posts.id DESC
-LIMIT 22;
+LIMIT 18;
 `;
 
 const posts_moreExplain = `
@@ -406,7 +406,7 @@ INNER JOIN members ON posts.sender = members.id
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.private = 0 AND posts.mode = 1 AND posts.id < ?
 ORDER BY posts.id DESC
-LIMIT 22;
+LIMIT 18;
 `;
 
 const posts_more = `
@@ -441,7 +441,7 @@ INNER JOIN members ON posts.sender = members.id AND posts.id < ?
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.mode = 0
 ORDER BY posts.id DESC
-LIMIT 22;
+LIMIT 18;
 `;
 
 const postsxAll = `
@@ -475,7 +475,7 @@ INNER JOIN members ON posts.sender = members.id
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.private = 0
 ORDER BY posts.id DESC
-LIMIT 22;
+LIMIT 18;
 `;
 
 const postsxAllmore = `
@@ -510,7 +510,7 @@ INNER JOIN members ON posts.sender = members.id AND posts.id < ?
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.private = 0
 ORDER BY posts.id DESC
-LIMIT 22;
+LIMIT 18;
 `;
 
 const updateColor = `UPDATE members SET  color1 = ? WHERE (id = ?)`;
@@ -658,7 +658,7 @@ INNER JOIN members ON posts.sender = members.id
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.mode = 1 AND posts.sender = ?
 ORDER BY posts.id DESC
-LIMIT 22;
+LIMIT 18;
 
 `;
 
@@ -698,7 +698,7 @@ LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post =
 
 WHERE posts.sender = ? 
 ORDER BY posts.id DESC
-LIMIT 22;
+LIMIT 18;
 
 
 `;
@@ -729,7 +729,7 @@ INNER JOIN members ON posts.sender = members.id
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 WHERE posts.mode = 1 AND posts.sender = ? AND posts.id < ?
 ORDER BY posts.id DESC
-LIMIT 22;
+LIMIT 18;
 
 
 `;
@@ -769,7 +769,7 @@ LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post =
 WHERE posts.sender = ? AND posts.id < ?  
 
 ORDER BY posts.id DESC
-LIMIT 22;
+LIMIT 18;
 
 
 

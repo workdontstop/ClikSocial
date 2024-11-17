@@ -141,7 +141,7 @@ function Profilex({
   const [countAutoplay, setcountAutoplay] = useState<number>(0);
 
   const dispatch = useDispatch();
-  const sqlQUERYlIMIT = 22;
+  const sqlQUERYlIMIT = 18;
 
 
 
@@ -474,6 +474,25 @@ function Profilex({
     };
   }
 
+
+  const GetMoreFeeds = useCallback(() => {
+
+
+    setminiProfile(false);
+
+    if (FeedType === 1) {
+      callPagination(true);
+    } else {
+      callPagination(false);
+
+    }
+
+
+    if (sTimer3.current) {
+      clearTimeout(sTimer3.current);
+    }
+    ///paperPostScrollRef.current.scrollTop = 20;
+  }, [memeberPageidReducer, FeedType])
   ///
   ///
   ///
@@ -1702,6 +1721,10 @@ function Profilex({
                         }}
                       >
                         <Post
+
+                          sqlQUERYlIMIT={sqlQUERYlIMIT}
+
+                          GetMoreFeeds={GetMoreFeeds}
                           InteractTimerxxhya1={InteractTimerxxhya1}
                           InteractTimerxxhya2={InteractTimerxxhya2}
 
@@ -1839,7 +1862,8 @@ function Profilex({
               xs={12}
               style={{
                 padding: '0px', margin: 'auto', textAlign: 'center',
-                marginTop: matchMobile ? minimise ? '2vh' : '1vh' : '5vh'
+                marginTop: matchMobile ? minimise ? '2vh' : '1vh' : '5vh',
+                display: 'none'
               }}
             >
               <ControlPointIcon
@@ -1847,20 +1871,6 @@ function Profilex({
                 onClick={(e: any) => {
 
 
-                  setminiProfile(false);
-
-                  if (FeedType === 1) {
-                    callPagination(true);
-                  } else {
-                    callPagination(false);
-
-                  }
-
-
-                  if (sTimer3.current) {
-                    clearTimeout(sTimer3.current);
-                  }
-                  ///paperPostScrollRef.current.scrollTop = 20;
 
                 }}
 
