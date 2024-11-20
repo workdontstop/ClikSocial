@@ -197,6 +197,7 @@ function Postx({
   InteractTimerxxhya1,
   InteractTimerxxhya2,
   GetMoreFeeds,
+  GetMoreFeedsprofile,
 
   sqlQUERYlIMIT
 
@@ -2470,6 +2471,7 @@ function Postx({
                 sqlQUERYlIMIT={sqlQUERYlIMIT}
                 postData={postData}
                 GetMoreFeeds={GetMoreFeeds}
+                GetMoreFeedsprofile={GetMoreFeedsprofile}
 
                 InteractTimerxxhya1={InteractTimerxxhya1}
                 InteractTimerxxhya2={InteractTimerxxhya2}
@@ -3296,7 +3298,7 @@ function Postx({
                   </Grid>
 
                   <div style={{
-                    position: 'absolute', bottom: matchMobile ? '-10vh' : '56.5vh',
+                    position: 'absolute', bottom: matchMobile ? '-7.7vh' : '58.5vh',
                     left: '-60%',
                     visibility: inV ? AutoGo ? 'visible' : 'visible' : 'visible',
                     transition: "transform 0.1s",
@@ -3332,8 +3334,8 @@ function Postx({
 
                   <div style={{
                     position: 'absolute', bottom:
-                      matchMobile ? Ein === null || Ein === 0 ? '-23.3vh' : '-23.2vh' :
-                        '42.3vh', left: matchMobile ? '-25%' : '-30%',
+                      matchMobile ? Ein === null || Ein === 0 ? '-21.1vh' : '-20.2vh' :
+                        '44.3vh', left: matchMobile ? '-25%' : '-30%',
                     visibility: inV ? AutoGo ? 'visible' : 'visible' : 'visible',
                     transition: "transform 0.1s",
                   }}>

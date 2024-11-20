@@ -141,6 +141,7 @@ function Sliderx({
   InteractTimerxxhya1,
   InteractTimerxxhya2,
   GetMoreFeeds,
+  GetMoreFeedsprofile,
 
   postData,
   sqlQUERYlIMIT
@@ -317,6 +318,69 @@ function Sliderx({
 
 
   }, [minimise])
+
+
+  ///
+  ///
+  ///
+  /// GET LOGGED USER DATA FROM REDUX STORE
+  interface RootStateReducerImage {
+    UserdataReducer: {
+      id: number;
+      image: string;
+      username: string;
+      quote: string;
+      billboard1: string;
+      billboard2: string;
+      billboardthumb1: string;
+      billboardthumb2: string;
+      fans: number;
+      favorites: number;
+      memeberPageid: number;
+      MemberProfileData: any;
+      billboardstate: number;
+      reg: number,
+      imageThumb: string;
+    };
+  }
+  const {
+    id,
+    image,
+    username,
+    quote,
+    billboard1,
+    billboard2,
+    billboardthumb1,
+    billboardthumb2,
+    fans,
+    favorites,
+    memeberPageid,
+    MemberProfileData,
+    billboardstate,
+    reg,
+    imageThumb
+
+  } = useSelector((state: RootStateReducerImage) => ({
+    ...state.UserdataReducer,
+  }));
+
+  const [usernameReducer, setusernameReducer] = useState("");
+
+  const idReducer = id;
+  const imageReducerx = image;
+  const imageReducerxx = imageThumb;
+
+  const billboard1Reducer = billboard1;
+  const billboardstateReducer = billboardstate;
+  const billboard2Reducer = billboard2;
+  const billboardthumb1Reducer = billboardthumb1;
+  const billboardthumb2Reducer = billboardthumb2;
+  const memeberPageidReducer = memeberPageid;
+  const MemberProfileDataReducer = MemberProfileData;
+  const regReducer = reg;
+
+  //const fansReducer = fans;
+
 
 
   interface RootStateGlobalReducer {
@@ -766,23 +830,25 @@ function Sliderx({
 
 
       if (inView) {
+        if (postData.length > 0) {
+
+          if (pey === postData.length - 1 && postData.length === sqlQUERYlIMIT) {
+
+            dispatch(UpdateLoader(true));
 
 
-        if (pey === postData.length - 1 && postData.length === sqlQUERYlIMIT) {
-
-          dispatch(UpdateLoader(true));
-
-
-          if (lo.current) {
-            clearTimeout(lo.current);
-          } lo.current = setTimeout(() => {
+            if (lo.current) {
+              clearTimeout(lo.current);
+            } lo.current = setTimeout(() => {
 
 
-            dispatch(UpdateLoader(false));
-            GetMoreFeeds();
+              dispatch(UpdateLoader(false));
+
+              GetMoreFeeds();
 
 
-          }, 3500);
+            }, 5000);
+          }
 
         }
         if (ExtendBill) {

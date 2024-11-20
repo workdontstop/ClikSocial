@@ -130,7 +130,9 @@ function Profilex({
   ExtendBill,
   HoldFeedType,
   mono,
-  setmono
+  setmono,
+  callPaginationProfile,
+  ProfileFeed
 
 
 
@@ -445,6 +447,8 @@ function Profilex({
   const postTimer7 = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cloudTimer2 = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const Ticx2 = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const timeoutToClearInterval = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const postTimer6I = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -473,26 +477,64 @@ function Profilex({
 
     };
   }
-
+  const [hh, sethh] = useState(false);
 
   const GetMoreFeeds = useCallback(() => {
 
-
-    setminiProfile(false);
-
-    if (FeedType === 1) {
-      callPagination(true);
-    } else {
-      callPagination(false);
-
+    if (Ticx2.current) {
+      clearTimeout(Ticx2.current);
     }
+    sethh(true);
+
+    Ticx2.current = setTimeout(() => {
+
+      setminiProfile(false);
 
 
-    if (sTimer3.current) {
-      clearTimeout(sTimer3.current);
-    }
-    ///paperPostScrollRef.current.scrollTop = 20;
+      if (FeedType === 1) {
+        callPagination(true);
+      } else {
+        callPagination(false);
+
+      }
+
+
+      if (sTimer3.current) {
+        clearTimeout(sTimer3.current);
+      }
+      ///paperPostScrollRef.current.scrollTop = 20;
+    }, 500)
+
   }, [memeberPageidReducer, FeedType])
+
+  const GetMoreFeedsprofile = useCallback(() => {
+    if (hh) { } else {
+      if (Ticx2.current) {
+        clearTimeout(Ticx2.current);
+      }
+      sethh(true);
+
+      Ticx2.current = setTimeout(() => {
+
+        setminiProfile(false);
+        sethh(false);
+
+        if (FeedType === 1) {
+          callPaginationProfile(true);
+        } else {
+          callPaginationProfile(false);
+
+        }
+
+
+        if (sTimer3.current) {
+          clearTimeout(sTimer3.current);
+        }
+        ///paperPostScrollRef.current.scrollTop = 20;
+      }, 500)
+    }
+  }, [memeberPageidReducer, FeedType])
+
   ///
   ///
   ///
@@ -1721,6 +1763,7 @@ function Profilex({
                         }}
                       >
                         <Post
+                          GetMoreFeedsprofile={GetMoreFeedsprofile}
 
                           sqlQUERYlIMIT={sqlQUERYlIMIT}
 

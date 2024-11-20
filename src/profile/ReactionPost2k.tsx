@@ -218,6 +218,21 @@ function ReactionPost2kx({ Ein,
                     >
                         {Emo4Num === 0 ? "" : Emo4Num}
                     </span>
+                    {/* Red Circle */}
+                    <div
+                        style={{
+                            position: "absolute",
+                            bottom: matchMobile ? '-8.5vh' : "-7.7vh", // Adjust to position the circle below the icon
+                            left: "50%",
+                            transform: "translateX(-50%)",
+                            width: "10px", // Diameter of the circle
+                            height: "10px",
+                            backgroundColor: colorx,
+                            borderRadius: "50%",
+                            display: EinReaction === 4 ? 'block' : 'none',
+                            zIndex: 1, // Ensure it appears below the icon
+                        }}
+                    ></div>
                 </span>
 
 

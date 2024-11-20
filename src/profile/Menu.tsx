@@ -242,14 +242,16 @@ function Menux({
       updateCurrentURLWithScrollPosition();
     }
 
+    dispatch(UserInfoUpdateMEMBER(0));
+    setIdReactRouterAsInt(0);
+    setScrollReactRouter(0)
+
     setTimeout(() => {
 
       // Navigate to the new URL with the new ID
       navigate(`/Feeds/${encodedId}/${encodeBase64('0')}/${encodeBase64('0')}/${encodeBase64('0')}}`);
-      dispatch(UserInfoUpdateMEMBER(0));
-      setIdReactRouterAsInt(0);
-      setScrollReactRouter(0)
-    }, 400)
+
+    }, 40)
 
 
   };
@@ -332,13 +334,14 @@ function Menux({
       updateCurrentURLWithScrollPosition();
     }
 
+    dispatch(UserInfoUpdateMEMBER(idReducer));
+    setIdReactRouterAsInt(idReducer);
+    setScrollReactRouter(0)
+
 
     // Navigate to the new URL with the new ID
     navigate(`/Feeds/${encodedId}/${encodeBase64('0')}/${encodeBase64('0')}/${encodeBase64('0')}}`);
 
-    dispatch(UserInfoUpdateMEMBER(idReducer));
-    setIdReactRouterAsInt(idReducer);
-    setScrollReactRouter(0)
 
   };
 

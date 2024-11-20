@@ -2057,6 +2057,9 @@ function ProfileGatex({
     }
 
 
+    const [ProfileFeed, setProfileFeed] = useState(false);
+
+
     const callfeeds = useCallback(
         (aa: number, postPageLimitx: any, fromPagination: number, Explain: number) => {
             if (Ti.current) {
@@ -2083,7 +2086,7 @@ function ProfileGatex({
 
 
                 var tt = "";
-                // alert(aa);
+
                 if (aa === 0) {
 
                     if (FeedType === 2) {
@@ -2102,12 +2105,14 @@ function ProfileGatex({
 
 
 
+
+
                 } else {
 
 
 
                     tt = "profile";
-
+                    //alert('kjjj');
 
 
 
@@ -2115,6 +2120,8 @@ function ProfileGatex({
                     setTimeout(() => {
                         /// paperPostScrollRef.current.scrollTop = 0;
                     }, 1000);
+
+
 
                 }
 
@@ -2144,6 +2151,8 @@ function ProfileGatex({
                             var postdataRep = response.data.payload;
 
 
+
+
                             if (postdataRep.length === 0) {
 
                                 dispatch(UpdateLoader(false));
@@ -2170,6 +2179,7 @@ function ProfileGatex({
         },
         [idReducer, REACT_APP_SUPERSTARZ_URL, memeberPageidReducer, postPageLimit, historyDataPost, PostLocalNav, FeedType]
     );
+
 
 
 
@@ -2240,11 +2250,31 @@ function ProfileGatex({
     }, [FeedType]);
 
 
+    const updateCurrentURLWithScrollPositionx = useCallback((ty: any) => {
+        var x = 0;
+
+        const currentPath = location.pathname.split('/');
+        const currentIdRoute1 = currentPath[currentPath.length - 4]; // Assuming idRoute1 is the fourth last segment
+        const currentIdRoute2 = currentPath[currentPath.length - 3]; // Assuming idRoute2 is the third last segment
+        const currentIdRoute3 = currentPath[currentPath.length - 2]; // Assuming idRoute3 is the second last segment
+        const currentIdRoute4 = currentPath[currentPath.length - 1]; // Assuming idRoute4 is the last segment
+
+        const encodedScrollIndex = encodeBase64(x.toString());
+        const encodedFeedtype = encodeBase64(ty.toString());
+
+
+
+        navigate(`/Feeds/${currentIdRoute1}/${encodedScrollIndex}/${currentIdRoute3}/${encodedFeedtype}`, { replace: true });
+    }, [FeedType]);
+
+
+
 
 
     const callPagination = useCallback((explain: boolean) => {
 
-        updateCurrentURLWithScrollPosition();
+
+        // updateCurrentURLWithScrollPositionx(FeedType);
         setScrollReactRouter(0);
 
         var time = 50;
@@ -2264,95 +2294,104 @@ function ProfileGatex({
         Ticx2.current = setTimeout(() => {
             //pagePostScroll.current.scrollTop = 0;
             ///  paperPostScrollRef.current.scrollTop = 0;
-        }, 1500);
 
 
 
 
-        var xx = ActualpostDataAll[ActualpostDataAll.length - 3].id;
-
-        /////only update
-
-        ///alert(xx);
-        setPostPageLimit(xx);
-
-        /// setminiProfile(false);
-        /// alert(postPageLimit);
-
-
-        if (FeedType === 0) {
-            callPaginationAllx(xx);
-
-        } else if (FeedType === 1) {
 
 
 
-            callPaginationxx(xx);
+            var xx = ActualpostDataAll[ActualpostDataAll.length - 3].id;
 
-        } else if (FeedType === 2) {
-
-
-            Explainxx(xx);
-        }
+            /////only update
 
 
+            setPostPageLimit(xx);
 
+            /// setminiProfile(false);
+            /// alert(postPageLimit);
+            // alert(memeberPageidReducer);
 
-    }, [postPageLimit, memeberPageidReducer, ActualpostDataAll, FeedType])
+            if (memeberPageidReducer === 0) {
 
+                if (FeedType === 0) {
+                    callPaginationAllx(xx);
 
-
-    const Explainxx = useCallback((x: any) => {
-        var time = 1500;
-        if (memeberPageidReducer === 0) {
-
-            setTimeout(() => {
-                callfeeds(0, x, 1, 1);
-            }, time);
-        } else {
-            setTimeout(() => {
-                callfeeds(memeberPageidReducer, x, 1, 1);
-            }, time);
-        }
-    }, [postPageLimit, memeberPageidReducer, FeedType]);
+                } else if (FeedType === 1) {
 
 
 
-    const callPaginationxx = useCallback((x: any) => {
-        var time = 100;
-        if (memeberPageidReducer === 0) {
+                    callPaginationxx(xx);
 
-            setTimeout(() => {
-                callfeeds(0, x, 1, 0);
-            }, time);
-        } else {
-            setTimeout(() => {
-                callfeeds(memeberPageidReducer, x, 1, 0);
-            }, time);
-        }
-    }, [postPageLimit, memeberPageidReducer, FeedType])
+                } else if (FeedType === 2) {
+
+
+                    Explainxx(xx);
+                }
+            } else {
+
+                callfeeds(memeberPageidReducer, xx, 1, 1);
+            }
+
+        }, 500);
+
+
+
+    }, [postPageLimit, ActualpostDataAll, FeedType]);
+
+
+
+    const callPaginationProfile = useCallback((explain: boolean) => {
 
 
 
 
-    const callPaginationAllx = useCallback((x: any) => {
-        var time = 100;
-        if (memeberPageidReducer === 0) {
 
-            setTimeout(() => {
-                callfeeds(0, x, 1, 2);
-            }, time);
-        } else {
-            setTimeout(() => {
-                callfeeds(memeberPageidReducer, x, 1, 2);
-            }, time);
-        }
-    }, [postPageLimit, memeberPageidReducer, FeedType])
+
+
+    }, []);
+
+
+
+    const Explainxx = useCallback((x: number) => {
+
+
+
+        callfeeds(0, x, 1, 1);
+
+
+    }, [postPageLimit, FeedType]);
+
+
+
+    const callPaginationxx = useCallback((x: number) => {
+
+
+
+        callfeeds(0, x, 1, 0);
+
+
+
+
+    }, [postPageLimit, FeedType])
+
+
+
+
+    const callPaginationAllx = useCallback((x: number) => {
+
+
+
+
+        callfeeds(0, x, 1, 2);
+
+
+    }, [postPageLimit, FeedType])
 
 
 
     const Explainx = useCallback(() => {
-        var time = 1500;
+        var time = 100;
         if (memeberPageidReducer === 0) {
 
             setTimeout(() => {
@@ -3760,6 +3799,8 @@ function ProfileGatex({
 
                         }}>
                             <ProfileSetup
+                                ProfileFeed={ProfileFeed}
+                                callPaginationProfile={callPaginationProfile}
                                 mono={mono}
                                 setmono={setmono}
 

@@ -122,7 +122,9 @@ function ProfileSetupx({
     zoomedModal,
     setZoomedModal,
     mono,
-    setmono
+    setmono,
+    callPaginationProfile,
+    ProfileFeed
 
 
 
@@ -360,6 +362,8 @@ function ProfileSetupx({
                     position: "relative", zIndex: 1, padding: "0px"
                 }}>
                     <Profile
+                        ProfileFeed={ProfileFeed}
+                        callPaginationProfile={callPaginationProfile}
                         mono={mono}
                         setmono={setmono}
 
