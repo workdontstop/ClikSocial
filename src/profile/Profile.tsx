@@ -132,7 +132,9 @@ function Profilex({
   mono,
   setmono,
   callPaginationProfile,
-  ProfileFeed
+  ProfileFeed,
+  verticalIndex,
+  setverticalIndex
 
 
 
@@ -698,7 +700,7 @@ function Profilex({
           setminimise(false);
         } else {
 
-          setminimise(true);
+          /// setminimise(true);
         }
 
 
@@ -1763,6 +1765,9 @@ function Profilex({
                         }}
                       >
                         <Post
+                          verticalIndex={verticalIndex}
+                          setverticalIndex={setverticalIndex}
+
                           GetMoreFeedsprofile={GetMoreFeedsprofile}
 
                           sqlQUERYlIMIT={sqlQUERYlIMIT}

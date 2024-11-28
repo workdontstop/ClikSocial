@@ -214,6 +214,9 @@ function ProfileOutter({ CallLoggedProfile }: any) {
   const colortypeReducer = colortype;
 
 
+  const [showVerticalFeeds, setshowVerticalFeeds] = useState(true);
+
+
 
   //
   ///
@@ -850,6 +853,8 @@ function ProfileOutter({ CallLoggedProfile }: any) {
                   ? "hidden"
                   : "auto",
               overflowX: "hidden",
+              position: 'fixed',
+              top: '0vh'
 
             }}
           >
@@ -934,7 +939,7 @@ function ProfileOutter({ CallLoggedProfile }: any) {
                     <animated.div style={fadeStyles}>
 
                       <Menu
-
+                        setshowVerticalFeeds={setshowVerticalFeeds}
 
                         localPostId={localPostId}
                         setlocalPostId={setlocalPostId}
@@ -1115,6 +1120,8 @@ function ProfileOutter({ CallLoggedProfile }: any) {
 
 
                           <ProfileGate
+                            showVerticalFeeds={showVerticalFeeds}
+                            setshowVerticalFeeds={setshowVerticalFeeds}
 
                             mono={mono}
                             setmono={setmono}

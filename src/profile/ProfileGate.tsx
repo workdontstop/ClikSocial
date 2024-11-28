@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { matchMobile, matchPc, matchTablet } from "../DetectDevice";
 import { RootStateOrAny, useSelector, useDispatch } from "react-redux";
+
 import { animated, useTransition, useSpring } from "react-spring";
 import { Button } from "@material-ui/core";
 import { Menu } from "./Menu";
@@ -177,7 +178,9 @@ function ProfileGatex({
     setExtendBill,
 
     mono,
-    setmono
+    setmono,
+    showVerticalFeeds,
+    setshowVerticalFeeds
 
 
 }: any): JSX.Element {
@@ -563,6 +566,16 @@ function ProfileGatex({
 
 
 
+    const [verticalIndex, setverticalIndex] = useState(-1);
+
+
+
+    const [holdminimise, setholdminimise] = useState(false);
+
+
+
+
+
     useEffect(() => {
 
 
@@ -824,7 +837,20 @@ function ProfileGatex({
     const [scrollLocation, setscrollLocation] = useState<number>(0);
     const [CommentHistoryData, setCommentHistoryData] = useState<Array<any>>([]);
     const [commentHistoryScroll, setcommentHistoryScroll] = useState<number>(0);
+
     const [ActualpostDataAll, setActualPostDataAll] = useState<Array<any>>([]);
+    const [ActualpostDataAll2, setActualPostDataAll2] = useState<Array<any>>([]);
+
+    const [Clicked1, setClicked1] = useState(false);
+    const [Clicked2, setClicked2] = useState(false);
+
+
+    const [ClickItVertical, setClickItVertical] = useState<Array<any>>([]);
+    const [ExplainItVertical, setExplainItVertical] = useState<Array<any>>([]);
+
+
+
+
     const [keypost, setkeypost] = useState(0);
     const [aboutTemplateGo, setaboutTemplateGo] = useState<boolean>(false);
     const [commentTemplateGo, setcommentTemplateGo] = useState<boolean>(false);
@@ -1370,11 +1396,13 @@ function ProfileGatex({
                 .then((response) => {
                     if (response.data.message === "logged in") {
 
+                        setClicked2(false);
+                        setClicked1(false);
+
                         ///  paperPostScrollRef.current.scrollTop = 0;
 
                         //alert(IdReactRouterAsInt);
 
-                        //paperPostScrollRef.current.scrollTop = 0;
                         dispatch(UserInfoUpdateMEMBERDATA(response.data.payload));
                         setprofileDataHold(response.data.payload);
                         setshowProfiileData(false);
@@ -1385,12 +1413,20 @@ function ProfileGatex({
                         ///alert(pagenumReducer);
                         setShowLoader2(false);
                         if (IdReactRouterAsInt === 0) {
-                            callfeeds(0, PagenumReactRouter, 0, 0);
+                            callfeeds(0, PagenumReactRouter, 0, 0, 0);
                         } else {
-                            callfeeds(response.data.payload.id, PagenumReactRouter, 0, 0);
+                            callfeeds(response.data.payload.id, PagenumReactRouter, 0, 0, 0);
                         }
 
-                        //paperPostScrollRef.current.scrollTop = 0;
+                        if (Ti2.current) {
+                            clearTimeout(Ti2.current);
+                        }
+
+
+                        Ti2.current = setTimeout(() => {
+                            paperPostScrollRef.current.scrollTop = 0;
+                        }, 1000);
+
                     } else if (response.data.message === "logged out") {
                         alert("Ongoing Security Updates Or You Are Logged Out, Please Try Again Later");
                     }
@@ -1400,7 +1436,7 @@ function ProfileGatex({
                 });
 
         }, 1000)
-    }, [idReducer, IdReactRouterAsInt, memeberPageidReducer, PagenumReactRouter]);
+    }, [idReducer, IdReactRouterAsInt, memeberPageidReducer, PagenumReactRouter, ScrollReactRouter]);
 
 
     const BiographyClickNew = () => {
@@ -1882,7 +1918,7 @@ function ProfileGatex({
             ///Replace modal history state with previous history state
             window.history.back();
             setshowProfiileData(false);
-            callfeeds(0, 0, 0, 0);
+            callfeeds(0, 0, 0, 0, 0);
         } else if (DeviceBackButtonClicked === 3) {
             window.history.back();
             setbillboardserverswitch(true);
@@ -2039,6 +2075,8 @@ function ProfileGatex({
         ///setActualDataTop(dividedData[2]);
 
 
+
+
         /// alert('alert');
         ////////////////
         setcallResponse1(true);
@@ -2058,10 +2096,10 @@ function ProfileGatex({
 
 
     const [ProfileFeed, setProfileFeed] = useState(false);
-
+    const [allowVerticalDatapush, setallowVerticalDatapush] = useState(false);
 
     const callfeeds = useCallback(
-        (aa: number, postPageLimitx: any, fromPagination: number, Explain: number) => {
+        (aa: number, postPageLimitx: any, fromPagination: number, Explain: number, allowVerticalData: number) => {
             if (Ti.current) {
                 clearTimeout(Ti.current);
             }
@@ -2086,6 +2124,7 @@ function ProfileGatex({
 
 
                 var tt = "";
+                var tt2 = "";
 
                 if (aa === 0) {
 
@@ -2094,13 +2133,15 @@ function ProfileGatex({
                         // alert('hh');
 
                         tt = "feeds_chronologicalExplain";
+                        tt2 = "feeds_chronological";
                     }
-                    else if (FeedType === 1) {
+                    else if (FeedType === 1 || FeedType === 0) {
 
                         tt = "feeds_chronological";
+                        tt2 = "feeds_chronologicalExplain";
                     }
                     else {
-                        tt = "feeds_chronologicalAll";
+
                     }
 
 
@@ -2111,8 +2152,25 @@ function ProfileGatex({
 
 
 
-                    tt = "profile";
-                    //alert('kjjj');
+
+                    if (FeedType === 2) {
+
+                        // alert('hh');
+
+
+                        tt = "profileExplain";
+                        tt2 = "profile";
+                    }
+                    else if (FeedType === 1 || FeedType === 0) {
+
+
+                        tt = "profile";
+                        tt2 = "profileExplain";
+                    }
+                    else {
+
+                    }
+
 
 
 
@@ -2135,6 +2193,37 @@ function ProfileGatex({
 
 
                 Axios.post(
+                    `${REACT_APP_SUPERSTARZ_URL}/${tt2}`, { values: cboy, }, { withCredentials: true, }
+                )
+                    .then((response) => {
+                        if (response.data.message === "feeds fetched") {
+
+                            if (FeedType === 2) {
+
+                                setClickItVertical(response.data.payload);
+
+                            }
+                            else if (FeedType === 1 || FeedType === 0) {
+
+                                setExplainItVertical(response.data.payload)
+                            }
+                            else {
+
+                            }
+
+
+                        } else if (response.data.message === "error in fetching feeds") {
+                            alert("Ongoing Security Updates, Pls Try Again Later");
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log("Connection malfunction profile outter 2");
+                    });
+
+
+
+
+                Axios.post(
                     `${REACT_APP_SUPERSTARZ_URL}/${tt}`,
                     {
                         values: cboy,
@@ -2152,13 +2241,42 @@ function ProfileGatex({
 
 
 
+                            if (FeedType === 2) {
+
+                                setExplainItVertical(response.data.payload)
+
+
+                            }
+                            else if (FeedType === 1 || FeedType === 0) {
+
+                                setClickItVertical(response.data.payload);
+                            }
+                            else {
+
+                            }
+
+
+                            /// alert(ScrollReactRouter);
 
                             if (postdataRep.length === 0) {
 
                                 dispatch(UpdateLoader(false));
 
                             } else {
-                                CallFirstFeed(postdataRep, postPageLimitx);
+
+
+                                if (allowVerticalData === 1 || ScrollReactRouter > 0) {
+
+
+
+                                    CallFirstFeed(postdataRep, postPageLimitx);
+                                    setallowVerticalDatapush(true);
+                                } else {
+
+                                    setallowVerticalDatapush(false);
+                                }
+
+
 
                             }
 
@@ -2177,7 +2295,7 @@ function ProfileGatex({
 
             }, 500)
         },
-        [idReducer, REACT_APP_SUPERSTARZ_URL, memeberPageidReducer, postPageLimit, historyDataPost, PostLocalNav, FeedType]
+        [idReducer, REACT_APP_SUPERSTARZ_URL, memeberPageidReducer, postPageLimit, historyDataPost, PostLocalNav, FeedType, ScrollReactRouter]
     );
 
 
@@ -2189,6 +2307,8 @@ function ProfileGatex({
     const Timercc = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const Ti = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const Ti2 = useRef<ReturnType<typeof setTimeout> | null>(null);
+
 
 
 
@@ -2271,8 +2391,18 @@ function ProfileGatex({
 
 
 
-    const callPagination = useCallback((explain: boolean) => {
+    const callPagination = useCallback((AllowFeedsVerticalData: boolean) => {
 
+        var AllowData = 0;
+
+        if (AllowFeedsVerticalData) {
+
+            AllowData = 1;
+
+        } else {
+
+
+        }
 
         // updateCurrentURLWithScrollPositionx(FeedType);
         setScrollReactRouter(0);
@@ -2315,22 +2445,22 @@ function ProfileGatex({
             if (memeberPageidReducer === 0) {
 
                 if (FeedType === 0) {
-                    callPaginationAllx(xx);
+                    callPaginationAllx(xx, AllowData);
 
                 } else if (FeedType === 1) {
 
 
 
-                    callPaginationxx(xx);
+                    callPaginationxx(xx, AllowData);
 
                 } else if (FeedType === 2) {
 
 
-                    Explainxx(xx);
+                    Explainxx(xx, AllowData);
                 }
             } else {
 
-                callfeeds(memeberPageidReducer, xx, 1, 1);
+                callfeeds(memeberPageidReducer, xx, 1, 1, AllowData);
             }
 
         }, 500);
@@ -2353,22 +2483,22 @@ function ProfileGatex({
 
 
 
-    const Explainxx = useCallback((x: number) => {
+    const Explainxx = useCallback((x: number, AllowData) => {
 
 
 
-        callfeeds(0, x, 1, 1);
+        callfeeds(0, x, 1, 1, AllowData);
 
 
     }, [postPageLimit, FeedType]);
 
 
 
-    const callPaginationxx = useCallback((x: number) => {
+    const callPaginationxx = useCallback((x: number, AllowData: any) => {
 
 
 
-        callfeeds(0, x, 1, 0);
+        callfeeds(0, x, 1, 0, AllowData);
 
 
 
@@ -2378,12 +2508,12 @@ function ProfileGatex({
 
 
 
-    const callPaginationAllx = useCallback((x: number) => {
+    const callPaginationAllx = useCallback((x: number, AllowData: any) => {
 
 
 
 
-        callfeeds(0, x, 1, 2);
+        callfeeds(0, x, 1, 2, AllowData);
 
 
     }, [postPageLimit, FeedType])
@@ -2395,11 +2525,11 @@ function ProfileGatex({
         if (memeberPageidReducer === 0) {
 
             setTimeout(() => {
-                callfeeds(0, 0, 1, 1);
+                callfeeds(0, 0, 1, 1, 0);
             }, time);
         } else {
             setTimeout(() => {
-                callfeeds(memeberPageidReducer, 0, 1, 1);
+                callfeeds(memeberPageidReducer, 0, 1, 1, 0);
             }, time);
         }
     }, [postPageLimit, memeberPageidReducer, FeedType]);
@@ -2411,11 +2541,11 @@ function ProfileGatex({
         if (memeberPageidReducer === 0) {
 
             setTimeout(() => {
-                callfeeds(0, 0, 1, 0);
+                callfeeds(0, 0, 1, 0, 0);
             }, time);
         } else {
             setTimeout(() => {
-                callfeeds(memeberPageidReducer, 0, 1, 0);
+                callfeeds(memeberPageidReducer, 0, 1, 0, 0);
             }, time);
         }
     }, [postPageLimit, memeberPageidReducer, FeedType])
@@ -2428,11 +2558,11 @@ function ProfileGatex({
         if (memeberPageidReducer === 0) {
 
             setTimeout(() => {
-                callfeeds(0, 0, 1, 2);
+                callfeeds(0, 0, 1, 2, 0);
             }, time);
         } else {
             setTimeout(() => {
-                callfeeds(memeberPageidReducer, 0, 1, 2);
+                callfeeds(memeberPageidReducer, 0, 1, 2, 0);
             }, time);
         }
     }, [postPageLimit, memeberPageidReducer, FeedType])
@@ -2737,16 +2867,24 @@ function ProfileGatex({
 
 
     //////////////////////////////////////////Loader
-    var autoSlideDisplay = "none";
-    var sliderLoader = "";
 
-    if (activateLoader || ShowLoader2) {
-        autoSlideDisplay = "block";
-        sliderLoader = "superloaderAutoSliderFast";
-    } else {
-        autoSlideDisplay = "none";
-        sliderLoader = "";
-    }
+
+
+    const [autoSlideDisplay, setautoSlideDisplay] = useState('none');
+
+    const [sliderLoader, setsliderLoader] = useState('');
+
+    useEffect(() => {
+
+        if (activateLoader || ShowLoader2) {
+            setautoSlideDisplay("block");
+            setsliderLoader("superloaderAutoSliderFast")
+        } else {
+            setautoSlideDisplay("none");
+            setsliderLoader("")
+        }
+    }, [activateLoader, ShowLoader2])
+
 
     ////////////////////////////////////////////
 
@@ -2810,8 +2948,20 @@ function ProfileGatex({
                 }}>
             </Grid>
 
+            <Grid item xs={12}
 
-            <LoaderPost RandomColor={RandomColor} autoSlideDisplay={autoSlideDisplay} sliderLoader={sliderLoader} />
+
+                style={{
+                    position: "fixed",
+                    top: '0vh',
+                    width: '100%',
+                    zIndex: '400000000000'
+                }}>
+
+
+                <LoaderPost RandomColor={RandomColor} autoSlideDisplay={autoSlideDisplay} sliderLoader={sliderLoader} />
+            </Grid>
+
 
             <Grid container
 
@@ -3423,11 +3573,87 @@ function ProfileGatex({
                     }
 
 
-                    <div style={{ scrollSnapAlign: snapallow ? 'none' : 'start', padding: '0px' }}>
+                    <div style={{ scrollSnapAlign: snapallow ? 'none' : 'start', padding: '0px', paddingTop: '4vh' }}>
+                        <h2 style={{
+                            marginLeft: '14vw', fontFamily: "Roboto, Arial, Helvetica, sans-serif",
+                            opacity: 0.9,
+                        }}>
+
+                            <span style={{
+
+                                color: darkmodeReducer ? '#ffffff' : '#000000'
+                            }}>
+                                Clik
+                            </span>
+
+                            <span style={{ visibility: 'hidden' }}>
+                                .
+                            </span>
+
+                            <span style={{
+
+                                color: darkmodeReducer ? "#ffe680" : "#ffcc00",
+                            }}>
+                                It
+                            </span>
+                        </h2>
 
                         <ImageSlider
+                            allowVerticalDatapush={allowVerticalDatapush}
+                            ScrollReactRouter={ScrollReactRouter}
+                            Clicked1={Clicked1}
+                            setClicked1={setClicked1}
+                            Clicked2={Clicked2}
+                            setClicked2={setClicked2}
 
-                            ActualpostDataAll={ActualpostDataAll}
+                            setshowVerticalFeeds={setshowVerticalFeeds}
+                            setverticalIndex={setverticalIndex}
+
+                            tyy={0}
+
+                            ActualPostDataAllxx={ActualpostDataAll}
+
+                            CallFirstFeed={CallFirstFeed}
+                            ActualpostDataAll={ClickItVertical}
+                            Explainx={Explainx}
+                            callPaginationx={callPaginationx}
+                            RandomColor={RandomColor} FeedType={FeedType} setFeedType={setFeedType} />
+                    </div >
+
+
+                    <div style={{ scrollSnapAlign: snapallow ? 'none' : 'start', padding: '0px', paddingTop: '6vh' }}>
+                        <h2 style={{
+                            marginLeft: '14vw', fontFamily: "Roboto, Arial, Helvetica, sans-serif",
+                            opacity: 0.9,
+                        }}>    <span style={{
+
+                            color: darkmodeReducer ? '#ffffff' : '#000000'
+                        }}>
+                                Explain
+                            </span>
+
+                            <span style={{ visibility: 'hidden' }}>
+                                ..
+                            </span>
+
+                            <span style={{ color: '#00ccff', }}>
+                                It
+                            </span> </h2>
+                        <ImageSlider
+                            allowVerticalDatapush={allowVerticalDatapush}
+                            ScrollReactRouter={ScrollReactRouter}
+                            Clicked1={Clicked1}
+                            setClicked1={setClicked1}
+                            Clicked2={Clicked2}
+                            setClicked2={setClicked2}
+
+                            ActualPostDataAllxx={ActualpostDataAll}
+                            setshowVerticalFeeds={setshowVerticalFeeds}
+                            setverticalIndex={setverticalIndex}
+
+                            tyy={1}
+                            CallFirstFeed={CallFirstFeed}
+                            ActualpostDataAll={ExplainItVertical}
                             Explainx={Explainx}
                             callPaginationx={callPaginationx}
                             RandomColor={RandomColor} FeedType={FeedType} setFeedType={setFeedType} />
@@ -3441,8 +3667,9 @@ function ProfileGatex({
                             padding: '0px',
                             width: '100%',
                             transition: "transform 0.1s",
+                            scrollSnapAlign: snapallow ? 'none' : 'end',
                             textAlign: 'center',
-                            marginTop: matchMobile ? '7vh' : '6vh',
+                            marginTop: matchMobile ? '7vh' : '10vh',
                             paddingBottom: initialSteps.length > 0 ? '0px' :
                                 minimise ? matchMobile ? '1vh' : '0px' : matchMobile ? '14vh' : '14vh',
                             zIndex: 2
@@ -3796,9 +4023,15 @@ function ProfileGatex({
                     showData1 ? (
                         <Grid ref={paperPostScrollRefMini} item xs={12} style={{
                             position: "relative", zIndex: 1, padding: "0px",
+                            display: showVerticalFeeds ? 'block' : 'none'
 
                         }}>
                             <ProfileSetup
+
+                                verticalIndex={verticalIndex}
+                                setverticalIndex={setverticalIndex}
+
+
                                 ProfileFeed={ProfileFeed}
                                 callPaginationProfile={callPaginationProfile}
                                 mono={mono}

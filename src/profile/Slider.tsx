@@ -834,6 +834,7 @@ function Sliderx({
 
           if (pey === postData.length - 1 && postData.length === sqlQUERYlIMIT) {
 
+
             dispatch(UpdateLoader(true));
 
 
@@ -857,29 +858,11 @@ function Sliderx({
         } else { }
 
 
-        if (InteractTimerxxhya1.current) {
-          clearTimeout(InteractTimerxxhya1.current);
-        } InteractTimerxxhya1.current = setTimeout(() => {
-          if (matchMobile && startAutoLock) {
-            if (minimise) { } else {
-
-              if (InteractTimerxxhya2.current) {
-                clearTimeout(InteractTimerxxhya2.current);
-              }
-
-              actualdivBox.current.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-              });
-
-              setstartAutoLock(false);
-            }
-          }
-        }, 5)
 
 
 
 
+        //Scroll
 
 
         if (InteractTimerxxhya.current) {
@@ -1042,12 +1025,13 @@ function Sliderx({
 
       } else {
 
-        if (lo.current) {
-          clearTimeout(lo.current);
-        }
 
 
         if (pey === postData.length - 1) {
+          if (lo.current) {
+            clearTimeout(lo.current);
+          }
+
 
           dispatch(UpdateLoader(false));
 
@@ -1062,7 +1046,7 @@ function Sliderx({
           if (matchMobile) {
             setstartAutoLock(true);
           }
-        }, 5000)
+        }, 1555765450000)
 
 
         sethidezoomMono(true);
@@ -2099,10 +2083,10 @@ function Sliderx({
       if (post.interacttype2 === 1 && isAppleDevice) {
 
         setinteractContent(post.interact1b);
-        setStopShowPad(true);
+        //setStopShowPad(true);
       } else {
         setinteractContent(post.interact1b);
-        setStopShowPad(true);
+        /// setStopShowPad(true);
       }
 
       setinteracttypeAll(post.interacttype2);
@@ -2160,10 +2144,10 @@ function Sliderx({
       if (post.interacttype1 === 1 && isAppleDevice) {
 
         setinteractContent(post.interact1a);
-        setStopShowPad(true);
+        /// setStopShowPad(true);
       } else {
         setinteractContent(post.interact1a);
-        setStopShowPad(true);
+        //setStopShowPad(true);
       }
       setinteracttypeAll(post.interacttype1);
     }
@@ -3088,6 +3072,7 @@ function Sliderx({
                       position: "absolute",
                       padding: "0px",
 
+                      display: HasInteractivity ? 'none' : post.mode === 1 ? 'none' : 'block',
 
                       objectFit: "cover",
                       objectPosition:
@@ -3117,6 +3102,7 @@ function Sliderx({
                   ref={pic}
 
 
+
                   onMouseDown={() => {
                     ///maximiseFirst
                     if (minimise) {
@@ -3140,6 +3126,7 @@ function Sliderx({
                     }
 
                   }}
+
                   onClick={() => {
 
 
@@ -3162,21 +3149,26 @@ function Sliderx({
                   alt="a clikbate post "
                   style={{
 
+
+
                     cursor: "pointer",
                     width: "100%",
-                    height: minimise ? matchMobile ? '34.5vh' : '72vh' : `auto`,
+                    height: minimise ? matchMobile ? '30vh' : '68vh' : `auto`,
+
+                    position: "absolute",
+                    padding: "0px",
+
+
                     objectFit: "cover",
                     objectPosition:
                       itemcroptype[pey] === 1 || itemcroptype[pey] === 2
                         ? "50% top"
                         : "50% 50",
-                    visibility: 'hidden',
+                    zIndex: 1,
+                    borderRadius: matchMobile ? minimise ? '3%' : '0px' :
+                      minimise ? '1.5%' : '2%',
 
-
-                    position: "absolute",
-                    padding: "0px",
-                    zIndex: 0,
-
+                    display: HasInteractivity ? 'block' : 'none',
 
 
 

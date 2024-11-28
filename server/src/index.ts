@@ -696,7 +696,7 @@ INNER JOIN members ON posts.sender = members.id
 
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 
-WHERE posts.sender = ? 
+WHERE posts.mode = 0 AND posts.sender = ? 
 ORDER BY posts.id DESC
 LIMIT 18;
 
@@ -766,7 +766,7 @@ INNER JOIN members ON posts.sender = members.id
 
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 
-WHERE posts.sender = ? AND posts.id < ?  
+WHERE posts.mode = 0 AND posts.sender = ? AND posts.id < ?  
 
 ORDER BY posts.id DESC
 LIMIT 18;

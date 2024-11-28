@@ -124,7 +124,10 @@ function ProfileSetupx({
     mono,
     setmono,
     callPaginationProfile,
-    ProfileFeed
+    ProfileFeed,
+    verticalIndex,
+    setverticalIndex
+
 
 
 
@@ -362,6 +365,8 @@ function ProfileSetupx({
                     position: "relative", zIndex: 1, padding: "0px"
                 }}>
                     <Profile
+                        verticalIndex={verticalIndex}
+                        setverticalIndex={setverticalIndex}
                         ProfileFeed={ProfileFeed}
                         callPaginationProfile={callPaginationProfile}
                         mono={mono}

@@ -104,6 +104,8 @@ function Menux({
   localProfileId,
   setlocalProfileId,
 
+  setshowVerticalFeeds
+
 
 
 
@@ -764,7 +766,7 @@ function Menux({
                               ///GoToMemberLoaderUpP();
 
                               if (idReducer === GuestReducer) {
-                                dispatch(UpdateSign(true));
+                                ///dispatch(UpdateSign(true));
 
                               }
                               if (CurrentPage === 'feeds') {
@@ -805,21 +807,42 @@ function Menux({
                             title={MemberProfileDataReducer.username}
                             onClick={() => {
 
-                              if (idReducer === GuestReducer) {
+                              paperPostScrollRef.current.scrollTop = 0;
+
+                              if (idReducer === GuestReducer && memeberPageidReducer === GuestReducer) {
                                 dispatch(UpdateSign(true));
+
+
+                                if (menuTimer6.current) {
+                                  clearTimeout(menuTimer6.current);
+                                }
+                                menuTimer6.current = setTimeout(() => {
+                                  setshowVerticalFeeds(false);
+                                }, 1600);
+                                ///setholdpaper(tt);
+
                               }
                               else {
                                 if (CurrentPage === 'feeds') {
-                                  paperPostScrollRef.current.scrollTop = 0;
+
 
 
                                   if (menuTimer2x.current) {
                                     clearTimeout(menuTimer2x.current);
                                   }
-
                                   menuTimer2x.current = setTimeout(() => {
                                     setZoom1(false);
                                   }, 1500)
+
+
+                                  if (menuTimer6.current) {
+                                    clearTimeout(menuTimer6.current);
+                                  }
+                                  menuTimer6.current = setTimeout(() => {
+                                    setshowVerticalFeeds(false);
+                                  }, 1600);
+                                  ///setholdpaper(tt);
+
 
                                 } else {
                                   GoToMemberLoaderUpP();
@@ -1015,18 +1038,15 @@ function Menux({
 
                         onClick={() => {
 
-                          if (holdpaper === 0) {
 
-                            var tt = paperPostScrollRef.current.scrollTop;
-                            paperPostScrollRef.current.scrollTop = 0;
-                            setholdpaper(tt);
-
-                          } else {
-
-                            paperPostScrollRef.current.scrollTop = holdpaper;
-                            setholdpaper(0);
-
+                          paperPostScrollRef.current.scrollTop = 0;
+                          if (menuTimer6.current) {
+                            clearTimeout(menuTimer6.current);
                           }
+                          menuTimer6.current = setTimeout(() => {
+                            setshowVerticalFeeds(false);
+                          }, 1600);
+                          ///setholdpaper(tt);
 
 
 
@@ -1050,7 +1070,7 @@ function Menux({
                           }}>
 
                             {
-                              FeedType === 1 ?
+                              FeedType === 1 || FeedType === 0 ?
                                 <>
                                   <span style={{
                                     fontSize: matchMobile ? '1.1rem' : '',
@@ -1085,7 +1105,7 @@ function Menux({
 
                                     <span style={{ color: '#00ccff', fontSize: '1rem' }}>
                                       IT
-                                    </span> </> : textArray[FeedType]
+                                    </span> </> : ''
                             }
 
 

@@ -83,6 +83,7 @@ import { UpdateSign } from "../GlobalActions";
 import { DarkMode } from "@mui/icons-material";
 import { isSafari } from "react-device-detect";
 import { SuperLoader } from "../SuperLoader";
+import { setTimeout } from "timers";
 
 
 
@@ -199,7 +200,9 @@ function Postx({
   GetMoreFeeds,
   GetMoreFeedsprofile,
 
-  sqlQUERYlIMIT
+  sqlQUERYlIMIT,
+  verticalIndex,
+  setverticalIndex
 
 
 
@@ -337,7 +340,7 @@ function Postx({
     const encodedPageNumber = encodeBase64(PostPagenumPusher.toString());
     const encodedFeedtype = encodeBase64(FeedType.toString());
 
-
+    //alert(indexplus1);
 
 
     navigate(`/Feeds/${currentIdRoute1}/${encodedScrollIndex}/${encodedPageNumber}/${encodedFeedtype}`, { replace: true });
@@ -361,8 +364,38 @@ function Postx({
   const profileImageref = useRef<any>();
 
 
-
+  const Timer3 = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
   const divBox = useRef<HTMLDivElement>(null);
+
+
+
+  useEffect(() => {
+
+    if (postData.length > 0 && verticalIndex > -1) {
+
+      if (pey === verticalIndex) {
+        if (Timer3.current) {
+          clearTimeout(Timer3.current);
+        } Timer3.current = setTimeout(() => {
+
+          if (divBox.current) {
+            divBox.current.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+
+          setverticalIndex(-1);
+
+        }, 3000)
+      }
+
+    }
+
+
+  }, [postData, verticalIndex]);
 
 
   const divBox2 = useRef<HTMLDivElement>(null);
@@ -2459,7 +2492,8 @@ function Postx({
                   color: darkmodeReducer ? "#dddddd" : "#000000",
                   cursor: 'pointer',
                   visibility: minimise ? 'hidden' : 'visible',
-                  display: hidezoomMono ? matchMobile ? 'none' : 'none' : matchMobile ? 'block' : 'block'
+                  display: hidezoomMono ? matchMobile ? 'none' : 'none' :
+                    matchMobile ? 'block' : 'block'
 
 
                 }}
