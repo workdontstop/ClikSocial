@@ -630,6 +630,38 @@ WHERE favid = members.id and userid = ?)favCount,
  fan.id,members.id AS reactId,members.profile_image,members.username,color1,members.quote  FROM fan inner join members on
  fan.userid = members.id WHERE  fan.favid = ?  AND fan.id < ? ORDER BY fan.id DESC  LIMIT 90  `;
 
+const profileExplainUser = `
+
+SELECT
+  (SELECT COUNT(*) FROM fan WHERE favid = posts.sender AND userid = ?) AS favCount,
+  (SELECT type FROM emotions WHERE post = posts.id AND user = ?) AS EmoIn,
+  (SELECT COUNT(*) FROM comments WHERE post = posts.id) AS commentCount,
+  (SELECT com FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1) AS commentPost,
+  (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1) AS commentPostUser,
+  m.profile_image AS commentorProfileImage,
+  m.username AS commentorUsername,
+  m.color1 AS commentorColor,
+  (SELECT COUNT(*) FROM emotions WHERE post = posts.id AND type = 1) AS lovely,
+  (SELECT COUNT(*) FROM emotions WHERE post = posts.id AND type = 2) AS cool,
+  (SELECT COUNT(*) FROM emotions WHERE post = posts.id AND type = 3) AS care,
+  (SELECT COUNT(*) FROM emotions WHERE post = posts.id AND type = 4) AS funny,
+  (SELECT file FROM audio WHERE post = posts.id) AS audioData,
+  (SELECT name FROM audio WHERE post = posts.id) AS audioDataName,
+  (SELECT backgroudaudio FROM audio WHERE post = posts.id) AS backgroudaudio,
+  interacttype1, interacttype2, rad1, rad2,
+  members.profile_image, members.username, members.color1,
+  posts.id, sender, post_count, topic, caption, item1, thumb1, itemtype1, interact1a,
+  interact1ax, interact1ay, interact1b, interact1bx, interact1by, item2, vid1backup, vid2backup, time,
+  mode, x1, xt1, x2, xt2, x3, xt3, x4, xt4, x5, xt5, x6, xt6,private 
+FROM posts
+INNER JOIN members ON posts.sender = members.id
+LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
+WHERE posts.mode = 1 AND  posts.private = 0 AND posts.sender = ?
+ORDER BY posts.id DESC
+LIMIT 18;
+
+`;
+
 const profileExplain = `
 
 SELECT
@@ -697,6 +729,37 @@ INNER JOIN members ON posts.sender = members.id
 LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
 
 WHERE posts.mode = 0 AND posts.sender = ? 
+ORDER BY posts.id DESC
+LIMIT 18;
+
+
+`;
+
+const profile_moreExplainUser = `SELECT
+  (SELECT COUNT(*) FROM fan WHERE favid = posts.sender AND userid = ?) AS favCount,
+  (SELECT type FROM emotions WHERE post = posts.id AND user = ?) AS EmoIn,
+  (SELECT COUNT(*) FROM comments WHERE post = posts.id) AS commentCount,
+  (SELECT com FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1) AS commentPost,
+  (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1) AS commentPostUser,
+  m.profile_image AS commentorProfileImage,
+  m.username AS commentorUsername,
+  m.color1 AS commentorColor,
+  (SELECT COUNT(*) FROM emotions WHERE post = posts.id AND type = 1) AS lovely,
+  (SELECT COUNT(*) FROM emotions WHERE post = posts.id AND type = 2) AS cool,
+  (SELECT COUNT(*) FROM emotions WHERE post = posts.id AND type = 3) AS care,
+  (SELECT COUNT(*) FROM emotions WHERE post = posts.id AND type = 4) AS funny,
+  (SELECT file FROM audio WHERE post = posts.id) AS audioData,
+  (SELECT name FROM audio WHERE post = posts.id) AS audioDataName,
+  (SELECT backgroudaudio FROM audio WHERE post = posts.id) AS backgroudaudio,
+  interacttype1, interacttype2, rad1, rad2,
+  members.profile_image, members.username, members.color1,
+  posts.id, sender, post_count, topic, caption, item1, thumb1, itemtype1, interact1a,
+  interact1ax, interact1ay, interact1b, interact1bx, interact1by, item2, vid1backup, vid2backup, time,
+  mode, x1, xt1, x2, xt2, x3, xt3, x4, xt4, x5, xt5, x6, xt6,private 
+FROM posts
+INNER JOIN members ON posts.sender = members.id 
+LEFT JOIN members AS m ON m.id = (SELECT commented_by FROM comments WHERE post = posts.id ORDER BY date DESC LIMIT 1)
+WHERE posts.mode = 1  AND  posts.private = 0 AND posts.sender = ? AND posts.id < ?
 ORDER BY posts.id DESC
 LIMIT 18;
 
@@ -885,6 +948,51 @@ app.post("/comments_image", async (req: Request, res: Response) => {
   } catch (e: any) {
     console.log(e);
     return res.send({ message: "error in fetching feeds" });
+  }
+});
+
+app.post("/profileExplainUser", async (req: Request, res: Response) => {
+  const { values } = req.body;
+
+  if (values.postPageLimit == 0) {
+    try {
+      const chronologicaldata = await execPoolQuery(profileExplainUser, [
+        values.id,
+        values.id2,
+        values.id3,
+      ]);
+
+      ///console.log(chronologicaldata[7].favCount);
+      return res.send({
+        ///gettingcookie: userSessionData,
+        message: "feeds fetched",
+        payload: chronologicaldata,
+        postPageLimit: values.postPageLimit,
+      });
+    } catch (e: any) {
+      console.log(e);
+      return res.send({ message: "error in fetching feeds" });
+    }
+  } else {
+    try {
+      const chronologicaldata = await execPoolQuery(profile_moreExplainUser, [
+        values.id,
+        values.id2,
+        values.id3,
+        values.postPageLimit,
+      ]);
+
+      ///console.log(chronologicaldata[7].favCount);
+      return res.send({
+        ///gettingcookie: userSessionData,
+        message: "feeds fetched",
+        payload: chronologicaldata,
+        postPageLimit: values.postPageLimit,
+      });
+    } catch (e: any) {
+      console.log(e);
+      return res.send({ message: "error in fetching feeds" });
+    }
   }
 });
 

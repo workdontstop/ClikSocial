@@ -160,7 +160,7 @@ function Sliderx({
   var allow4dev = "";
 
   const limitpostinfoshow1 = 1800;
-  const limitpostinfoshow2 = 3000;
+  const limitpostinfoshow2 = 6000;
 
 
 
@@ -1603,18 +1603,10 @@ function Sliderx({
 
           if (previewFileReadimage.naturalWidth > previewFileReadimage.naturalHeight) {
 
-            const naturalWidth = previewFileReadimage.naturalWidth;
-            const naturalHeight = previewFileReadimage.naturalHeight;
-            const containerHeight = divBox.current.clientHeight * DivBoxMultiple;
-            const aspectRatio = naturalWidth / naturalHeight;
-            const newWidth = containerHeight * aspectRatio;
+            setMarginLeftCanvas(0);
 
-
-            const marginLeft = (divBox.current.clientWidth - newWidth) / 2;
-            setMarginLeftCanvas(marginLeft);
-
-            setimageWidthcss(newWidth);
-            setimageHeightcss(divBox.current.clientHeight * DivBoxMultiple);
+            setimageWidthcss(pic.current.clientWidth);
+            setimageHeightcss(newHeight);
 
           } else {
 
@@ -2999,7 +2991,7 @@ function Sliderx({
 
                 cursor: "pointer",
                 width: "100%",
-                height: minimise ? matchMobile ? '30vh' : '68vh' : `auto`,
+                height: `auto`,
                 position: "absolute",
                 padding: "0px",
                 objectFit: "cover",
@@ -3067,7 +3059,7 @@ function Sliderx({
 
                       cursor: "pointer",
                       width: "100%",
-                      height: minimise ? matchMobile ? '30vh' : '68vh' : `auto`,
+                      height: `auto`,
 
                       position: "absolute",
                       padding: "0px",
@@ -3153,7 +3145,7 @@ function Sliderx({
 
                     cursor: "pointer",
                     width: "100%",
-                    height: minimise ? matchMobile ? '30vh' : '68vh' : `auto`,
+                    height: `auto`,
 
                     position: "absolute",
                     padding: "0px",
@@ -3179,8 +3171,8 @@ function Sliderx({
 
             {i === 0 && HasInteractivity && ActiveCanvas === pey ? (
               <div style={{
-                height: minimise ? `${canvasBorderH}px` : 'auto',
-                width: minimise ? `${canvasBorderW}px` : 'auto',
+                height: 'auto',
+                width: 'auto',
                 overflow: 'hidden',
                 position: "absolute",
                 zIndex: 110,
@@ -3203,7 +3195,7 @@ function Sliderx({
                     top: "0vh",
                     position: 'relative',
                     marginLeft: interactContent && interact && HasInteractivity && ActiveCanvas === pey ? '0px'
-                      : minimise ? `${MarginLeftCanvas}px` : '0px',
+                      : minimise ? `0px` : '0px',
                     margin: "auto",
                     filter: interactContent && interact && HasInteractivity && ActiveCanvas === pey ? 'blur(11px)' : 'blur(0px)',
 

@@ -463,7 +463,7 @@ export const GlobalReducerLoader = (
 const initialState = {
   snapStart: true,
   screenHeight: 0,
-  darkmode: false,
+  darkmode: true,
   AlertData: null,
   AlertEmojiType: 0,
   activateLoader: false,

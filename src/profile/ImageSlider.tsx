@@ -3,6 +3,7 @@ import './GptCss.css';
 import { matchMobile } from '../DetectDevice';
 import { useSelector, useDispatch } from "react-redux";
 import { UpdateLoader } from ".././GlobalActions";
+import Axios from "axios";
 
 interface ImageSliderProps {
     RandomColor: string;
@@ -22,9 +23,22 @@ interface ImageSliderProps {
     setClicked2: any;
     allowVerticalDatapush: any;
     ScrollReactRouter: any;
+    active1: any;
+    setactive1: any;
+    active2: any;
+    setactive2: any;
+    callPagination: any;
+    ClickItVertical: any;
+    ExplainItVertical: any;
+    setExplainItVertical: any;
+    setClickItVertical: any;
+    minimise: any;
 
 
 }
+
+
+
 
 const ImageSlider: React.FC<ImageSliderProps> = ({
     RandomColor,
@@ -43,27 +57,86 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
     Clicked2,
     setClicked2,
     allowVerticalDatapush,
-    ScrollReactRouter
-
+    ScrollReactRouter,
+    active1,
+    setactive1,
+    active2,
+    setactive2,
+    callPagination,
+    ClickItVertical,
+    ExplainItVertical,
+    setExplainItVertical,
+    setClickItVertical,
+    minimise
 }) => {
-    const { REACT_APP_CLOUNDFRONT } = process.env;
 
-    interface RootStateReducerImage {
-        UserdataReducer: {
-            billboard1: string;
-            memeberPageid: number;
-            id: number;
-            MemberProfileData: any;
-        };
-    }
+
+
+    const { REACT_APP_SUPERSTARZ_URL, REACT_APP_CLOUNDFRONT, REACT_APP_APPX_STATE } = process.env;
+
+
 
     const dispatch = useDispatch();
 
-    const { billboard1, memeberPageid, id, MemberProfileData } = useSelector(
-        (state: RootStateReducerImage) => ({
-            ...state.UserdataReducer,
-        })
-    );
+    ///
+    ///
+    ///
+    /// GET LOGGED USER DATA FROM REDUX STORE
+    interface RootStateReducerImage {
+        UserdataReducer: {
+            id: number;
+            image: string;
+            username: string;
+            quote: string;
+            billboard1: string;
+            billboard2: string;
+            billboardthumb1: string;
+            billboardthumb2: string;
+            fans: number;
+            favorites: number;
+            memeberPageid: number;
+            MemberProfileData: any;
+            billboardstate: number;
+            reg: number,
+            imageThumb: string;
+        };
+    }
+    const {
+        id,
+        image,
+        username,
+        quote,
+        billboard1,
+        billboard2,
+        billboardthumb1,
+        billboardthumb2,
+        fans,
+        favorites,
+        memeberPageid,
+        MemberProfileData,
+        billboardstate,
+        reg,
+        imageThumb
+
+    } = useSelector((state: RootStateReducerImage) => ({
+        ...state.UserdataReducer,
+    }));
+
+    const [usernameReducer, setusernameReducer] = useState("");
+
+    const idReducer = id;
+    const imageReducerx = image;
+    const imageReducerxx = imageThumb;
+
+    const billboard1Reducer = billboard1;
+    const billboardstateReducer = billboardstate;
+    const billboard2Reducer = billboard2;
+    const billboardthumb1Reducer = billboardthumb1;
+    const billboardthumb2Reducer = billboardthumb2;
+    const memeberPageidReducer = memeberPageid;
+    const MemberProfileDataReducer = MemberProfileData;
+    const regReducer = reg;
+
 
     const [pagenum, setPagenum] = useState(0);
     const [pagelimit] = useState(18);
@@ -72,13 +145,80 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
     const [isBackActive, setIsBackActive] = useState(false);
     const [isNextActive, setIsNextActive] = useState(false);
 
+
+    const [mini, setmini] = useState(false);
+
+    useEffect(() => {
+        if (minimise) {
+            setmini(false);
+
+        } else {
+
+            setmini(true);
+        }
+
+    }, [minimise])
+
+
+    interface RootStateGlobalReducer {
+        GlobalReducer: {
+            darkmode: boolean;
+            MenuData: String;
+            Guest: number,
+
+        };
+    }
+    const { darkmode, MenuData, Guest } = useSelector((state: RootStateGlobalReducer) => ({
+        ...state.GlobalReducer,
+    }));
+
+    const darkmodeReducer = darkmode;
+
+    const MenuDataReducer = MenuData;
+
+    const GuestReducer = Guest;
+
+
+
+
+    ///
+    ///
+    /// GET COLOR FROM REDUX STORE
+    interface RootStateReducerColor {
+        GlobalReducerColor: {
+            color: string;
+            colordark: string;
+            colortype: number;
+        };
+    }
+    const { color, colordark, colortype } = useSelector(
+        (state: RootStateReducerColor) => ({
+            ...state.GlobalReducerColor,
+        })
+    );
+    const colorReducer = color;
+    const colorReducerdark = colordark;
+    const colortypeReducer = colortype;
+
+
+
+    const menuTimer62 = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const menuTimer6x2 = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const menuTimer6xx2 = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+
     const menuTimer6 = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const menuTimer6x = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const menuTimer6xx = useRef<ReturnType<typeof setTimeout> | null>(null);
+
 
 
     useEffect(() => {
 
+
         if (allowVerticalDatapush || ScrollReactRouter > 0) {
             if (ActualPostDataAllxx.length > 0) {
+
                 if (FeedType === 2 && tyy === 1) {
                     setClicked2(true);
 
@@ -118,19 +258,223 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
 
     const handlePrev = useCallback(() => {
         if (isBackActive) {
-            setPagenum((prev) => Math.max(prev - 1, 0));
-            console.log('Prev function called');
+
+            dispatch(UpdateLoader(true));
+            //alert('kk');
+
+
+            if (menuTimer6xx2.current) {
+                clearTimeout(menuTimer6xx2.current);
+            }
+
+            menuTimer6xx2.current = setTimeout(() => {
+
+
+                callfeeds(0);
+
+                //alert('kjh')
+
+
+            }, 2500)
+
+
         }
     }, [isBackActive]);
 
+
+
+
+    const callfeeds = useCallback(
+        (type: number) => {
+
+            var xx = 0
+
+            if (ActualpostDataAll.length > 0) {
+
+                xx = ActualpostDataAll[ActualpostDataAll.length - 3].id;
+
+            }
+
+            var cboy = {
+                id: idReducer,
+                id2: idReducer,
+                id3: memeberPageidReducer,
+                postPageLimit: type === 0 ? 0 : xx,
+            };
+
+
+            dispatch(UpdateLoader(true));
+
+
+
+            var tt = "";
+            var tt2 = "";
+
+            if (memeberPageidReducer === 0) {
+
+                if (tyy === 1) {
+
+                    // alert('hh');
+
+                    tt = "feeds_chronologicalExplain";
+
+                }
+                else if (FeedType === 1 || FeedType === 0) {
+
+                    tt = "feeds_chronological";
+
+                }
+                else {
+
+                }
+
+
+
+
+
+            } else {
+
+
+
+                if (FeedType === 2) {
+
+                    // alert('hh');
+
+
+                    if (memeberPageidReducer === idReducer) {
+                        tt = "profileExplain";
+                    } else { tt = "profileExplainUser"; }
+
+
+                }
+                else if (FeedType === 1 || FeedType === 0) {
+
+
+                    tt = "profile";
+
+
+
+                }
+                else {
+
+                }
+
+
+
+
+
+
+            }
+
+
+            ///alert(historyDataPost.length);
+
+
+
+            //setScrollTo(0);
+
+
+
+
+
+            Axios.post(
+                `${REACT_APP_SUPERSTARZ_URL}/${tt}`,
+                {
+                    values: cboy,
+                },
+                {
+                    withCredentials: true,
+                }
+            )
+                .then((response) => {
+                    if (response.data.message === "feeds fetched") {
+
+
+
+                        var postdataRep = response.data.payload;
+
+
+
+                        if (tyy === 1) {
+
+                            setExplainItVertical(response.data.payload);
+
+                            setClicked2(false);
+
+
+                        }
+                        else {
+
+                            setClickItVertical(response.data.payload);
+                            setClicked1(false);
+                        }
+
+
+                        /// var t = response.data.payload;
+                        // setPagenum(t[t.length - 3].id)
+
+                        setPagenum(type === 0 ? 0 : 1);
+                        dispatch(UpdateLoader(false));
+
+
+
+
+
+
+
+                    } else if (response.data.message === "error in fetching feeds") {
+                        dispatch(UpdateLoader(false));
+
+                        ///alert("Ongoing Security Updates, Pls Try Again Later");
+                    }
+                })
+                .catch(function (error) {
+                    dispatch(UpdateLoader(false));
+
+                    console.log("Connection malfunction profile outter 2");
+                });
+
+
+        },
+        [idReducer, REACT_APP_SUPERSTARZ_URL, memeberPageidReducer, FeedType, ActualpostDataAll]
+    );
+
+
+
+
     const handleNext = useCallback(() => {
         if (isNextActive) {
-            setPagenum((prev) => prev + 1);
-            console.log('Next function called');
+            dispatch(UpdateLoader(true));
+            //alert('kk');
+
+
+            if (menuTimer6xx.current) {
+                clearTimeout(menuTimer6xx.current);
+            }
+
+            menuTimer6xx.current = setTimeout(() => {
+
+
+                callfeeds(1);
+
+                //alert('kjh')
+
+
+            }, 2500)
+
+
+
         }
     }, [isNextActive]);
 
+
     useEffect(() => {
+
+    }, [ClickItVertical]);
+
+
+    useEffect(() => {
+
         // Ensure we scroll to the second image (index 1) on data change
         if (scrollContainerRef.current && ActualpostDataAll.length > 0) {
             const scrollElement = scrollContainerRef.current.children[1] as HTMLElement;
@@ -143,20 +487,50 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
         }
     }, [ActualpostDataAll]);
 
+    const [prevCalled, setPrevCalled] = useState(false);
+    const [nextCalled, setNextCalled] = useState(false);
+
     useEffect(() => {
-        // Observe the "Prev" and "Next" images coming into view
+
+        // Observe the "Prev" and "Next" images coming into and going out of view
         const observerCallback = (entries: IntersectionObserverEntry[]) => {
             entries.forEach((entry) => {
+                const id = entry.target.getAttribute('data-id');
                 if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('data-id');
-                    if (id === 'prev') {
-                        /// dispatch(UpdateLoader(true));
-
+                    // Element is in view
+                    if (id === 'prev' && !prevCalled) {
                         handlePrev();
-                    } else if (id === 'next') {
-                        //// dispatch(UpdateLoader(true));
-
+                        setPrevCalled(true);
+                    } else if (id === 'next' && !nextCalled) {
                         handleNext();
+                        setNextCalled(true);
+                    }
+                } else {
+
+                    // Element is out of view, reset the call state
+                    if (id === 'prev') {
+
+                        if (menuTimer6xx2.current) {
+                            clearTimeout(menuTimer6xx2.current);
+                        }
+
+                        if (menuTimer6x2.current) {
+                            clearTimeout(menuTimer6x2.current);
+                        }
+                        menuTimer6x2.current = setTimeout(() => { dispatch(UpdateLoader(false)); }, 2000)
+
+                        setPrevCalled(false);
+                    } else if (id === 'next') {
+
+                        if (menuTimer6xx.current) {
+                            clearTimeout(menuTimer6xx.current);
+                        }
+
+                        if (menuTimer6x.current) {
+                            clearTimeout(menuTimer6x.current);
+                        }
+                        menuTimer6x.current = setTimeout(() => { dispatch(UpdateLoader(false)); }, 2000)
+                        setNextCalled(false);
                     }
                 }
             });
@@ -179,6 +553,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
         return () => observer.disconnect();
     }, [handlePrev, handleNext, images]);
 
+
     const [activeIndex, setActiveIndex] = useState<number | null>(1);
 
     const handleImageClick = (index: number) => {
@@ -200,109 +575,244 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
                 }}
             >
                 {/* Images */}
-                {images.map((src, index) => (
-                    <div
-                        onClick={() => {
+                {images.map((src, index) => {
+                    const isActive =
+                        tyy === 0 ? active1 === index : tyy === 1 ? active2 === index : false;
+
+                    return (
+
+                        <>
 
 
-
-
-
-                            if (tyy === 0) {
-                                if (Clicked1) {
-
-                                } else {
-                                    /// alert('kk');
-                                    CallFirstFeed(ActualpostDataAll, 0);
-                                }
-
-                                ///clicked is here because when data has been loaded in it cant be loaded gain
-                                ///so i prevent load a second time with click then just scroll
-                                setClicked1(true);
-                                setClicked2(false);
-
-                            } else if (tyy === 1) {
-
-                                if (Clicked2) {
-
-                                } else {
-                                    CallFirstFeed(ActualpostDataAll, 0);
-                                }
-
-
-                                setClicked2(true);
-                                setClicked1(false);
-                            } else {
-
-                            }
-
-
-                            if (tyy === 1) {
-
-                                setFeedType(2);
-                            } else {
-                                setFeedType(1);
-                            }
-
-                            setshowVerticalFeeds(true);
-
-                            if (menuTimer6.current) {
-                                clearTimeout(menuTimer6.current);
-                            }
-                            setverticalIndex(index - 1);
-                            menuTimer6.current = setTimeout(() => {
-                                ///  setverticalIndex(index - 1);
-                            }, 150);
-
-
-
-                        }}
-                        key={index}
-                        data-id={src.includes('Prev') ? 'prev' : src.includes('Next') ? 'next' : ''}
-                        style={{
-                            flex: '0 0 auto',
-                            scrollSnapAlign: 'center',
-                            margin: '0 8px',
-                            position: 'relative',
-                            width: matchMobile ? '180px' : '230px',
-                            height: matchMobile ? '225px' : '320px',
-                            borderRadius: '12px', // Rounded corners like Shorts
-                            overflow: 'hidden',
-                            opacity: src.includes('Prev') ? 0 : src.includes('Next') ? 0 : 1,
-                            boxShadow:
-                                activeIndex === index
-                                    ? '0 4px 12px rgba(0, 0, 0, 0.4)'
-                                    : '0 2px 6px rgba(0, 0, 0, 0.2)',
-                            cursor: 'pointer',
-                            background: `url(${src}) center/cover no-repeat`,
-                        }}
-                    >
-                        {!(src.includes('Prev') || src.includes('Next')) && (
                             <div
-                                style={{
-                                    position: 'absolute',
-                                    bottom: '10px',
-                                    left: '10px',
-                                    color: '#fff',
-                                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-                                    padding: '4px 8px',
-                                    borderRadius: '6px',
-                                    fontSize: matchMobile ? '0.75rem' : '0.85rem',
-                                    fontWeight: 'bold',
-                                    maxWidth: '80%',
-                                    overflow: 'hidden',
-                                    textOverflow: 'ellipsis',
-                                    whiteSpace: 'nowrap',
+                                onClick={() => {
+                                    if (tyy === 1) {
+                                        setactive2(index);
+                                        setactive1(-1);
+                                    } else {
+                                        setactive1(index);
+                                        setactive2(-1);
+                                    }
 
+                                    if (tyy === 0) {
+                                        if (!Clicked1) {
+                                            CallFirstFeed(ActualpostDataAll, 0);
+                                        }
+                                        setClicked1(true);
+                                        setClicked2(false);
+                                    } else if (tyy === 1) {
+                                        if (!Clicked2) {
+                                            CallFirstFeed(ActualpostDataAll, 0);
+                                        }
+                                        setClicked2(true);
+                                        setClicked1(false);
+                                    }
+
+                                    setFeedType(tyy === 1 ? 2 : 1);
+                                    setshowVerticalFeeds(true);
+
+                                    if (menuTimer6.current) {
+                                        clearTimeout(menuTimer6.current);
+                                    }
+                                    setverticalIndex(index - 1);
+                                    menuTimer6.current = setTimeout(() => { }, 150);
+                                }}
+                                key={index}
+                                data-id={src.includes('Prev') ? 'prev' : src.includes('Next') ? 'next' : ''}
+                                style={{
+                                    flex: '0 0 auto',
+                                    scrollSnapAlign: 'center',
+                                    margin: '0 8px',
+                                    position: 'relative',
+                                    width: mini ? matchMobile ? '180px' : '230px' : matchMobile ? '260px' : '330px',
+                                    height: mini ? matchMobile ? '225px' : '320px' : matchMobile ? '325px' : '410px',
+                                    borderRadius: '12px', // Rounded corners
+                                    overflow: 'hidden',
+                                    cursor: 'pointer',
+                                    opacity: src.includes('Prev') || src.includes('Next') ? 0 : 1,
+                                    background: `url(${src}) center/cover no-repeat`,
+                                    boxShadow: isActive
+                                        ? `
+                            0 -5px 4px ${RandomColor}, /* Top glow */
+                            5px 0 4px ${RandomColor}, /* Right glow */
+                            0 5px 4px ${colorReducer}, /* Bottom glow */
+                            -5px 0 4px ${colorReducer} /* Left glow */
+                          `
+                                        : 'none', // Apply glow effect only if active
                                 }}
                             >
-                                Caption here
-                            </div>
-                        )}
-                    </div>
-                ))}
+                                {/* Text Beneath the Image */}
+                                {!(src.includes('Prev') || src.includes('Next')) && (
+                                    <div
+                                        style={{
+                                            marginTop: '8px',
+                                            width: matchMobile ? '180px' : '230px', // Match image width
+
+                                            fontSize: matchMobile ? '0.75rem' : '0.85rem',
+                                            fontWeight: 'normal',
+                                            fontFamily: 'Arial, Helvetica, sans-serif',
+                                            textAlign: 'left', // Ensure text alignment
+                                            wordWrap: 'break-word', // Handle long text
+                                            position: 'sticky',
+                                            paddingLeft: matchMobile ? '2vw' : '0.5vw',
+                                            backgroundColor: 'rgb(000,000,000,0.05)'
+                                        }}
+                                    >
+
+
+                                        <span
+                                            style={{
+                                                display: 'inline-block',  // Make the span behave like a block-level element for proper overflow control
+                                                width: matchMobile ? '180px' : '230px', // Match the image width
+                                                color: '#fffffff',
+                                                textShadow: '2px 1px 8px rgba(0, 0, 0, 1)',
+                                                fontSize: matchMobile ? '0.79rem' : '0.89rem',
+                                                fontWeight: 'normal',
+                                                fontFamily: 'Arial, Helvetica, sans-serif',
+                                                textAlign: 'left', // Ensure text alignment
+                                                overflow: 'hidden', // Hide overflowed text
+                                                textOverflow: 'ellipsis', // Add ellipsis for long text
+                                                whiteSpace: 'nowrap', // Prevent wrapping of text into multiple lines
+                                            }}
+                                        >
+                                            {ActualpostDataAll[index - 1].caption}
+                                        </span>
+
+
+
+
+                                    </div>
+                                )}
+
+                                {!(src.includes('Prev') || src.includes('Next')) && (
+                                    <div
+                                        style={{
+
+                                            top: mini ? matchMobile ? '24.8vh' : '31.6vh' : matchMobile ? '38vh' : '42.3vh',
+                                            width: matchMobile ? '180px' : '230px', // Match image width
+
+                                            fontSize: matchMobile ? '0.85rem' : '0.85rem',
+                                            fontWeight: 'normal',
+                                            fontFamily: 'Arial, Helvetica, sans-serif',
+                                            textAlign: 'left', // Ensure text alignment
+                                            wordWrap: 'break-word', // Handle long text
+                                            position: 'sticky',
+                                            paddingLeft: matchMobile ? '2vw' : '0.5vw',
+
+                                        }}
+                                    >
+
+
+
+
+
+                                        <img
+                                            onClick={() => {
+
+
+
+                                            }}
+
+
+                                            className={darkmodeReducer ? "turpostDarkmini" : "turpostDarkmini"}
+
+                                            src={`${REACT_APP_CLOUNDFRONT}${ActualpostDataAll[index - 1].profile_image}`}
+                                            alt="a superstarz post "
+                                            style={{
+                                                cursor: "pointer",
+                                                boxShadow: darkmodeReducer
+                                                    ? "0 0 1px #555555"
+                                                    : "0 0 3.5px #aaaaaa",
+                                                width: matchMobile ? '10vw' : '3vw',
+                                                height: "auto",
+                                                padding: "0px",
+                                                objectFit: "contain",
+                                                borderRadius: "50%",
+                                                position: "absolute",
+                                                zIndex: 2,
+                                                display: memeberPageidReducer === 0 ? 'block' : 'none',
+
+                                                left: matchMobile ? '0.5vw' : '0.2vw'
+                                            }}
+                                        />
+
+
+
+
+                                    </div>
+                                )}
+
+
+
+                                {!(src.includes('Prev') || src.includes('Next')) && (
+                                    <div
+                                        style={{
+
+                                            marginTop: mini ? matchMobile ? '23.8vh' : '32.8vh' : matchMobile ? '36.8vh' : '42.8vh',
+                                            width: matchMobile ? '180px' : '230px', // Match image width
+                                            marginLeft: mini ? matchMobile ? '-4vw' : '-1vw' : matchMobile ? '15vw' : '4.5vw',
+                                            fontSize: matchMobile ? '0.76rem' : '0.86rem',
+                                            fontWeight: 'normal',
+                                            fontFamily: 'Arial, Helvetica, sans-serif',
+                                            textAlign: 'right', // Ensure text alignment
+                                            wordWrap: 'break-word', // Handle long text
+                                            position: 'sticky',
+                                            paddingLeft: matchMobile ? '2vw' : '0.5vw',
+
+                                            zIndex: 1,
+                                        }}
+                                    >
+
+
+
+
+
+
+                                        <span
+                                            style={{
+
+                                                display: 'block',  // Make the span behave like a block-level element for proper overflow control
+                                                width: matchMobile ? '180px' : '230px', // Match the image width
+                                                color: '#fffffff',
+                                                textShadow: '2px 1px 8px rgba(0, 0, 0, 1)',
+                                                fontSize: matchMobile ? '0.79rem' : '0.85rem',
+                                                fontWeight: 'normal',
+                                                fontFamily: 'Arial, Helvetica, sans-serif',
+                                                textAlign: 'right', // Ensure text alignment
+                                                overflow: 'hidden', // Hide overflowed text
+                                                textOverflow: 'ellipsis', // Add ellipsis for long text
+                                                whiteSpace: 'nowrap', // Prevent wrapping of text into multiple lines
+
+                                            }}
+                                        >
+
+                                            <span
+                                                style={{
+
+                                                    backgroundColor: 'rgb(000,000,000,0.05)',
+                                                    borderRadius: '2vh'
+                                                }}
+                                            >
+                                                {ActualpostDataAll[index - 1].username}
+
+                                            </span>
+                                        </span>
+
+                                    </div>
+                                )}
+
+                            </div >
+
+
+                        </>
+                    );
+
+                })}
             </div>
+
+
         </div >
+
     );
 };
 

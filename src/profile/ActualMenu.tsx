@@ -742,7 +742,8 @@ function ActualMenux({ showModalFormMenu,
                 }
                 style={{
                   color: darkmodeReducer ? "#eeeeee" : "#444444",
-                  fontWeight: 'normal'
+                  fontWeight: 'normal',
+                  fontFamily: "Arial, Helvetica, sans-serif",
                 }}
               >
                 {Signup ? 'Log' : 'clik'}
@@ -752,7 +753,8 @@ function ActualMenux({ showModalFormMenu,
                 style={{
                   color: darkmodeReducer ? "#ffe680" : "#ffcc00",
                   opacity: darkmodeReducer ? "1" : "1",
-                  fontWeight: 'normal'
+                  fontWeight: 'normal',
+                  fontFamily: "Arial, Helvetica, sans-serif",
 
                 }}
                 className={
@@ -1020,7 +1022,7 @@ function ActualMenux({ showModalFormMenu,
                           memeberPageidReducer === 0 && i === 3 ? darkmodeReducer ? `linear-gradient(45deg, ${RandomColor}, ${colorReducer})` :
                             `linear-gradient(45deg, ${RandomColor}, ${colorReducer})` :
                             memeberPageidReducer !== 0 && i === 2 && idReducer === memeberPageidReducer ? darkmodeReducer ? `linear-gradient(45deg, ${RandomColor}, ${colorReducer})` :
-                              `linear-gradient(45deg, ${RandomColor}, ${colorReducer})` : 'none',
+                              `linear-gradient(45deg, ${RandomColor}, ${colorReducer}` : 'none',
                       borderRadius: '0%',
                       padding: '1vh',
                       cursor: i === 6 || i === 8 || i === 4 || i === 0 ? 'default' : 'pointer'
@@ -1040,13 +1042,13 @@ function ActualMenux({ showModalFormMenu,
                           ? '#ffffff' : colr,
                         fontSize: matchMobile ? '1rem' : "1.1rem",
                         marginLeft: matchMobile ? '13vw' : '5vw',
-                        fontFamily: "Roboto, Arial, Helvetica, sans-serif",
+                        fontFamily: "Arial, Helvetica, sans-serif",
                         fontWeight: 'normal',
 
 
                         opacity: i === 1 || i === 2 || i === 3 || i === 5 ? '1' : '0.3'
                       }}>
-                      <i>     {Title} </i >
+                      {Title}
                     </span>
 
 

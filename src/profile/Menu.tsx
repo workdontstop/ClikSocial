@@ -617,7 +617,8 @@ function Menux({
       setSignup(false)
     }
 
-  }, [MenuDataReducer, idReducer])
+  }, [MenuDataReducer, idReducer]);
+
 
 
 
@@ -657,6 +658,7 @@ function Menux({
 
 
   const [Zoom1, setZoom1] = useState(false);
+  const [Zoom1x, setZoom1x] = useState(false);
   const [Zoom2, setZoom2] = useState(false);
   const [Zoom3, setZoom3] = useState(false);
   const [Zoom3x, setZoom3x] = useState(false);
@@ -794,73 +796,57 @@ function Menux({
                                   `0px solid ${blendedColor}`, // Add this line for a round border
                             }}
                           /> :
-                          <img
 
-                            onMouseEnter={(e) => {
-                              setZoom1(true);
-                            }}
-                            onMouseLeave={(e) => {
 
-                              setZoom1(false);
+                          <HorizontalSplitIcon
+
+                            onMouseEnter={(e: any) => {
+                              setZoom4(true);
                             }}
-                            src={`${REACT_APP_CLOUNDFRONT}${MemberProfileDataReducer.userimage}`}
-                            title={MemberProfileDataReducer.username}
+                            onMouseLeave={(e: any) => {
+                              setZoom4(false);
+                            }}
+
                             onClick={() => {
+                              setZoom4(false);
+                              GoToMemberLoaderUpF();
 
-                              paperPostScrollRef.current.scrollTop = 0;
-
-                              if (idReducer === GuestReducer && memeberPageidReducer === GuestReducer) {
-                                dispatch(UpdateSign(true));
-
-
-                                if (menuTimer6.current) {
-                                  clearTimeout(menuTimer6.current);
-                                }
-                                menuTimer6.current = setTimeout(() => {
-                                  setshowVerticalFeeds(false);
-                                }, 1600);
-                                ///setholdpaper(tt);
-
-                              }
-                              else {
-                                if (CurrentPage === 'feeds') {
-
-
-
-                                  if (menuTimer2x.current) {
-                                    clearTimeout(menuTimer2x.current);
-                                  }
-                                  menuTimer2x.current = setTimeout(() => {
-                                    setZoom1(false);
-                                  }, 1500)
-
-
-                                  if (menuTimer6.current) {
-                                    clearTimeout(menuTimer6.current);
-                                  }
-                                  menuTimer6.current = setTimeout(() => {
-                                    setshowVerticalFeeds(false);
-                                  }, 1600);
-                                  ///setholdpaper(tt);
-
-
-                                } else {
-                                  GoToMemberLoaderUpP();
-                                }
-                              }
                             }}
+
+
+                            className={
+                              darkmodeReducer
+                                ? "make-small-icons-clickable-lightCrop dontallowhighlighting "
+                                : "make-small-icons-clickable-darkCrop dontallowhighlighting  "
+                            }
                             style={{
-                              transform: Zoom1 ? "scale(1.8)" : "scale(1.5)",
-                              cursor: 'pointer',
+                              transform: matchMobile ? Zoom4 ? "scale(3)" : "scale(3)" :
+                                Zoom4 ? "scale(3.7)" : "scale(3.7)",
+                              fontSize: matchMobile ? Zoom4 ? '2rem' : '' : Zoom4 ? '' : '',
+
                               transition: "transform 0.1s",
-                              width: matchMobile ? '5.5vh' : '2.9vw',
-                              height: matchMobile ? '5.5vh' : '2.9vw',
-                              marginLeft: matchMobile ? memeberPageidReducer === 0 ? '' : '1.5vh' : memeberPageidReducer === 0 ? '' : '',
-                              borderRadius: '50%',
-                              marginTop: matchMobile ? '1.2vh' : '-1vh',
-                              border: `0.5px solid ${blendedColor}`, // Add this line for a round border
+                              color:
+                                darkmodeReducer
+                                  ? "#ffffff"
+                                  : "#000000",
+                              zIndex: 30,
+                              backgroundColor: darkmodeReducer
+                                ? "rgba(41,41,41,0)"
+                                : "rgba(205,205,205,0) ",
+                              cursor: "pointer",
+                              fontFamily: "Arial, Helvetica, sans-serif",
+                              fontWeight: "bolder",
+                              opacity: 1,
+                              padding: "4px",
+                              marginTop: matchMobile ? '2.1vh' : '0px',
+
+
+
                             }}
                           />}
+
+
+
 
 
                       </Grid>
@@ -1044,7 +1030,7 @@ function Menux({
                             clearTimeout(menuTimer6.current);
                           }
                           menuTimer6.current = setTimeout(() => {
-                            setshowVerticalFeeds(false);
+                            //// setshowVerticalFeeds(false);
                           }, 1600);
                           ///setholdpaper(tt);
 
@@ -1111,55 +1097,134 @@ function Menux({
 
 
 
+
                           </span>
 
                           :
-                          <HorizontalSplitIcon
-
-                            onMouseEnter={(e: any) => {
-                              setZoom4(true);
-                            }}
-                            onMouseLeave={(e: any) => {
-                              setZoom4(false);
-                            }}
-
-                            onClick={() => {
-                              setZoom4(false);
-                              GoToMemberLoaderUpF();
-
-                            }}
 
 
-                            className={
-                              darkmodeReducer
-                                ? "make-small-icons-clickable-lightCrop dontallowhighlighting "
-                                : "make-small-icons-clickable-darkCrop dontallowhighlighting  "
-                            }
-                            style={{
-                              transform: matchMobile ? Zoom4 ? "scale(3)" : "scale(3)" :
-                                Zoom4 ? "scale(3.7)" : "scale(3.7)",
-                              fontSize: matchMobile ? Zoom4 ? '2rem' : '' : Zoom4 ? '' : '',
+                          CurrentPage === 'feeds'
 
-                              transition: "transform 0.1s",
-                              color:
+                            ?
+
+
+
+
+
+
+                            <img
+
+                              onMouseEnter={(e) => {
+                                setZoom1x(true);
+                              }}
+                              onMouseLeave={(e) => {
+
+                                setZoom1x(false);
+                              }}
+                              src={`${REACT_APP_CLOUNDFRONT}${MemberProfileDataReducer.userimage}`}
+                              title={MemberProfileDataReducer.username}
+                              onClick={() => {
+
+                                paperPostScrollRef.current.scrollTop = 0;
+
+                                if (idReducer === GuestReducer && memeberPageidReducer === GuestReducer) {
+                                  dispatch(UpdateSign(true));
+
+
+                                  if (menuTimer6.current) {
+                                    clearTimeout(menuTimer6.current);
+                                  }
+                                  menuTimer6.current = setTimeout(() => {
+                                    //// setshowVerticalFeeds(false);
+                                  }, 1600);
+                                  ///setholdpaper(tt);
+
+                                }
+                                else {
+
+
+
+
+                                  if (menuTimer2x.current) {
+                                    clearTimeout(menuTimer2x.current);
+                                  }
+                                  menuTimer2x.current = setTimeout(() => {
+                                    setZoom1(false);
+                                  }, 1500)
+
+
+                                  if (menuTimer6.current) {
+                                    clearTimeout(menuTimer6.current);
+                                  }
+                                  menuTimer6.current = setTimeout(() => {
+                                    //// setshowVerticalFeeds(false);
+                                  }, 1600);
+                                  ///setholdpaper(tt);
+
+
+                                }
+
+                              }}
+                              style={{
+                                transform: Zoom1x ? "scale(1.78)" : "scale(1.48)",
+                                cursor: 'pointer',
+                                transition: "transform 0.1s",
+                                width: matchMobile ? '5.5vh' : '2.9vw',
+                                height: matchMobile ? '5.5vh' : '2.9vw',
+                                marginLeft: matchMobile ? memeberPageidReducer === 0 ? '' : '1.5vh' : memeberPageidReducer === 0 ? '' : '',
+                                borderRadius: '50%',
+                                marginTop: matchMobile ? '1.2vh' : '-1vh',
+                                border: `0.5px solid ${blendedColor}`, // Add this line for a round border
+                              }}
+                            />
+                            :
+                            <HorizontalSplitIcon
+
+
+                              onMouseEnter={(e: any) => {
+                                setZoom4(true);
+                              }}
+                              onMouseLeave={(e: any) => {
+                                setZoom4(false);
+                              }}
+
+                              onClick={() => {
+                                setZoom4(false);
+                                GoToMemberLoaderUpF();
+
+                              }}
+
+
+                              className={
                                 darkmodeReducer
-                                  ? "#ffffff"
-                                  : "#000000",
-                              zIndex: 30,
-                              backgroundColor: darkmodeReducer
-                                ? "rgba(41,41,41,0)"
-                                : "rgba(205,205,205,0) ",
-                              cursor: "pointer",
-                              fontFamily: "Arial, Helvetica, sans-serif",
-                              fontWeight: "bolder",
-                              opacity: 1,
-                              padding: "4px",
-                              marginTop: matchMobile ? '2.1vh' : '0px',
+                                  ? "make-small-icons-clickable-lightCrop dontallowhighlighting "
+                                  : "make-small-icons-clickable-darkCrop dontallowhighlighting  "
+                              }
+                              style={{
+                                transform: matchMobile ? Zoom4 ? "scale(3)" : "scale(3)" :
+                                  Zoom4 ? "scale(3.7)" : "scale(3.7)",
+                                fontSize: matchMobile ? Zoom4 ? '2rem' : '' : Zoom4 ? '' : '',
+
+                                transition: "transform 0.1s",
+                                color:
+                                  darkmodeReducer
+                                    ? "#ffffff"
+                                    : "#000000",
+                                zIndex: 30,
+                                backgroundColor: darkmodeReducer
+                                  ? "rgba(41,41,41,0)"
+                                  : "rgba(205,205,205,0) ",
+                                cursor: "pointer",
+                                fontFamily: "Arial, Helvetica, sans-serif",
+                                fontWeight: "bolder",
+                                opacity: 1,
+                                padding: "4px",
+                                marginTop: matchMobile ? '2.1vh' : '0px',
 
 
 
-                            }}
-                          />
+                              }}
+                            />
 
                         }
                       </Grid>

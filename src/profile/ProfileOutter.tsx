@@ -419,6 +419,12 @@ function ProfileOutter({ CallLoggedProfile }: any) {
   const [zoomedModal, setZoomedModal] = useState<boolean>(false);
   const [mobileZoom, setMobileZoom] = useState<boolean>(false);
 
+
+  const [ClickItVertical, setClickItVertical] = useState<Array<any>>([]);
+  const [ExplainItVertical, setExplainItVertical] = useState<Array<any>>([]);
+
+
+
   const [mono, setmono] = useState(false);
 
   const [AutoGo, setAutoGo] = useState(false);
@@ -1120,6 +1126,12 @@ function ProfileOutter({ CallLoggedProfile }: any) {
 
 
                           <ProfileGate
+                            ClickItVertical={ClickItVertical}
+                            ExplainItVertical={ExplainItVertical}
+                            setClickItVertical={setClickItVertical}
+                            setExplainItVertical={setExplainItVertical}
+
+
                             showVerticalFeeds={showVerticalFeeds}
                             setshowVerticalFeeds={setshowVerticalFeeds}
 

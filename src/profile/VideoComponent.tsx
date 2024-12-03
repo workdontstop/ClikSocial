@@ -121,7 +121,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ src, inView, setshow, v
 
 
                 left: xl ? matchMobile ? '15% ' : '20% ' :
-                    matchMobile ? '35.2% ' : '40% ',
+                    matchMobile ? '26.2% ' : '30% ',
 
 
                 bottom: xl ? matchMobile ? '3% ' : '10% ' :

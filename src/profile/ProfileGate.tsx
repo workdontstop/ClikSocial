@@ -180,7 +180,12 @@ function ProfileGatex({
     mono,
     setmono,
     showVerticalFeeds,
-    setshowVerticalFeeds
+    setshowVerticalFeeds,
+
+    ClickItVertical,
+    ExplainItVertical,
+    setClickItVertical,
+    setExplainItVertical
 
 
 }: any): JSX.Element {
@@ -441,6 +446,9 @@ function ProfileGatex({
     const GuestReducer = Guest;
 
 
+    const [Clicked1, setClicked1] = useState(false);
+    const [Clicked2, setClicked2] = useState(false);
+
 
 
     ///
@@ -573,7 +581,22 @@ function ProfileGatex({
     const [holdminimise, setholdminimise] = useState(false);
 
 
+    const [activeVertical, setActiveVertical] = useState<Array<any>>([]); // New state for active array
 
+    const [xplain, setxplain] = useState(false);
+
+
+    useEffect(() => {
+        // Update activeVertical based on Clicked1 and Clicked2 states
+        if (Clicked1) {
+            setActiveVertical(ClickItVertical);
+        } else if (Clicked2) {
+            setActiveVertical(ExplainItVertical);
+            setxplain(true)
+        } else {
+            setActiveVertical(ClickItVertical); // Default to ClickItVertical
+        }
+    }, [Clicked1, Clicked2, ClickItVertical, ExplainItVertical]);
 
 
     useEffect(() => {
@@ -690,6 +713,17 @@ function ProfileGatex({
     const [favoritesReducer, setfavoritesReducer] = useState(0);
     const [fansReducer, setfansReducer] = useState(0);
     const [hidefanReducer, sethidefanReducer] = useState(false);
+
+
+
+    const menuTimer62 = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const menuTimer6x2 = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const menuTimer6xx2 = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+
+    const menuTimer6 = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const menuTimer6x = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const menuTimer6xx = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 
 
@@ -841,12 +875,6 @@ function ProfileGatex({
     const [ActualpostDataAll, setActualPostDataAll] = useState<Array<any>>([]);
     const [ActualpostDataAll2, setActualPostDataAll2] = useState<Array<any>>([]);
 
-    const [Clicked1, setClicked1] = useState(false);
-    const [Clicked2, setClicked2] = useState(false);
-
-
-    const [ClickItVertical, setClickItVertical] = useState<Array<any>>([]);
-    const [ExplainItVertical, setExplainItVertical] = useState<Array<any>>([]);
 
 
 
@@ -866,7 +894,8 @@ function ProfileGatex({
 
 
 
-
+    const [active1, setactive1] = useState(-1);
+    const [active2, setactive2] = useState(-1);
 
 
 
@@ -2099,13 +2128,18 @@ function ProfileGatex({
     const [allowVerticalDatapush, setallowVerticalDatapush] = useState(false);
 
     const callfeeds = useCallback(
-        (aa: number, postPageLimitx: any, fromPagination: number, Explain: number, allowVerticalData: number) => {
+        (aa: number, postPageLimitx: any, fromPagination: number, Explain: number,
+            allowVerticalData: number) => {
             if (Ti.current) {
                 clearTimeout(Ti.current);
             }
 
 
+
+
             Ti.current = setTimeout(() => {
+
+
                 var cboy = {
                     id: idReducer,
                     id2: idReducer,
@@ -2158,14 +2192,21 @@ function ProfileGatex({
                         // alert('hh');
 
 
-                        tt = "profileExplain";
+                        if (memeberPageidReducer === idReducer) {
+                            tt = "profileExplain";
+                        } else { tt = "profileExplainUser"; }
+
                         tt2 = "profile";
                     }
                     else if (FeedType === 1 || FeedType === 0) {
 
 
                         tt = "profile";
-                        tt2 = "profileExplain";
+
+                        if (memeberPageidReducer === idReducer) {
+                            tt2 = "profileExplain";
+                        } else { tt2 = "profileExplainUser"; }
+
                     }
                     else {
 
@@ -2189,6 +2230,7 @@ function ProfileGatex({
 
 
                 //setScrollTo(0);
+
 
 
 
@@ -2286,10 +2328,15 @@ function ProfileGatex({
 
 
                         } else if (response.data.message === "error in fetching feeds") {
-                            alert("Ongoing Security Updates, Pls Try Again Later");
+                            dispatch(UpdateLoader(false));
+
+                            /// alert("Ongoing Security Updates, Pls Try Again Later");
+
                         }
                     })
                     .catch(function (error) {
+                        dispatch(UpdateLoader(false));
+
                         console.log("Connection malfunction profile outter 2");
                     });
 
@@ -2391,7 +2438,7 @@ function ProfileGatex({
 
 
 
-    const callPagination = useCallback((AllowFeedsVerticalData: boolean) => {
+    const callPagination = useCallback((AllowFeedsVerticalData: boolean,) => {
 
         var AllowData = 0;
 
@@ -2426,12 +2473,12 @@ function ProfileGatex({
             ///  paperPostScrollRef.current.scrollTop = 0;
 
 
+            var xx = 0;
+
+            xx = ActualpostDataAll[ActualpostDataAll.length - 3].id;
 
 
 
-
-
-            var xx = ActualpostDataAll[ActualpostDataAll.length - 3].id;
 
             /////only update
 
@@ -2460,7 +2507,13 @@ function ProfileGatex({
                 }
             } else {
 
+
+
+
+
                 callfeeds(memeberPageidReducer, xx, 1, 1, AllowData);
+
+
             }
 
         }, 500);
@@ -3367,67 +3420,55 @@ function ProfileGatex({
                             scrollBehavior: 'smooth', // Smooth scrolling
                             width: '100vw', // Full viewport width
                         }} ref={containerRef}>
-                            {imageSources.map((image, index) => (
+                            {activeVertical.map((item: any, index: any) => (
                                 <div key={index} style={{ flex: '0 0 90%', scrollSnapAlign: 'start', position: 'relative' }}>
                                     <animated.img
                                         onClick={() => {
-
-
                                             if (ExtendBill) {
-
-
-
-
-
-                                                if (index === 0) {
-                                                    callPaginationAll();
-
-                                                } else if (index === 1) {
-
-
-
-                                                    callPaginationx();
-
-                                                } else if (index === 2) {
-
-
-                                                    Explainx();
+                                                if (xplain) {
+                                                    setactive2(index + 1);
+                                                    setactive1(-1);
+                                                } else {
+                                                    setactive1(index + 1);
+                                                    setactive2(-1);
                                                 }
 
+                                                if (!xplain) {
+                                                    if (!Clicked1) {
+                                                        CallFirstFeed(ClickItVertical, 0);
+                                                    }
+                                                    setClicked1(true);
+                                                    setClicked2(false);
+                                                } else if (xplain) {
+                                                    if (!Clicked2) {
+                                                        CallFirstFeed(ExplainItVertical, 0);
+                                                    }
+                                                    setClicked2(true);
+                                                    setClicked1(false);
+                                                }
 
+                                                setFeedType(xplain ? 2 : 1);
+                                                setshowVerticalFeeds(true);
 
+                                                if (menuTimer6.current) {
+                                                    clearTimeout(menuTimer6.current);
+                                                }
+                                                setverticalIndex(index);
+                                                menuTimer6.current = setTimeout(() => { }, 150);
+
+                                                setExtendBill(false);
                                             } else {
-
-
                                                 setHoldFeedType(FeedType);
                                                 setFeedType(index);
-
-
                                                 setExtendBill(true);
                                             }
-
-
-
-
-
-
-
-
-
-
-                                        }
-                                        }
+                                        }}
                                         ref={(el) => (imageRefs.current[index] = el)}
-
-                                        src={index === 0 ? RandomFromPostData ? image.src :
-
-                                            `${REACT_APP_CLOUNDFRONT}mitchell-orr---LyFIjXoFY-unsplash.jpg` : image.src}
-                                        alt={image.text}
+                                        src={`${REACT_APP_CLOUNDFRONT}${item.item2}`}
+                                        alt={item.text}
                                         style={{
                                             cursor: "pointer",
-
-                                            boxShadow:
-                                                darkmodeReducer ? "0 0 1px #555555" : "0 0 0.1px #222222",
+                                            boxShadow: darkmodeReducer ? "0 0 1px #555555" : "0 0 0.1px #222222",
                                             width: "100%", // Full width of the container
                                             padding: "0px",
                                             objectFit: "cover",
@@ -3438,59 +3479,52 @@ function ProfileGatex({
                                             ...heightAnimation,
                                         }}
                                     />
-                                    <div style={{
-                                        position: 'absolute',
-                                        bottom: '10px',
-                                        left: ExtendBill ? '29%' : matchMobile ? '10px' : '10vw',
-                                        color: 'white',
-                                        backgroundColor: ExtendBill ? '' : 'rgba(0, 0, 0, 0.5)',
-                                        padding: '5px 10px',
-                                        borderRadius: '5px',
-                                        fontWeight: ExtendBill ? 'bold' : 'normal',
-                                        fontSize: ExtendBill ? matchMobile ? '1.4rem' : '2rem' : matchMobile ? '' : '1.4rem',
-                                        pointerEvents: 'none', // Ensure the text does not interfere with the click event
-                                        fontFamily: "Arial, Helvetica, sans-serif",
-                                        opacity: index === 3 ? 0.5 : 1,
+                                    {/* Text Overlay */}
 
-                                    }}>
+
+
+                                    <div
+
+                                        onClick={() => {
+
+                                        }}
+
+
+                                        style={{
+                                            position: 'absolute',
+                                            bottom: '10px',
+                                            left: ExtendBill ? '29%' : matchMobile ? '10px' : '10vw',
+                                            color: 'white',
+                                            backgroundColor: ExtendBill ? '' : 'rgba(0, 0, 0, 0.5)',
+                                            padding: '5px 10px',
+                                            borderRadius: '5px',
+                                            fontWeight: ExtendBill ? 'bold' : 'normal',
+                                            fontSize: ExtendBill ? matchMobile ? '1.5rem' : '2.1rem' : matchMobile ? '' : '1.4rem',
+                                            pointerEvents: 'none', // Ensure the text does not interfere with the click event
+                                            fontFamily: "Arial, Helvetica, sans-serif",
+                                            opacity: 1,
+                                            zIndex: 1
+                                        }}>
                                         <>
+                                            <span
+                                                style={{}}>
 
-                                            <span style={{
+                                                {
 
-                                                display: index === 0 ? 'block' : 'none'
-                                            }}>
-                                                {image.text}
+
+                                                    ExtendBill ? activeVertical.length > 0 ?
+
+
+                                                        xplain ? activeVertical[index].caption :
+                                                            activeVertical[index].topic : null : 'Discover'}
+
                                             </span>
 
-
-
-                                            <span style={{
-
-                                                display: index === 1 ? 'block' : 'none'
-                                            }}> {image.text}
-                                                <span style={{ color: darkmodeReducer ? "#ffe680" : "#ffcc00", }}>Bate</span></span>
-
-
-                                            <span style={{
-
-                                                display: index === 2 ? 'block' : 'none'
-                                            }}> {image.text} <span style={{ color: '#00ccff', }}>IT</span></span>
-
-
-                                            <span style={{
-
-                                                display: index === 3 ? 'block' : 'none'
-                                            }}> {image.text}
-                                                <span style={{ color: "red", }}>IT</span></span>
-
-
                                         </>
-
                                     </div>
                                 </div>
                             ))}
                         </Grid>
-
                         //////////////////////////////////////// BILLBOARD FEEDS  BILLBOARD FEEDS  BILLBOARD FEEDS ////////////////////////////////
 
                         :
@@ -3574,10 +3608,27 @@ function ProfileGatex({
 
 
                     <div style={{ scrollSnapAlign: snapallow ? 'none' : 'start', padding: '0px', paddingTop: '4vh' }}>
-                        <h2 style={{
-                            marginLeft: '14vw', fontFamily: "Roboto, Arial, Helvetica, sans-serif",
-                            opacity: 0.9,
-                        }}>
+                        <h2
+
+
+                            onClick={
+                                () => {
+
+                                    if (IdReactRouterAsInt === 0) {
+                                        callfeeds(0, PagenumReactRouter, 0, 0, 0);
+                                    } else {
+                                        callfeeds(memeberPageidReducer, PagenumReactRouter, 0, 0, 0);
+                                    }
+
+                                }}
+
+
+
+                            style={{
+                                marginLeft: '14vw', fontFamily: "Roboto, Arial, Helvetica, sans-serif",
+                                opacity: 0.9,
+                                cursor: 'pointer'
+                            }}>
 
                             <span style={{
 
@@ -3585,6 +3636,8 @@ function ProfileGatex({
                             }}>
                                 Clik
                             </span>
+
+
 
                             <span style={{ visibility: 'hidden' }}>
                                 .
@@ -3599,6 +3652,18 @@ function ProfileGatex({
                         </h2>
 
                         <ImageSlider
+                            minimise={minimise}
+                            setExplainItVertical={setExplainItVertical}
+                            setClickItVertical={setClickItVertical}
+                            ClickItVertical={ClickItVertical}
+                            ExplainItVertical={ExplainItVertical}
+
+                            callPagination={callPagination}
+                            setactive1={setactive1}
+                            active1={active1}
+                            setactive2={setactive2}
+                            active2={active2}
+
                             allowVerticalDatapush={allowVerticalDatapush}
                             ScrollReactRouter={ScrollReactRouter}
                             Clicked1={Clicked1}
@@ -3622,13 +3687,27 @@ function ProfileGatex({
 
 
                     <div style={{ scrollSnapAlign: snapallow ? 'none' : 'start', padding: '0px', paddingTop: '6vh' }}>
-                        <h2 style={{
-                            marginLeft: '14vw', fontFamily: "Roboto, Arial, Helvetica, sans-serif",
-                            opacity: 0.9,
-                        }}>    <span style={{
+                        <h2
 
-                            color: darkmodeReducer ? '#ffffff' : '#000000'
-                        }}>
+                            onClick={
+                                () => {
+
+                                    if (IdReactRouterAsInt === 0) {
+                                        callfeeds(0, PagenumReactRouter, 0, 0, 0);
+                                    } else {
+                                        callfeeds(memeberPageidReducer, PagenumReactRouter, 0, 0, 0);
+                                    }
+
+                                }}
+
+                            style={{
+                                marginLeft: '14vw', fontFamily: "Roboto, Arial, Helvetica, sans-serif",
+                                opacity: 0.9,
+                                cursor: 'pointer'
+                            }}>    <span style={{
+
+                                color: darkmodeReducer ? '#ffffff' : '#000000'
+                            }}>
                                 Explain
                             </span>
 
@@ -3640,6 +3719,18 @@ function ProfileGatex({
                                 It
                             </span> </h2>
                         <ImageSlider
+                            minimise={minimise}
+                            setExplainItVertical={setExplainItVertical}
+                            setClickItVertical={setClickItVertical}
+                            ClickItVertical={ClickItVertical}
+                            ExplainItVertical={ExplainItVertical}
+                            callPagination={callPagination}
+                            setactive1={setactive1}
+                            active1={active1}
+                            setactive2={setactive2}
+                            active2={active2}
+
+
                             allowVerticalDatapush={allowVerticalDatapush}
                             ScrollReactRouter={ScrollReactRouter}
                             Clicked1={Clicked1}

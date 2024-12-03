@@ -389,7 +389,7 @@ function Postx({
 
           setverticalIndex(-1);
 
-        }, 3000)
+        }, 1500)
       }
 
     }
@@ -1503,7 +1503,7 @@ function Postx({
   }, [audioPlayerRef])
 
 
-
+  ///700
 
 
   const clickslider = (e: any) => {
@@ -2358,7 +2358,7 @@ function Postx({
               width: matchMobile ? '99%' : '100%',
               fontFamily: "Arial, Helvetica, sans-serif",
               display: minimise ? 'none' : 'block',
-              fontSize: matchMobile ? '2vh' : '2.5vh',
+              fontSize: matchMobile ? '2.4vh' : '2.5vh',
 
               fontWeight: 'normal',
             }}>

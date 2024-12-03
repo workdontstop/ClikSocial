@@ -697,7 +697,7 @@ function Profilex({
 
         if (memeberPageidReducer === 0) {
 
-          setminimise(false);
+          /// setminimise(false);
         } else {
 
           /// setminimise(true);
@@ -707,7 +707,7 @@ function Profilex({
 
       } else {
 
-        setminimise(false);
+        /// setminimise(false);
 
 
       }
