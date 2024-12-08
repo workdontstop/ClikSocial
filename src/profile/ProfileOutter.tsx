@@ -99,7 +99,7 @@ function ProfileOutter({ CallLoggedProfile }: any) {
   const { REACT_APP_SUPERSTARZ_URL, REACT_APP_CLOUNDFRONT, REACT_APP_APPX_STATE } = process.env;
 
 
-  var AiLock = true;
+  var AiLock = false;
 
 
   const isAppleDevice = /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
@@ -391,7 +391,7 @@ function ProfileOutter({ CallLoggedProfile }: any) {
 
 
   const paperPostScrollRef = useRef<any>(null);
-  const [minimise, setminimise] = useState(false);
+  const [minimise, setminimise] = useState(true);
 
 
   ////true stops snap
@@ -425,7 +425,7 @@ function ProfileOutter({ CallLoggedProfile }: any) {
 
 
 
-  const [mono, setmono] = useState(false);
+  const [mono, setmono] = useState(true);
 
   const [AutoGo, setAutoGo] = useState(false);
 
@@ -806,7 +806,7 @@ function ProfileOutter({ CallLoggedProfile }: any) {
     // Hide navbar after 3 seconds of no scrolling
     scrollTimeoutRef.current = setTimeout(() => {
       setShowNavbar(false);
-    }, 4500); // 3 seconds
+    }, 5000); // 3 seconds
   };
 
   useEffect(() => {

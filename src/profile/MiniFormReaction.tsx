@@ -94,15 +94,17 @@ function MiniFormReactionx({
           display: "grid",
           gridGap: "0px",
           gridAutoFlow: "row",
-          gridTemplateColumns: matchMobile ? mobileZoom ? "35.5% 35.5% 35.5%" : "26.5% 26.5% 26.5% 26.5%" : zoomedModal ? "25% 25% 25% 25% 25%" : "25% 25% 25% 25% 25%",
+          gridTemplateColumns: matchMobile ? mobileZoom ? "35.5% 35.5% 35.5%" : "52.5% 52.5% " :
+            zoomedModal ? "40.5% 40.5% 40.5%" : "60.5% 60.5%",
+
           width: "auto",
           height: zoomedModal
             ? wideImage
-              ? "68vh"
+              ? "73vh"
               : "75vh"
             : wideImage
-              ? "46vh"
-              : "76vh",
+              ? "53vh"
+              : "80vh",
         }}
       >
         {commentDatax

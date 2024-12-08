@@ -121,10 +121,11 @@ function ActualMenux({ showModalFormMenu,
   ////
   ////
   const styles = useSpring({
-    from: { transform: 'translateX(-5%)' },
-    to: { transform: showModalFormMenu ? 'translateX(0%)' : 'translateX(-5%)' },
-    config: config.default,
+    from: { transform: 'translateX(-7%)' },
+    to: { transform: showModalFormMenu ? 'translateX(0%)' : 'translateX(-7%)' },
+    config: config.stiff, // Use stiff for a faster default config
   });
+
 
 
   const { REACT_APP_SUPERSTARZ_URL, REACT_APP_CLOUNDFRONT, REACT_APP_APPX_STATE } = process.env;

@@ -18,11 +18,13 @@ interface VideoComponentProps {
     videoImRef: any;
     itemcroptype: any;
     index: any
+    startinview: any;
+    ///startInteraction: any;
 
 }
 
 const VideoComponent: React.FC<VideoComponentProps> = ({ src, inView, setshow, videoRef, show, hidePrevVid,
-    InteractTimerxxhyx, xl, setxl, sethidePrevVid, postty, videoImRef, itemcroptype, index }) => {
+    InteractTimerxxhyx, xl, setxl, sethidePrevVid, postty, videoImRef, itemcroptype, index, startinview }) => {
 
     const { REACT_APP_CLOUNDFRONT } = process.env;
 
@@ -97,6 +99,8 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ src, inView, setshow, v
                     setxl(false);
 
                     sethidePrevVid(true)
+
+                    startinview(inView);
                 }}
 
                 style={{

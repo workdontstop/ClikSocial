@@ -500,7 +500,7 @@ function ShowCommentsx({
             </span>
             <span
               style={{
-                fontSize: matchMobile ? '2vh' : zoomedModal ? "1.1vw" : "0.9vw",
+                fontSize: matchMobile ? '0.75rem' : zoomedModal ? "1.1vw" : "0.9vw",
                 opacity: 0.7,
               }}
             >

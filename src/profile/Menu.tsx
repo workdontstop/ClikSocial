@@ -656,7 +656,7 @@ function Menux({
   const colorReducerdark = colordark;
   const colortypeReducer = colortype;
 
-
+  const [Zoom7, setZoom7] = useState(false);
   const [Zoom1, setZoom1] = useState(false);
   const [Zoom1x, setZoom1x] = useState(false);
   const [Zoom2, setZoom2] = useState(false);
@@ -869,6 +869,8 @@ function Menux({
                           onMouseLeave={(e: any) => {
                             setZoom2(false);
                           }}
+
+
                           onClick=
                           {() => {
                             setShowModalFormMenu(true);
@@ -1022,6 +1024,28 @@ function Menux({
                       <Grid
                         item
 
+                        onMouseEnter={(e: any) => {
+                          if (matchMobile) { } else {
+                            setZoom7(true);
+                          }
+
+                        }}
+                        onMouseLeave={(e: any) => {
+                          setZoom7(false);
+                        }}
+
+
+                        onTouchStart={() => {
+                          setZoom7(true);
+
+                        }}
+
+
+                        onTouchEnd={() => {
+                          setZoom7(false);
+
+                        }}
+
                         onClick={() => {
 
 
@@ -1030,8 +1054,8 @@ function Menux({
                             clearTimeout(menuTimer6.current);
                           }
                           menuTimer6.current = setTimeout(() => {
-                            //// setshowVerticalFeeds(false);
-                          }, 1600);
+                            setZoom7(false);
+                          }, 800);
                           ///setholdpaper(tt);
 
 
@@ -1039,6 +1063,12 @@ function Menux({
                         }}
                         xs={3}
                         style={{
+
+                          transform: matchMobile ? Zoom7 ? "scale(1.9)" : "scale(1.1)" :
+                            Zoom7 ? "scale(1.5)" : "scale(1)",
+
+                          transition: "transform 0.1s",
+
                           cursor: 'pointer',
                           backgroundColor: '',
                           height: '5vh',

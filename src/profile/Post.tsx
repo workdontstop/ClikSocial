@@ -202,7 +202,10 @@ function Postx({
 
   sqlQUERYlIMIT,
   verticalIndex,
-  setverticalIndex
+  setverticalIndex,
+  showVerticalFeeds
+
+
 
 
 
@@ -363,6 +366,9 @@ function Postx({
 
   const profileImageref = useRef<any>();
 
+  const Timer3x = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
 
   const Timer3 = useRef<ReturnType<typeof setTimeout> | null>(
     null
@@ -373,9 +379,12 @@ function Postx({
 
   useEffect(() => {
 
-    if (postData.length > 0 && verticalIndex > -1) {
+    if (post.username && verticalIndex > -1) {
 
       if (pey === verticalIndex) {
+
+
+
         if (Timer3.current) {
           clearTimeout(Timer3.current);
         } Timer3.current = setTimeout(() => {
@@ -387,15 +396,40 @@ function Postx({
             });
           }
 
-          setverticalIndex(-1);
+          if (matchMobile) {
 
-        }, 1500)
+          } else {
+            setverticalIndex(-1);
+          }
+
+          if (matchMobile) {
+
+            if (Timer3x.current) {
+              clearTimeout(Timer3x.current);
+            } Timer3x.current = setTimeout(() => {
+
+              if (divBox.current) {
+                divBox.current.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+              }
+
+              setverticalIndex(-1);
+
+
+
+            }, 1300);
+          }
+
+
+        }, 150);
       }
 
     }
 
 
-  }, [postData, verticalIndex]);
+  }, [post, verticalIndex, divBox.current]);
 
 
   const divBox2 = useRef<HTMLDivElement>(null);
@@ -749,15 +783,14 @@ function Postx({
   /// SPRING TRANSITION WITH INDEX
   const animationmenu = useSpring({
     config: {
-      duration: 2,
+      duration: 200,
     },
-    opacity: opacityController ? 1 : StopSpring ? 1 : 0,
-    transform: opacityController
+
+    transform: ShowPost
       ? `translateY(0%)`
-      : StopSpring
-        ? `translateY(0%)`
-        : `translateY(150%)`,
-    filter: ShowPost ? 'brightness(1)' : matchMobile ? 'brightness(0.45)' : 'brightness(0.55)'
+      : `translateY(0.001%)`,
+    transition: "transform 0.2s",
+    filter: ShowPost ? 'brightness(1.1)' : matchMobile ? 'brightness(0.7)' : 'brightness(0.7)'
 
   });
 
@@ -1108,7 +1141,7 @@ function Postx({
 
 
 
-  }, [Ein, idReducer, GuestReducer])
+  }, [Ein, idReducer, GuestReducer, EinReaction])
 
 
   const ClickLove = useCallback(() => {
@@ -1138,7 +1171,7 @@ function Postx({
 
 
 
-  }, [Ein, idReducer, GuestReducer])
+  }, [Ein, idReducer, GuestReducer, EinReaction])
 
 
 
@@ -2502,6 +2535,8 @@ function Postx({
 
 
               <Slider
+                showVerticalFeeds={showVerticalFeeds}
+                verticalIndex={verticalIndex}
                 sqlQUERYlIMIT={sqlQUERYlIMIT}
                 postData={postData}
                 GetMoreFeeds={GetMoreFeeds}

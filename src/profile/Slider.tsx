@@ -144,7 +144,9 @@ function Sliderx({
   GetMoreFeedsprofile,
 
   postData,
-  sqlQUERYlIMIT
+  sqlQUERYlIMIT,
+  verticalIndex,
+  showVerticalFeeds
 
 
 
@@ -677,6 +679,9 @@ function Sliderx({
     null
   );
 
+  const InteractTimerxxhbb = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
 
   //////REDUCE AUDIO VOLUME
   useEffect(() => {
@@ -814,7 +819,7 @@ function Sliderx({
 
 
 
-  const startinview = useCallback(() => {
+  const startinview = useCallback((inViewx: boolean) => {
 
 
     if (InteractTimerxxhya1.current) {
@@ -829,7 +834,9 @@ function Sliderx({
 
 
 
-      if (inView) {
+
+      if (inViewx) {
+
         if (postData.length > 0) {
 
           if (pey === postData.length - 1 && postData.length === sqlQUERYlIMIT) {
@@ -843,12 +850,12 @@ function Sliderx({
             } lo.current = setTimeout(() => {
 
 
-              dispatch(UpdateLoader(false));
+              ///dispatch(UpdateLoader(false));
 
               GetMoreFeeds();
 
 
-            }, 5000);
+            }, 6000);
           }
 
         }
@@ -1158,10 +1165,10 @@ function Sliderx({
     showcaptionwaitTimer.current = setTimeout(function () {
 
 
-      startinview();
+      startinview(inView);
 
 
-    }, 1500)
+    }, 1000)
   }, [inView]);
   /// const getWidth = () => window.innerWidth;
   ///var newGetWidth = getWidth() * slides.length;
@@ -3542,6 +3549,7 @@ function Sliderx({
 
               hidePrev ? null :
                 < VideoComponent
+                  startinview={startinview}
                   index={pey}
                   itemcroptype={itemcroptype}
                   xl={xl}

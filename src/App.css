@@ -1808,10 +1808,10 @@ zuperxyinfo {
   }
 }
 .superloaderAutoSliderFast {
-  -webkit-animation: superloader-keyframeAutoSlider 1.08s linear 1 forwards;
-  -moz-animation: superloader-keyframeAutoSlider 1.08s linear 1 forwards;
-  -o-animation: superloader-keyframeAutoSlider 1.08s linear 1 forwards;
-  animation: superloader-keyframeAutoSlider 1.08s linear 1 forwards;
+  -webkit-animation: superloader-keyframeAutoSlider 2.88s linear 1 forwards;
+  -moz-animation: superloader-keyframeAutoSlider 2.88s linear 1 forwards;
+  -o-animation: superloader-keyframeAutoSlider 2.88s linear 1 forwards;
+  animation: superloader-keyframeAutoSlider 2.88s linear 1 forwards;
 }
 
 @keyframes superloader-keyframeAutoSlider {

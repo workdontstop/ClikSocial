@@ -175,9 +175,10 @@ export const ButtonsLoginReducerLight = (
 ////////////PAPER LIGHTNDARK DATA////////////////
 const initialStatePaperLIGHTNDARK = {
   PaperStyleLight:
-    "linear-gradient(0deg, #ffffff, #f2f2f2, #ffffff)",
+    "linear-gradient(0deg, #ffffff, #fdfefe, #ffffff)", // Almost imperceptible blue tint for a clean and positive feel.
 
-  PaperStyleDark: "linear-gradient(0deg, #121212, #1f1f1f, #121212",
+  PaperStyleDark:
+    "linear-gradient(0deg, #1e1e1e, #2c2c2c, #1e1e1e)", // Richer dark tones for a sleek dark mode.
 };
 
 type MyPaperReducerLightnDark = typeof initialStatePaperLIGHTNDARK;

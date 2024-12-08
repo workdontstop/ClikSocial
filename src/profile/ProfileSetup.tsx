@@ -126,7 +126,8 @@ function ProfileSetupx({
     callPaginationProfile,
     ProfileFeed,
     verticalIndex,
-    setverticalIndex
+    setverticalIndex,
+    showVerticalFeeds
 
 
 
@@ -365,6 +366,8 @@ function ProfileSetupx({
                     position: "relative", zIndex: 1, padding: "0px"
                 }}>
                     <Profile
+
+
                         verticalIndex={verticalIndex}
                         setverticalIndex={setverticalIndex}
                         ProfileFeed={ProfileFeed}

@@ -136,7 +136,9 @@ function ReactionPost2kx({ Ein,
                         zIndex: 30,
                         left: matchMobile ? '89vw' : '46.5vw',
                         cursor: "pointer",
-                        bottom: matchMobile ? '29vh' : "0px",
+                        bottom: matchMobile ?
+
+                            EinReaction === 4 || EinReaction === 3 ? '28.5vh' : '29vh' : "0px",
                         top: matchMobile ? '' : "36vh",
 
                         backgroundColor: colorx,
@@ -171,7 +173,7 @@ function ReactionPost2kx({ Ein,
 
                         style={{
                             color: '#000000',
-                            backgroundColor: colorx,
+                            backgroundColor: EinReaction === 4 ? '#cccccc' : colorx,
                             fontFamily: "Arial, Helvetica, sans-serif",
 
                             padding: "2px",
@@ -229,7 +231,7 @@ function ReactionPost2kx({ Ein,
                             height: "10px",
                             backgroundColor: colorx,
                             borderRadius: "50%",
-                            display: EinReaction === 4 ? 'block' : 'none',
+                            visibility: EinReaction === 4 ? 'visible' : 'hidden',
                             zIndex: 1, // Ensure it appears below the icon
                         }}
                     ></div>

@@ -134,7 +134,8 @@ function Profilex({
   callPaginationProfile,
   ProfileFeed,
   verticalIndex,
-  setverticalIndex
+  setverticalIndex,
+  showVerticalFeeds
 
 
 
@@ -1765,6 +1766,8 @@ function Profilex({
                         }}
                       >
                         <Post
+                          showVerticalFeeds={showVerticalFeeds}
+
                           verticalIndex={verticalIndex}
                           setverticalIndex={setverticalIndex}
 

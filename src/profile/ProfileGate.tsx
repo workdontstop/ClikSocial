@@ -586,17 +586,21 @@ function ProfileGatex({
     const [xplain, setxplain] = useState(false);
 
 
+
+
+
     useEffect(() => {
         // Update activeVertical based on Clicked1 and Clicked2 states
-        if (Clicked1) {
-            setActiveVertical(ClickItVertical);
-        } else if (Clicked2) {
-            setActiveVertical(ExplainItVertical);
-            setxplain(true)
+
+        if (activeVertical.length > 0) {
+
         } else {
+
             setActiveVertical(ClickItVertical); // Default to ClickItVertical
+
+
         }
-    }, [Clicked1, Clicked2, ClickItVertical, ExplainItVertical]);
+    }, []);
 
 
     useEffect(() => {
@@ -3411,121 +3415,7 @@ function ProfileGatex({
 
                     {memeberPageid === 0 ?
 
-                        //////////////////////////////////////// BILLBOARD FEEDS  BILLBOARD FEEDS  BILLBOARD FEEDS ////////////////////////////////
-                        <Grid item xs={12} style={{
-                            padding: '0px',
-                            display: 'flex', // Use flexbox to align items horizontally
-                            overflowX: 'scroll', // Enable horizontal scrolling
-                            scrollSnapType: 'x mandatory', // Enable snap scrolling
-                            scrollBehavior: 'smooth', // Smooth scrolling
-                            width: '100vw', // Full viewport width
-                        }} ref={containerRef}>
-                            {activeVertical.map((item: any, index: any) => (
-                                <div key={index} style={{ flex: '0 0 90%', scrollSnapAlign: 'start', position: 'relative' }}>
-                                    <animated.img
-                                        onClick={() => {
-                                            if (ExtendBill) {
-                                                if (xplain) {
-                                                    setactive2(index + 1);
-                                                    setactive1(-1);
-                                                } else {
-                                                    setactive1(index + 1);
-                                                    setactive2(-1);
-                                                }
-
-                                                if (!xplain) {
-                                                    if (!Clicked1) {
-                                                        CallFirstFeed(ClickItVertical, 0);
-                                                    }
-                                                    setClicked1(true);
-                                                    setClicked2(false);
-                                                } else if (xplain) {
-                                                    if (!Clicked2) {
-                                                        CallFirstFeed(ExplainItVertical, 0);
-                                                    }
-                                                    setClicked2(true);
-                                                    setClicked1(false);
-                                                }
-
-                                                setFeedType(xplain ? 2 : 1);
-                                                setshowVerticalFeeds(true);
-
-                                                if (menuTimer6.current) {
-                                                    clearTimeout(menuTimer6.current);
-                                                }
-                                                setverticalIndex(index);
-                                                menuTimer6.current = setTimeout(() => { }, 150);
-
-                                                setExtendBill(false);
-                                            } else {
-                                                setHoldFeedType(FeedType);
-                                                setFeedType(index);
-                                                setExtendBill(true);
-                                            }
-                                        }}
-                                        ref={(el) => (imageRefs.current[index] = el)}
-                                        src={`${REACT_APP_CLOUNDFRONT}${item.item2}`}
-                                        alt={item.text}
-                                        style={{
-                                            cursor: "pointer",
-                                            boxShadow: darkmodeReducer ? "0 0 1px #555555" : "0 0 0.1px #222222",
-                                            width: "100%", // Full width of the container
-                                            padding: "0px",
-                                            objectFit: "cover",
-                                            borderRadius: "0px",
-                                            filter: 'brightness(91%)',
-                                            opacity: 1,
-                                            transition: "transform 0.1s",
-                                            ...heightAnimation,
-                                        }}
-                                    />
-                                    {/* Text Overlay */}
-
-
-
-                                    <div
-
-                                        onClick={() => {
-
-                                        }}
-
-
-                                        style={{
-                                            position: 'absolute',
-                                            bottom: '10px',
-                                            left: ExtendBill ? '29%' : matchMobile ? '10px' : '10vw',
-                                            color: 'white',
-                                            backgroundColor: ExtendBill ? '' : 'rgba(0, 0, 0, 0.5)',
-                                            padding: '5px 10px',
-                                            borderRadius: '5px',
-                                            fontWeight: ExtendBill ? 'bold' : 'normal',
-                                            fontSize: ExtendBill ? matchMobile ? '1.5rem' : '2.1rem' : matchMobile ? '' : '1.4rem',
-                                            pointerEvents: 'none', // Ensure the text does not interfere with the click event
-                                            fontFamily: "Arial, Helvetica, sans-serif",
-                                            opacity: 1,
-                                            zIndex: 1
-                                        }}>
-                                        <>
-                                            <span
-                                                style={{}}>
-
-                                                {
-
-
-                                                    ExtendBill ? activeVertical.length > 0 ?
-
-
-                                                        xplain ? activeVertical[index].caption :
-                                                            activeVertical[index].topic : null : 'Discover'}
-
-                                            </span>
-
-                                        </>
-                                    </div>
-                                </div>
-                            ))}
-                        </Grid>
-                        //////////////////////////////////////// BILLBOARD FEEDS  BILLBOARD FEEDS  BILLBOARD FEEDS ////////////////////////////////
+                        null
 
                         :
 
@@ -3609,8 +3499,6 @@ function ProfileGatex({
 
                     <div style={{ scrollSnapAlign: snapallow ? 'none' : 'start', padding: '0px', paddingTop: '4vh' }}>
                         <h2
-
-
                             onClick={
                                 () => {
 
@@ -3619,6 +3507,13 @@ function ProfileGatex({
                                     } else {
                                         callfeeds(memeberPageidReducer, PagenumReactRouter, 0, 0, 0);
                                     }
+
+
+
+
+                                    setClicked1(false);
+                                    setClicked2(false);
+
 
                                 }}
 
@@ -3652,6 +3547,7 @@ function ProfileGatex({
                         </h2>
 
                         <ImageSlider
+
                             minimise={minimise}
                             setExplainItVertical={setExplainItVertical}
                             setClickItVertical={setClickItVertical}
@@ -3697,6 +3593,14 @@ function ProfileGatex({
                                     } else {
                                         callfeeds(memeberPageidReducer, PagenumReactRouter, 0, 0, 0);
                                     }
+
+
+
+
+                                    setClicked1(false);
+                                    setClicked2(false);
+
+
 
                                 }}
 
@@ -4118,6 +4022,8 @@ function ProfileGatex({
 
                         }}>
                             <ProfileSetup
+
+
 
                                 verticalIndex={verticalIndex}
                                 setverticalIndex={setverticalIndex}

@@ -168,7 +168,7 @@ function ReactionPostx({ Ein,
                         style={{
                             opacity: EinReaction === 3 ? 0.25 : 1,
                             color: '#000000',
-                            backgroundColor: colorx,
+                            backgroundColor: EinReaction === 3 ? '#cccccc' : colorx,
                             fontFamily: "Arial, Helvetica, sans-serif",
                             padding: "2px",
 
@@ -223,7 +223,7 @@ function ReactionPostx({ Ein,
                             height: "10px",
                             backgroundColor: colorx,
                             borderRadius: "50%",
-                            display: EinReaction === 3 ? 'block' : 'none',
+                            visibility: EinReaction === 3 ? 'visible' : 'hidden',
                             zIndex: 1, // Ensure it appears below the icon
                         }}
                     ></div>

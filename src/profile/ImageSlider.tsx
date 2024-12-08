@@ -586,6 +586,10 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
 
                             <div
                                 onClick={() => {
+                                    setshowVerticalFeeds(true);
+                                    if (menuTimer6.current) {
+                                        clearTimeout(menuTimer6.current);
+                                    }
                                     if (tyy === 1) {
                                         setactive2(index);
                                         setactive1(-1);
@@ -597,25 +601,36 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
                                     if (tyy === 0) {
                                         if (!Clicked1) {
                                             CallFirstFeed(ActualpostDataAll, 0);
+                                            menuTimer6.current = setTimeout(() => {
+                                                ///  alert(index - 1);
+                                                setverticalIndex(index - 1);
+                                            }, 500);
                                         }
                                         setClicked1(true);
                                         setClicked2(false);
                                     } else if (tyy === 1) {
                                         if (!Clicked2) {
                                             CallFirstFeed(ActualpostDataAll, 0);
+                                            menuTimer6.current = setTimeout(() => {
+                                                ///  alert(index - 1);
+                                                setverticalIndex(index - 1);
+                                            }, 500);
                                         }
                                         setClicked2(true);
                                         setClicked1(false);
                                     }
 
                                     setFeedType(tyy === 1 ? 2 : 1);
-                                    setshowVerticalFeeds(true);
+
 
                                     if (menuTimer6.current) {
                                         clearTimeout(menuTimer6.current);
                                     }
-                                    setverticalIndex(index - 1);
-                                    menuTimer6.current = setTimeout(() => { }, 150);
+
+                                    menuTimer6.current = setTimeout(() => {
+                                        ///  alert(index - 1);
+                                        setverticalIndex(index - 1);
+                                    }, 1000);
                                 }}
                                 key={index}
                                 data-id={src.includes('Prev') ? 'prev' : src.includes('Next') ? 'next' : ''}
@@ -646,7 +661,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
                                     <div
                                         style={{
                                             marginTop: '8px',
-                                            width: matchMobile ? '180px' : '230px', // Match image width
+                                            width: mini ? matchMobile ? '180px' : '230px' : matchMobile ? '260px' : '330px', // Match image width
 
                                             fontSize: matchMobile ? '0.75rem' : '0.85rem',
                                             fontWeight: 'normal',
@@ -655,7 +670,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
                                             wordWrap: 'break-word', // Handle long text
                                             position: 'sticky',
                                             paddingLeft: matchMobile ? '2vw' : '0.5vw',
-                                            backgroundColor: 'rgb(000,000,000,0.05)'
+                                            backgroundColor: 'rgb(000,000,000,0.35)'
                                         }}
                                     >
 
@@ -663,10 +678,10 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
                                         <span
                                             style={{
                                                 display: 'inline-block',  // Make the span behave like a block-level element for proper overflow control
-                                                width: matchMobile ? '180px' : '230px', // Match the image width
+                                                width: mini ? matchMobile ? '180px' : '230px' : matchMobile ? '260px' : '330px',// Match the image width
                                                 color: '#fffffff',
                                                 textShadow: '2px 1px 8px rgba(0, 0, 0, 1)',
-                                                fontSize: matchMobile ? '0.79rem' : '0.89rem',
+                                                fontSize: mini ? matchMobile ? '0.79rem' : '0.89rem' : matchMobile ? '0.85rem' : '0.95rem',
                                                 fontWeight: 'normal',
                                                 fontFamily: 'Arial, Helvetica, sans-serif',
                                                 textAlign: 'left', // Ensure text alignment
@@ -689,6 +704,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
                                         style={{
 
                                             top: mini ? matchMobile ? '24.8vh' : '31.6vh' : matchMobile ? '38vh' : '42.3vh',
+
                                             width: matchMobile ? '180px' : '230px', // Match image width
 
                                             fontSize: matchMobile ? '0.85rem' : '0.85rem',
@@ -775,7 +791,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
                                                 width: matchMobile ? '180px' : '230px', // Match the image width
                                                 color: '#fffffff',
                                                 textShadow: '2px 1px 8px rgba(0, 0, 0, 1)',
-                                                fontSize: matchMobile ? '0.79rem' : '0.85rem',
+                                                fontSize: mini ? matchMobile ? '0.79rem' : '0.85rem' : matchMobile ? '0.84rem' : '0.95rem',
                                                 fontWeight: 'normal',
                                                 fontFamily: 'Arial, Helvetica, sans-serif',
                                                 textAlign: 'right', // Ensure text alignment
@@ -789,7 +805,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
                                             <span
                                                 style={{
 
-                                                    backgroundColor: 'rgb(000,000,000,0.05)',
+                                                    backgroundColor: 'rgb(000,000,000,0.35)',
                                                     borderRadius: '2vh'
                                                 }}
                                             >
