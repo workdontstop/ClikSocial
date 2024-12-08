@@ -396,31 +396,11 @@ function Postx({
             });
           }
 
-          if (matchMobile) {
 
-          } else {
-            setverticalIndex(-1);
-          }
-
-          if (matchMobile) {
-
-            if (Timer3x.current) {
-              clearTimeout(Timer3x.current);
-            } Timer3x.current = setTimeout(() => {
-
-              if (divBox.current) {
-                divBox.current.scrollIntoView({
-                  behavior: "smooth",
-                  block: "start",
-                });
-              }
-
-              setverticalIndex(-1);
+          setverticalIndex(-1);
 
 
 
-            }, 1300);
-          }
 
 
         }, 150);
