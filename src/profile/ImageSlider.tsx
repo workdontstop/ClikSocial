@@ -150,11 +150,13 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
 
     useEffect(() => {
         if (minimise) {
-            setmini(false);
-
-        } else {
 
             setmini(true);
+        } else {
+
+
+
+            setmini(false);
         }
 
     }, [minimise])
@@ -177,6 +179,8 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
     const MenuDataReducer = MenuData;
 
     const GuestReducer = Guest;
+
+
 
 
 
@@ -282,7 +286,13 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
     }, [isBackActive]);
 
 
+    useEffect(() => {
 
+        setClicked1(false);
+        setClicked2(false);
+
+
+    }, [memeberPageidReducer]);
 
     const callfeeds = useCallback(
         (type: number) => {
@@ -582,8 +592,6 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
                     return (
 
                         <>
-
-
                             <div
                                 onClick={() => {
                                     setshowVerticalFeeds(true);
@@ -602,9 +610,8 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
                                         if (!Clicked1) {
                                             CallFirstFeed(ActualpostDataAll, 0);
                                             menuTimer6.current = setTimeout(() => {
-                                                ///  alert(index - 1);
                                                 setverticalIndex(index - 1);
-                                            }, 500);
+                                            }, 100);
                                         }
                                         setClicked1(true);
                                         setClicked2(false);
@@ -612,9 +619,8 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
                                         if (!Clicked2) {
                                             CallFirstFeed(ActualpostDataAll, 0);
                                             menuTimer6.current = setTimeout(() => {
-                                                ///  alert(index - 1);
                                                 setverticalIndex(index - 1);
-                                            }, 500);
+                                            }, 100);
                                         }
                                         setClicked2(true);
                                         setClicked1(false);
@@ -622,15 +628,13 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
 
                                     setFeedType(tyy === 1 ? 2 : 1);
 
-
                                     if (menuTimer6.current) {
                                         clearTimeout(menuTimer6.current);
                                     }
 
                                     menuTimer6.current = setTimeout(() => {
-                                        ///  alert(index - 1);
                                         setverticalIndex(index - 1);
-                                    }, 1000);
+                                    }, 100);
                                 }}
                                 key={index}
                                 data-id={src.includes('Prev') ? 'prev' : src.includes('Next') ? 'next' : ''}
@@ -639,186 +643,61 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
                                     scrollSnapAlign: 'center',
                                     margin: '0 8px',
                                     position: 'relative',
-                                    width: mini ? matchMobile ? '180px' : '230px' : matchMobile ? '260px' : '330px',
-                                    height: mini ? matchMobile ? '225px' : '320px' : matchMobile ? '325px' : '410px',
-                                    borderRadius: '12px', // Rounded corners
+                                    width: mini ? (matchMobile ? '180px' : '230px') : matchMobile ? '260px' : '330px',
+                                    height: mini ? (matchMobile ? '225px' : '320px') : matchMobile ? '325px' : '410px',
+                                    borderRadius: '12px',
                                     overflow: 'hidden',
                                     cursor: 'pointer',
                                     opacity: src.includes('Prev') || src.includes('Next') ? 0 : 1,
                                     background: `url(${src}) center/cover no-repeat`,
                                     boxShadow: isActive
                                         ? `
-                            0 -5px 4px ${RandomColor}, /* Top glow */
-                            5px 0 4px ${RandomColor}, /* Right glow */
-                            0 5px 4px ${colorReducer}, /* Bottom glow */
-                            -5px 0 4px ${colorReducer} /* Left glow */
-                          `
-                                        : 'none', // Apply glow effect only if active
+            0 -5px 4px ${RandomColor},
+            5px 0 4px ${RandomColor},
+            0 5px 4px ${colorReducer},
+            -5px 0 4px ${colorReducer}
+          `
+                                        : 'none',
                                 }}
                             >
-                                {/* Text Beneath the Image */}
+                                {/* Caption (Removed username and profile pic, added absolute positioning at bottom) */}
                                 {!(src.includes('Prev') || src.includes('Next')) && (
                                     <div
                                         style={{
-                                            marginTop: '8px',
-                                            width: mini ? matchMobile ? '180px' : '230px' : matchMobile ? '260px' : '330px', // Match image width
-
-                                            fontSize: matchMobile ? '0.75rem' : '0.85rem',
-                                            fontWeight: 'normal',
-                                            fontFamily: 'Arial, Helvetica, sans-serif',
-                                            textAlign: 'left', // Ensure text alignment
-                                            wordWrap: 'break-word', // Handle long text
-                                            position: 'sticky',
-                                            paddingLeft: matchMobile ? '2vw' : '0.5vw',
-                                            backgroundColor: 'rgb(000,000,000,0.35)'
+                                            position: 'absolute',
+                                            bottom: '0',
+                                            left: '0',
+                                            width: '100%',
+                                            padding: '0.5rem',
+                                            background: 'linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0))',
+                                            // The gradient still provides a nice fade at the bottom.
                                         }}
                                     >
-
-
                                         <span
                                             style={{
-                                                display: 'inline-block',  // Make the span behave like a block-level element for proper overflow control
-                                                width: mini ? matchMobile ? '180px' : '230px' : matchMobile ? '260px' : '330px',// Match the image width
-                                                color: '#fffffff',
-                                                textShadow: '2px 1px 8px rgba(0, 0, 0, 1)',
-                                                fontSize: mini ? matchMobile ? '0.79rem' : '0.89rem' : matchMobile ? '0.85rem' : '0.95rem',
-                                                fontWeight: 'normal',
+                                                display: 'inline-block',
+                                                width: '100%',
+                                                color: '#ffffff',
+                                                fontSize: mini ? (matchMobile ? '0.8rem' : '1.1rem') : matchMobile ? '1.1rem' : '1.2rem',
+                                                fontWeight: 'bold',
                                                 fontFamily: 'Arial, Helvetica, sans-serif',
-                                                textAlign: 'left', // Ensure text alignment
-                                                overflow: 'hidden', // Hide overflowed text
-                                                textOverflow: 'ellipsis', // Add ellipsis for long text
-                                                whiteSpace: 'nowrap', // Prevent wrapping of text into multiple lines
+                                                textAlign: 'left',
+                                                // Allow text to wrap onto multiple lines:
+                                                whiteSpace: 'normal',
+                                                // Remove truncation:
+                                                overflow: 'visible',
+                                                textShadow: '2px 2px 5px rgba(0,0,0,1)', // Strong black shadow for readability
                                             }}
                                         >
-                                            {ActualpostDataAll[index - 1].caption}
+                                            {ActualpostDataAll[index - 1].caption.length > 70
+                                                ? ActualpostDataAll[index - 1].caption.substring(0, 70) + "..."
+                                                : ActualpostDataAll[index - 1].caption}
+
                                         </span>
-
-
-
-
                                     </div>
                                 )}
 
-                                {!(src.includes('Prev') || src.includes('Next')) && (
-                                    <div
-                                        style={{
-
-                                            top: mini ? matchMobile ? '24.8vh' : '31.6vh' : matchMobile ? '38vh' : '42.3vh',
-
-                                            width: matchMobile ? '180px' : '230px', // Match image width
-
-                                            fontSize: matchMobile ? '0.85rem' : '0.85rem',
-                                            fontWeight: 'normal',
-                                            fontFamily: 'Arial, Helvetica, sans-serif',
-                                            textAlign: 'left', // Ensure text alignment
-                                            wordWrap: 'break-word', // Handle long text
-                                            position: 'sticky',
-                                            paddingLeft: matchMobile ? '2vw' : '0.5vw',
-
-                                        }}
-                                    >
-
-
-
-
-
-                                        <img
-                                            onClick={() => {
-
-
-
-                                            }}
-
-
-                                            className={darkmodeReducer ? "turpostDarkmini" : "turpostDarkmini"}
-
-                                            src={`${REACT_APP_CLOUNDFRONT}${ActualpostDataAll[index - 1].profile_image}`}
-                                            alt="a superstarz post "
-                                            style={{
-                                                cursor: "pointer",
-                                                boxShadow: darkmodeReducer
-                                                    ? "0 0 1px #555555"
-                                                    : "0 0 3.5px #aaaaaa",
-                                                width: matchMobile ? '10vw' : '3vw',
-                                                height: "auto",
-                                                padding: "0px",
-                                                objectFit: "contain",
-                                                borderRadius: "50%",
-                                                position: "absolute",
-                                                zIndex: 2,
-                                                display: memeberPageidReducer === 0 ? 'block' : 'none',
-
-                                                left: matchMobile ? '0.5vw' : '0.2vw'
-                                            }}
-                                        />
-
-
-
-
-                                    </div>
-                                )}
-
-
-
-                                {!(src.includes('Prev') || src.includes('Next')) && (
-                                    <div
-                                        style={{
-
-                                            marginTop: mini ? matchMobile ? '23.8vh' : '32.8vh' : matchMobile ? '36.8vh' : '42.8vh',
-                                            width: matchMobile ? '180px' : '230px', // Match image width
-                                            marginLeft: mini ? matchMobile ? '-4vw' : '-1vw' : matchMobile ? '15vw' : '4.5vw',
-                                            fontSize: matchMobile ? '0.76rem' : '0.86rem',
-                                            fontWeight: 'normal',
-                                            fontFamily: 'Arial, Helvetica, sans-serif',
-                                            textAlign: 'right', // Ensure text alignment
-                                            wordWrap: 'break-word', // Handle long text
-                                            position: 'sticky',
-                                            paddingLeft: matchMobile ? '2vw' : '0.5vw',
-
-                                            zIndex: 1,
-                                        }}
-                                    >
-
-
-
-
-
-
-                                        <span
-                                            style={{
-
-                                                display: 'block',  // Make the span behave like a block-level element for proper overflow control
-                                                width: matchMobile ? '180px' : '230px', // Match the image width
-                                                color: '#fffffff',
-                                                textShadow: '2px 1px 8px rgba(0, 0, 0, 1)',
-                                                fontSize: mini ? matchMobile ? '0.79rem' : '0.85rem' : matchMobile ? '0.84rem' : '0.95rem',
-                                                fontWeight: 'normal',
-                                                fontFamily: 'Arial, Helvetica, sans-serif',
-                                                textAlign: 'right', // Ensure text alignment
-                                                overflow: 'hidden', // Hide overflowed text
-                                                textOverflow: 'ellipsis', // Add ellipsis for long text
-                                                whiteSpace: 'nowrap', // Prevent wrapping of text into multiple lines
-
-                                            }}
-                                        >
-
-                                            <span
-                                                style={{
-
-                                                    backgroundColor: 'rgb(000,000,000,0.35)',
-                                                    borderRadius: '2vh'
-                                                }}
-                                            >
-                                                {ActualpostDataAll[index - 1].username}
-
-                                            </span>
-                                        </span>
-
-                                    </div>
-                                )}
-
-                            </div >
-
+                            </div>
 
                         </>
                     );

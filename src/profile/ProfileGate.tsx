@@ -2311,6 +2311,8 @@ function ProfileGatex({
                             } else {
 
 
+
+
                                 if (allowVerticalData === 1 || ScrollReactRouter > 0) {
 
 
@@ -2318,8 +2320,10 @@ function ProfileGatex({
                                     CallFirstFeed(postdataRep, postPageLimitx);
                                     setallowVerticalDatapush(true);
                                 } else {
+                                    CallFirstFeed(postdataRep, postPageLimitx);
 
-                                    setallowVerticalDatapush(false);
+                                    setallowVerticalDatapush(true);
+                                    ///setallowVerticalDatapush(false);
                                 }
 
 

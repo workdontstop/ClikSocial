@@ -391,7 +391,7 @@ function ProfileOutter({ CallLoggedProfile }: any) {
 
 
   const paperPostScrollRef = useRef<any>(null);
-  const [minimise, setminimise] = useState(true);
+  const [minimise, setminimise] = useState(false);
 
 
   ////true stops snap
@@ -425,7 +425,7 @@ function ProfileOutter({ CallLoggedProfile }: any) {
 
 
 
-  const [mono, setmono] = useState(true);
+  const [mono, setmono] = useState(false);
 
   const [AutoGo, setAutoGo] = useState(false);
 
